@@ -1,11 +1,11 @@
 {
-  "name": "Pan-African Agency Network",
-  "short_name": "PAAN",
-  "description": "Join the Pan-African Agency Network (PAAN) to connect with creative and tech professionals across Africa.",
+  "name": "Call Center Solutions Africa",
+  "short_name": "Call Center solutions Africa",
+  "description": "Empowering African businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#F25849",
+  "theme_color": "#ED761E",
   "icons": [
     {
       "src": "/icon-192x192.png",
