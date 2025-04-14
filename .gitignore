@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Env files
+.env*
+!.env.example
+
+# Node
+node_modules/
+package-lock.json
+
+# Next.js
+.next/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: Ignore build/static files
+out/
+dist/
+
+# VS Code settings (optional)
+.vscode/

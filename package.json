@@ -1,0 +1,45 @@
+{
+  "name": "callcentersolutionsafrica",
+  "version": "1.0.0",
+  "private": false,
+  "website": "https://callcentersolutionsafrica.com",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+  },
+  "dependencies": {
+    "@iconify/react": "^5.2.0",
+    "next": "15.2.4",
+    "next-pwa": "^5.6.0",
+    "next-themes": "^0.4.6",
+    "nodemailer": "^6.10.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-google-recaptcha": "^3.1.0",
+    "react-hot-toast": "^2.5.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@next/bundle-analyzer": "^15.2.4",
+    "@next/eslint-plugin-next": "^15.2.4",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.23.0",
+    "eslint-config-next": "15.2.4",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^3.4.17"
+  }
+}

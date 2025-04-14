@@ -1,0 +1,102 @@
+/* src/app/globals.css */
+
+/* Importing Tailwind's default layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global font settings */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #292929;
+}
+
+/* globals.css */
+html {
+    scroll-behavior: smooth;
+  }
+
+/* Custom variant for dark mode (optional) */
+@custom-variant dark (&:is(.dark *));
+
+/* For smooth transitions when changing images */
+.slider-transition {
+    transition: opacity 0.5s ease-in-out;
+  }
+/*   
+  Initial state for sections (hidden) */
+.section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Visible state when section enters viewport */
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  .team-bg{
+    background-image: url('/assets/images/team.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+  }
+
+  .pattern-bg-1 {
+    background-image: 
+      url('/assets/images/pattern-bg-1.png'), 
+      linear-gradient(rgba(132, 193, 217, 1), rgba(132, 193, 217, 1));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+  }
+
+  .pattern-bg-2 {
+    background-image: 
+      url('/assets/images/pattern-bg-1.png'), 
+      linear-gradient(rgb(242 88 73 / 1), rgb(242 88 73 / 1));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+  }
+  .section-bg {
+    background-image: url('/assets/images/section-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+.hero-bg {
+  background-image: url('/assets/images/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.hero-bg .absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hero-bg .bg-black {
+  background-color: rgba(0, 0, 0, 1);
+}
+
+/* Ensure content stays above the overlay */
+.hero-bg .relative {
+  position: relative;
+  z-index: 10; /* Higher z-index to sit above the overlay */
+}
+
+
