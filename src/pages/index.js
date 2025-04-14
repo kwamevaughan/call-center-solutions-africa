@@ -252,7 +252,7 @@ const HomePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex flex-col gap-4 transform transition-transform duration-300 hover:translate-y-[-5px] space-y-2">
                 <Image
-                  src="/assets/images/advisory.jpg"
+                  src="/assets/images/tech.jpg"
                   width={400}
                   height={0}
                   alt="Technology"
@@ -282,7 +282,7 @@ const HomePage = () => {
               </div>
               <div className="flex flex-col gap-4 transform transition-transform duration-300 hover:translate-y-[-5px] space-y-2">
                 <Image
-                  src="/assets/images/tech.jpg"
+                  src="/assets/images/advisory.jpg"
                   width={400}
                   height={0}
                   alt="Advisory"
