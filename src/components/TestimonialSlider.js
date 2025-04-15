@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 
-const CustomSlider = () => {
+const TestimonialSlider = () => {
   const slides = [
     {
       quote:
@@ -31,7 +31,7 @@ const CustomSlider = () => {
   const intervalRef = useRef(null);
 
   // Calculate how many slides to display per view (3 for this slider)
-  const slidesPerView = 3;
+  const slidesPerView = 1;
   const totalSlideGroups = Math.ceil(slides.length / slidesPerView);
 
   const getVisibleSlides = () => {
@@ -107,13 +107,20 @@ const CustomSlider = () => {
       onTouchEnd={handleMouseLeave}
     >
       <div className="overflow-hidden">
-        <div
-          className={`flex gap-0 py-10 transition-opacity duration-1000 ease-in-out ${isTransitioning ? "opacity-0" : "opacity-100"}`}
-        >
+        <div className="flex gap-3 items-center px-0 sm:px-24">
+          <div className="w-4 h-4 bg-[#ED761E] rounded-full flex-shrink-0" />
+          <p className="text-xl font-semibold text-white">Testimonial</p>
+        </div>
+      </div>
+
+      <div
+        className={`flex flex-col transition-opacity duration-1000 ease-in-out ${isTransitioning ? "opacity-0" : "opacity-100"}`}
+      >
+        <div className="flex items-center px-0 sm:px-24 gap-3">
           {getVisibleSlides().map((slide, index) => (
             <div
               key={`${currentSlide}-${index}`}
-              className="flex flex-col w-full md:w-1/3 px-4 py-6 bg-transparent rounded-lg transition-all duration-300 hover:bg-white/80 hover:translate-y-[-10px] hover:shadow-2xl group"
+              className="flex flex-col w-full px-4 py-6 bg-transparent rounded-lg transition-all duration-300 hover:bg-white/80 hover:translate-y-[-10px] hover:shadow-2xl group"
             >
               <div className="flex flex-col h-full justify-between">
                 <p className="text-sm mb-4 text-white group-hover:text-black transition-colors duration-300">
@@ -160,4 +167,4 @@ const CustomSlider = () => {
   );
 };
 
-export default CustomSlider;
+export default TestimonialSlider;

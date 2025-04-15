@@ -46,11 +46,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <section className="bg-white pb-2">
-      <div className="relative">
+    <section className="footer-bg bg-white pt-2 pb-20 relative">
+      {/* Overlay div */}
+      <div className="absolute inset-0 bg-[#EAEAEA]/95 z-0 pointer-events-none"></div>
+
+      <div className="relative z-10">
         {/* Content Container */}
         <section className="relative z-10 max-w-6xl mx-auto px-3 sm:px-0 grid grid-cols-1 sm:grid-cols-2 gap-8 mt-20 pb-10 ">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 items-center sm:items-start">
             <div className="flex-shrink-0">
               <Link href="/" passHref>
                 <Image
@@ -62,8 +65,9 @@ const Footer = () => {
                 />
               </Link>
             </div>
-
-            <h2 className="text-3xl">Where Innovation Meets Impact.</h2>
+            <h2 className="text-3xl text-center sm:text-left">
+              Where Innovation Meets Impact.
+            </h2>
           </div>
         </section>
       </div>
@@ -71,44 +75,64 @@ const Footer = () => {
       {/* Footer Bottom Section */}
       <div
         ref={footerRef}
-        className={`flex flex-col sm:flex-row gap-2 items-center sm:items-start justify-between max-w-6xl mx-auto px-3 sm:px-0 ${isFooterVisible ? "footer-visible" : "footer-slide-in"}`}
+        className={`relative z-10 flex flex-col sm:flex-row gap-2 items-center sm:items-start justify-between max-w-6xl mx-auto px-3 sm:px-0 ${isFooterVisible ? "footer-visible" : "footer-slide-in"}`}
       >
-        <p className=" text-sm">
-          © {currentYear} |{" "}
-          <Link href="/privacy-policy" className="hover:text-[#ED761E]">
-            Privacy Policy | Terms of Service
-          </Link>
-        </p>
+        <div className="flex flex-col gap-8 items-center sm:items-start pb-4">
+          <p className="text-sm">
+            © {currentYear} |{" "}
+            <Link href="/privacy-policy" className="hover:text-[#ED761E]">
+              Privacy Policy | Terms of Service
+            </Link>
+          </p>
+          <div className="flex gap-4 ">
+            <Image
+              src="/assets/images/omni-channel.svg"
+              width={150}
+              height={0}
+              alt="Omni Channel"
+              className="rounded-md transform transition-transform duration-300 hover:translate-y-[-5px]"
+            />
+
+            <Image
+              src="/assets/images/ai-powered.svg"
+              width={150}
+              height={0}
+              alt="AI powered"
+              className="rounded-md transform transition-transform duration-300 hover:translate-y-[-5px]"
+            />
+          </div>
+        </div>
 
         <div>
           <ul className="flex cursor-pointer">
-            <li className="flex items-start gap-2 pb-4 items-center hover:translate-y-[-4px] transition-transform duration-300">
+            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
               <Icon
                 icon="ic:baseline-facebook"
                 width="32"
                 height="32"
-                className="flex-shrink-0"
+                className="flex-shrink-0 text-gray-600 group-hover:text-[#1877F2]" // Facebook
               />
-              <Link href="tel:+254721314242"></Link>
+              <Link href="tel:+254721314242" />
             </li>
 
-            <li className="flex items-start gap-2 pb-4 items-center hover:translate-y-[-4px] transition-transform duration-300">
+            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
               <Icon
                 icon="mdi:linkedin"
                 width="32"
                 height="32"
-                className="flex-shrink-0"
+                className="flex-shrink-0 text-gray-600 group-hover:text-[#0077B5]" // LinkedIn
               />
-              <Link href="mailto:hello@callcentersolutions.africa"></Link>
+              <Link href="mailto:hello@callcentersolutions.africa" />
             </li>
-            <li className="flex items-start gap-2 pb-4 items-center hover:translate-y-[-4px] transition-transform duration-300">
+
+            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
               <Icon
                 icon="mingcute:instagram-fill"
                 width="32"
                 height="32"
-                className="flex-shrink-0"
+                className="flex-shrink-0 text-gray-600 group-hover:text-[#E4405F]" // Instagram
               />
-              <Link href="mailto:hello@callcentersolutions.africa"></Link>
+              <Link href="mailto:hello@callcentersolutions.africa" />
             </li>
           </ul>
         </div>

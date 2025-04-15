@@ -12,9 +12,6 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-      // screens: {
-      //   'lg-custom': '1200px', // Custom breakpoint at 1210px
-      // }
     },
   },
   plugins: [],

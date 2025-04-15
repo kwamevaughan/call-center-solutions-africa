@@ -37,35 +37,8 @@ html {
   transform: translateY(0);
 }
 
-  .team-bg{
-    background-image: url('/assets/images/team.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-  }
-
-  .pattern-bg-1 {
-    background-image: 
-      url('/assets/images/pattern-bg-1.png'), 
-      linear-gradient(rgba(132, 193, 217, 1), rgba(132, 193, 217, 1));
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-  }
-
-  .pattern-bg-2 {
-    background-image: 
-      url('/assets/images/pattern-bg-1.png'), 
-      linear-gradient(rgb(242 88 73 / 1), rgb(242 88 73 / 1));
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-  }
-  .section-bg {
-    background-image: url('/assets/images/section-bg.jpg');
+.section-bg {
+    background-image: url('/assets/images/choose-us.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -99,4 +72,12 @@ html {
   z-index: 10; /* Higher z-index to sit above the overlay */
 }
 
+
+.footer-bg {
+    background-image: url('/assets/images/footer-pattern.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: repeat;
+    background-attachment: fixed;
+  }
 

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
+import toast from "react-hot-toast";
+
 
 export default function ContactModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -53,6 +55,8 @@ export default function ContactModal({ isOpen, onClose }) {
       return;
     }
 
+    const toastId = toast.loading("Sending your request...");
+
     try {
       const response = await fetch("/api/send-email", {
         method: "POST",
@@ -65,16 +69,44 @@ export default function ContactModal({ isOpen, onClose }) {
       const result = await response.json();
 
       if (response.ok) {
-        router.push("/thank-you");
+        toast.success("Message sent successfully!", { id: toastId });
+
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          industry: "",
+          teamSize: "",
+          services: [],
+          currentChallenges: "",
+          timeline: "",
+          budget: "",
+          additionalInfo: "",
+          customBudget: "",
+        });
+
+        setRecaptchaToken(null);
+        setIsCustomBudget(false);
+
+        // Delay a bit before closing the modal
+        setTimeout(() => {
+          onClose();
+        }, 2000);
       } else {
+        toast.error(result.error || "Something went wrong", { id: toastId });
         setError(result.error || "Something went wrong");
       }
     } catch (err) {
+      toast.error("Failed to send message", { id: toastId });
       setError("Failed to send message");
     } finally {
       setLoading(false);
     }
   };
+
+
 
   // Close the modal if click outside of it
   const handleOverlayClick = (e) => {
