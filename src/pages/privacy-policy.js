@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
         keywords="Call Center Solutions Africa, privacy policy, data protection, call center services Africa"
         image="https://callcentersolutionsafrica.com/assets/images/logo.svg"
       />
-      <main className="min-h-screen flex flex-col">
+      <main className="min-h-screen flex flex-col pt-20">
         <Header />
         <div className="flex-grow px-4 py-16 max-w-6xl mx-auto">
           <h1 className="text-4xl font-semibold text-[#172840] mb-6 text-center">

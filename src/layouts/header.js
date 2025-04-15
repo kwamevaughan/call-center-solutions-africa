@@ -15,7 +15,7 @@ const Header = () => {
       className={`flex items-end justify-end w-full z-50 transition-all duration-500 ease-in-out ${
         isFixed
           ? "fixed top-0 left-0 mt-0 opacity-100 translate-y-0"
-          : "absolute top-0 left-0 mt-4 opacity-100 translate-y-0"
+          : "absolute top-0 left-0 opacity-100 translate-y-0  bg-black/20"
       }`}
     >
       <div className="w-full px-2">
