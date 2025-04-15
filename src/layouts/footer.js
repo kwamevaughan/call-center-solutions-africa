@@ -46,7 +46,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <section className="footer-bg bg-white pt-2 pb-20 relative">
+    <section className="footer-bg bg-white pt-2 pb-10 relative">
       {/* Overlay div */}
       <div className="absolute inset-0 bg-[#EAEAEA]/95 z-0 pointer-events-none"></div>
 
