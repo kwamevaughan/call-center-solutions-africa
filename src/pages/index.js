@@ -92,7 +92,7 @@ const HomePage = () => {
           </div>
 
           {/* Text Content Over Slider */}
-          <div className="absolute bottom-0 left-0 z-20 w-full px-4 sm:px-0 pointer-events-none">
+          <div className="absolute bottom-0 left-0 z-20 w-full px-4 sm:px-0 pointer-events-all">
             {" "}
             {/* Higher than HeroSlider */}
             <div className="w-full md:w-1/2 relative left-0 sm:left-14">
