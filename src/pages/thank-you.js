@@ -12,7 +12,7 @@ const ThankYouPage = () => {
         description="Thank you for contacting Call Center Solutions Africa. We’ve received your request and will get back to you shortly. We're here to help you scale your business with the best BPO & contact center services in Africa."
         keywords="thank you, Call Center Solutions Africa, BPO services Africa, customer service, contact center, African business solutions"
         image="https://callcentersolutionsafrica.com/assets/images/logo.svg"
-        canonical="https://callcentersolutionsafrica.com/thank-you"
+        noindex={true} // Add noindex prop
       />
       <main className="min-h-screen flex flex-col">
         <Header />
