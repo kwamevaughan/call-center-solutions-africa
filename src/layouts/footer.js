@@ -106,36 +106,36 @@ const Footer = () => {
         <div>
           <ul className="flex gap-2">
             <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
-              <Icon
-                icon="ic:baseline-facebook"
-                width="32"
-                height="32"
-                className="flex-shrink-0 text-gray-600 group-hover:text-[#1877F2]"
-              />
               <a
                 href="https://web.facebook.com/profile.php?id=61574538188819"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sr-only"
+                className="flex items-center gap-2 text-gray-600 group-hover:text-[#1877F2]"
               >
-                Facebook
+                <Icon
+                  icon="ic:baseline-facebook"
+                  width="32"
+                  height="32"
+                  className="flex-shrink-0"
+                />
+                <span className="sr-only">Facebook</span>
               </a>
             </li>
 
             <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
-              <Icon
-                icon="mdi:linkedin"
-                width="32"
-                height="32"
-                className="flex-shrink-0 text-gray-600 group-hover:text-[#0077B5]"
-              />
               <a
                 href="https://www.linkedin.com/company/call-center-solutions-africa/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sr-only"
+                className="flex items-center gap-2 text-gray-600 group-hover:text-[#0077B5]"
               >
-                LinkedIn
+                <Icon
+                  icon="mdi:linkedin"
+                  width="32"
+                  height="32"
+                  className="flex-shrink-0"
+                />
+                <span className="sr-only">LinkedIn</span>
               </a>
             </li>
           </ul>
