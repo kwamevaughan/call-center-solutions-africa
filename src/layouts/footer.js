@@ -104,7 +104,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <ul className="flex cursor-pointer">
+          <ul className="flex">
             <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
               <Icon
                 icon="ic:baseline-facebook"
@@ -112,7 +112,13 @@ const Footer = () => {
                 height="32"
                 className="flex-shrink-0 text-gray-600 group-hover:text-[#1877F2]" // Facebook
               />
-              <Link href="tel:+254721314242" />
+              <a
+                href="https://web.facebook.com/profile.php?id=61574538188819"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Call Us
+              </a>
             </li>
 
             <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
@@ -122,17 +128,13 @@ const Footer = () => {
                 height="32"
                 className="flex-shrink-0 text-gray-600 group-hover:text-[#0077B5]" // LinkedIn
               />
-              <Link href="mailto:hello@callcentersolutions.africa" />
-            </li>
-
-            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
-              <Icon
-                icon="mingcute:instagram-fill"
-                width="32"
-                height="32"
-                className="flex-shrink-0 text-gray-600 group-hover:text-[#E4405F]" // Instagram
-              />
-              <Link href="mailto:hello@callcentersolutions.africa" />
+              <a
+                href="https://www.linkedin.com/company/call-center-solutions-africa/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Email Us
+              </a>
             </li>
           </ul>
         </div>
