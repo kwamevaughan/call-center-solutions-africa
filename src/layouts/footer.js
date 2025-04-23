@@ -104,20 +104,21 @@ const Footer = () => {
         </div>
 
         <div>
-          <ul className="flex">
+          <ul className="flex gap-2">
             <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
               <Icon
                 icon="ic:baseline-facebook"
                 width="32"
                 height="32"
-                className="flex-shrink-0 text-gray-600 group-hover:text-[#1877F2]" // Facebook
+                className="flex-shrink-0 text-gray-600 group-hover:text-[#1877F2]"
               />
               <a
                 href="https://web.facebook.com/profile.php?id=61574538188819"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="sr-only"
               >
-                Call Us
+                Facebook
               </a>
             </li>
 
@@ -126,14 +127,15 @@ const Footer = () => {
                 icon="mdi:linkedin"
                 width="32"
                 height="32"
-                className="flex-shrink-0 text-gray-600 group-hover:text-[#0077B5]" // LinkedIn
+                className="flex-shrink-0 text-gray-600 group-hover:text-[#0077B5]"
               />
               <a
                 href="https://www.linkedin.com/company/call-center-solutions-africa/"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="sr-only"
               >
-                Email Us
+                LinkedIn
               </a>
             </li>
           </ul>
