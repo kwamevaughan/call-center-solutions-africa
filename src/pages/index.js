@@ -438,7 +438,7 @@ const HomePage = () => {
 
                     <li className="flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
                       <Icon
-                        icon="material-symbols:call"
+                        icon="basil:envelope-outline"
                         width="24"
                         height="24"
                         className="flex-shrink-0"
