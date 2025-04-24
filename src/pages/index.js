@@ -72,8 +72,6 @@ const HomePage = () => {
         title="Call Center Solutions Africa | Advanced BPO & Contact Center Services"
         description="Empowering African businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less."
         keywords="call center solutions Africa, BPO services Africa, contact center technology, African business solutions, cloud call center, customer experience Africa, Nairobi call center services"
-        image="https://callcentersolutionsafrica.com/assets/images/logo.svg"
-        canonical="https://callcentersolutionsafrica.com/"
       />
       <Header />
 
