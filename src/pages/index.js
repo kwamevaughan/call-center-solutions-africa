@@ -441,9 +441,9 @@ const HomePage = () => {
                         height="24"
                         className="flex-shrink-0"
                       />
-                      <Link href="mailto:hello@callcentersolutions.africa">
+                      <Link href="mailto:hello@callcentersolutionsafrica.com">
                         <p className="text-base leading-tight hover:underline">
-                          hello@callcentersolutions.africa
+                          hello@callcentersolutionsafrica.com
                         </p>
                       </Link>
                     </li>
