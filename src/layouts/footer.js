@@ -107,7 +107,7 @@ const Footer = () => {
           <ul className="flex gap-2">
             <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
               <a
-                href="https://web.facebook.com/profile.php?id=61574538188819"
+                href="https://www.facebook.com/callcentersolutionsafrica"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-600 group-hover:text-[#1877F2]"
@@ -153,6 +153,40 @@ const Footer = () => {
                   className="flex-shrink-0"
                 />
                 <span className="sr-only">YouTube</span>
+              </a>
+            </li>
+            
+            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
+              <a
+                href="https://www.instagram.com/call_center_solutions/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-600 group-hover:text-[#E1306C]"
+              >
+                <Icon
+                  icon="mdi:instagram"
+                  width="32"
+                  height="32"
+                  className="flex-shrink-0"
+                />
+                <span className="sr-only">Instagram</span>
+              </a>
+            </li>
+            
+            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
+              <a
+                href="https://x.com/Callcentersols"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-600 group-hover:text-[#000000]"
+              >
+                <Icon
+                  icon="mdi:twitter"
+                  width="32"
+                  height="32"
+                  className="flex-shrink-0"
+                />
+                <span className="sr-only">X (Twitter)</span>
               </a>
             </li>
           </ul>
