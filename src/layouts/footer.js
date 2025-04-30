@@ -138,6 +138,23 @@ const Footer = () => {
                 <span className="sr-only">LinkedIn</span>
               </a>
             </li>
+            
+            <li className="group flex items-start gap-2 pb-4 hover:translate-y-[-4px] transition-transform duration-300">
+              <a
+                href="https://www.youtube.com/@CallCenterSolutionsAfrica"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-600 group-hover:text-[#FF0000]"
+              >
+                <Icon
+                  icon="mdi:youtube"
+                  width="32"
+                  height="32"
+                  className="flex-shrink-0"
+                />
+                <span className="sr-only">YouTube</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
