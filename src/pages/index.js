@@ -127,7 +127,7 @@ const HomePage = () => {
           <section className="w-full px-4 sm:px-0">
             <Marquee /> {/* Full-width background for this section */}
             <div className="relative z-10 mx-auto max-w-7xl py-20">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-3">
                     <div className="w-4 h-4 bg-[#FFD100] rounded-full flex-shrink-0" />
