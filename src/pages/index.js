@@ -427,9 +427,9 @@ const HomePage = () => {
                         height="24"
                         className="flex-shrink-0"
                       />
-                      <Link href="tel:+254721314242">
+                      <Link href="tel:+254701850850">
                         <p className="text-base leading-tight hover:underline">
-                          +254 721 314 242
+                          +254 701 850 850
                         </p>
                       </Link>
                     </li>
