@@ -1,9 +1,9 @@
 // data/menuData.js
 export const menuItems = [
-  { href: "#home", label: "Home" },
-  { href: "#about-us", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#industries", label: "Industries" },
-  { href: "#chooseus", label: "Why Us" },
-  { href: "#contact-us", label: "Contact" },
+  { href: "/#home", label: "Home", isAnchor: false },
+  { href: "/#about-us", label: "About", isAnchor: false },
+  { href: "/#services", label: "Services", isAnchor: false },
+  { href: "/#industries", label: "Industries", isAnchor: false },
+  { href: "/#chooseus", label: "Why Us", isAnchor: false },
+  { href: "/contact-us", label: "Contact", isAnchor: false },
 ];

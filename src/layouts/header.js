@@ -15,7 +15,7 @@ const Header = () => {
       className={`flex items-end justify-end w-full z-50 transition-all duration-500 ease-in-out ${
         isFixed
           ? "fixed top-0 left-0 mt-0 opacity-100 translate-y-0"
-          : "absolute top-0 left-0 opacity-100 translate-y-0  bg-black/20"
+          : "absolute top-0 left-0 opacity-100 translate-y-0 bg-black/20"
       }`}
     >
       <div className="w-full px-2">
@@ -50,7 +50,7 @@ const Header = () => {
               className="p-2 rounded-md focus:outline-none"
             >
               <svg
-                className={`h-6 w-6 ${isFixed ? "text-black" : "text-white"}`} // Corrected logic
+                className={`h-6 w-6 ${isFixed ? "text-black" : "text-white"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -77,20 +77,34 @@ const Header = () => {
           {/* Desktop Menu and CTA (hidden on mobile) */}
           <div className="hidden md:flex w-full justify-end">
             <div className="flex space-x-2 justify-end">
-              {menuItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => handleScroll(e, item.href, isFixed)}
-                  className={`${
-                    isFixed
-                      ? "text-gray-950 hover:text-gray-900"
-                      : "text-white hover:text-white/90"
-                  } hover:bg-[#ED761E] px-4 py-2 rounded-full transition-all duration-300 cursor-pointer`}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {menuItems.map((item) =>
+                item.isAnchor ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => handleScroll(e, item.href, isFixed)}
+                    className={`${
+                      isFixed
+                        ? "text-gray-950 hover:text-gray-900"
+                        : "text-white hover:text-white/90"
+                    } hover:bg-[#ED761E] px-4 py-2 rounded-full transition-all duration-300 cursor-pointer`}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`${
+                      isFixed
+                        ? "text-gray-950 hover:text-gray-900"
+                        : "text-white hover:text-white/90"
+                    } hover:bg-[#ED761E] px-4 py-2 rounded-full transition-all duration-300 cursor-pointer`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -102,19 +116,30 @@ const Header = () => {
         style={{ zIndex: 50 }}
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
-          {menuItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => {
-                handleScroll(e, item.href, isFixed);
-                setIsMenuOpen(false);
-              }}
-              className="text-gray-950 hover:text-gray-900 hover:bg-[#ED761E] block px-4 py-2 rounded-full transition-all duration-300 cursor-pointer"
-            >
-              {item.label}
-            </a>
-          ))}
+          {menuItems.map((item) =>
+            item.isAnchor ? (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => {
+                  handleScroll(e, item.href, isFixed);
+                  setIsMenuOpen(false);
+                }}
+                className="text-gray-950 hover:text-gray-900 hover:bg-[#ED761E] block px-4 py-2 rounded-full transition-all duration-300 cursor-pointer"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-950 hover:text-gray-900 hover:bg-[#ED761E] block px-4 py-2 rounded-full transition-all duration-300 cursor-pointer"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </div>
       </div>
     </nav>
