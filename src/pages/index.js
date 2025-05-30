@@ -469,12 +469,11 @@ const HomePage = () => {
                   </ul>
                 </div>
                 <div>
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-[#292929] text-white px-8 py-4 rounded-full font-medium text-sm hover:bg-[#000] hover:translate-y-[-4px] transition-transform duration-300"
-                  >
-                    Get Your Custom Proposal Today
-                  </button>
+                  <Link href="/contact-us">
+                    <button className="bg-[#292929] text-white px-8 py-4 rounded-full font-medium text-sm hover:bg-[#000] hover:translate-y-[-4px] transition-transform duration-300">
+                      Get Your Custom Proposal Today
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
