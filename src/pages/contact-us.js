@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Script from "next/script";
 import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
 import Header from "../layouts/header";
@@ -62,6 +63,10 @@ export default function ContactPage() {
       const result = await response.json();
 
       if (response.ok) {
+        // Call gtag_report_conversion before redirecting
+        if (typeof window.gtag !== "undefined") {
+          window.gtag_report_conversion(); // Call without URL since we redirect manually
+        }
         toast.success("Message sent successfully!", { id: toastId });
         setFormData({
           name: "",
@@ -94,16 +99,33 @@ export default function ContactPage() {
 
   return (
     <>
+      {/* Add the conversion tracking script */}
+      <Script id="gtag-conversion" strategy="afterInteractive">
+        {`
+          function gtag_report_conversion(url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            gtag('event', 'conversion', {
+              'send_to': 'AW-11088484153/0A3cCIDF_NUZELmus6cp',
+              'event_callback': callback
+            });
+            return false;
+          }
+        `}
+      </Script>
+
       <SEO
         title="Contact Us | Call Center Solutions Africa"
         description="Get in touch with our Nairobi-based team to discuss your call center and BPO needs. Request a custom proposal today!"
         keywords="contact call center solutions Africa, BPO services contact, Nairobi contact center, customer experience solutions"
       />
 
-      {/* Hero Section with Gradient Overlay */}
+      {/* Rest of the ContactPage component remains unchanged */}
       <div className="relative min-h-[60vh] bg-gradient-to-br from-[#2a2b5f] via-[#0088d2] to-[#faf7f5] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0088d2]/20 via-[#2a2b5f]/20 to-[#ffd100]/20"></div>
-        {/* Animated background elements */}
         <div className="absolute top-10 left-10 w-72 h-72 bg-[#0088d2]/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#f45b01]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
@@ -142,12 +164,9 @@ export default function ContactPage() {
       <main className="relative">
         <ScrollToTop />
 
-        {/* Main Form Section */}
-        <section className="relative -mt-20 z-10 mx-auto max-w-7xl px-4 pb-20">
+        <section className="relative -mt-20 z-10 mx-do max-w-7xl px-4 pb-20">
           <div className="bg-white/80 backdrop-blur-lg border border-white/20 p-8 md:p-12 rounded-3xl max-w-5xl w-full mx-auto shadow-2xl shadow-[#2a2b5f]/10">
-            {/* Form Header */}
             <div className="text-center mb-12">
-              
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Request Your Custom Proposal
               </h2>
@@ -170,7 +189,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* Logo Marquee Section */}
         <section className="w-full pt-10 pb-10 bg-gradient-to-b from-gray-50 to-white">
           <LogoMarquee />
         </section>
