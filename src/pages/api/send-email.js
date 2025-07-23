@@ -97,7 +97,7 @@ export default async function handler(req, res) {
 
   const mailOptions = {
     from: process.env.SMTP_EMAIL,
-    to: process.env.SMTP_EMAIL,
+    to: [process.env.SMTP_EMAIL, process.env.SECONDARY_EMAIL],
     replyTo: email,
     subject: `New Proposal Request from ${name} (${company})`,
     text: emailText,
