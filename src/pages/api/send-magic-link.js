@@ -46,7 +46,7 @@ export default async function handler(req, res) {
                 </div>
                 
                 <p style="font-size: 14px; color: #261914; text-align: center;">
-                    This link will expire in <strong>15 minutes</strong>. If you didn’t request this, please contact the HR team.
+                    This link will expire in <strong>15 minutes</strong>. If you didn’t request this, please contact the CCSA team.
                 </p>
                 
                 <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
