@@ -23,7 +23,7 @@ export default function HRLogin() {
 
   useEffect(() => {
     console.log("[HRLogin] Component mounted");
-    const savedEmail = localStorage.getItem("hr_remembered_email");
+    const savedEmail = localStorage.getItem("admin_remembered_email");
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
@@ -163,9 +163,9 @@ export default function HRLogin() {
       loginAttempts.current = 0;
       setIsLoading(false);
 
-      console.log("[HRLogin] Checking hr_users for user ID:", user.id);
+      console.log("[HRLogin] Checking admin_users for user ID:", user.id);
       const { data: hrUser, error: hrError } = await supabase
-        .from("hr_users")
+        .from("admin_users")
         .select("id")
         .eq("id", user.id)
         .single();
@@ -176,30 +176,30 @@ export default function HRLogin() {
       });
 
       if (hrError || !hrUser) {
-        console.log("[HRLogin] Adding user to hr_users");
+        console.log("[HRLogin] Adding user to admin_users");
         const { error: insertError } = await supabase
-          .from("hr_users")
+          .from("admin_users")
           .insert([{ id: user.id, username: email }]);
         if (insertError) {
-          console.error("[HRLogin] Error adding to hr_users:", insertError);
+          console.error("[HRLogin] Error adding to admin_users:", insertError);
           toast.error("Failed to authorize user.", { icon: "❌" });
           return;
         }
-        console.log("[HRLogin] Added user to hr_users:", {
+        console.log("[HRLogin] Added user to admin_users:", {
           id: user.id,
           username: email,
         });
       }
 
       if (rememberMe) {
-        localStorage.setItem("hr_remembered_email", email);
+        localStorage.setItem("admin_remembered_email", email);
       } else {
-        localStorage.removeItem("hr_remembered_email");
+        localStorage.removeItem("admin_remembered_email");
       }
 
       console.log("[HRLogin] Attempting redirect to /hr/overview");
       toast.success("Login successful! Redirecting...", { icon: "✅" });
-      await router.push("/hr/overview").catch((err) => {
+      await router.push("/admin/blogs").catch((err) => {
         console.error("[HRLogin] Redirect error:", err);
         toast.error("Failed to redirect. Please navigate manually.", {
           icon: "❌",
@@ -276,13 +276,13 @@ export default function HRLogin() {
       <div className="absolute inset-0 z-0 footer-bg">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-paan-yellow/10 via-transparent to-paan-blue/10 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 via-transparent to-blue-500/10 animate-pulse"></div>
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-paan-yellow/20 to-transparent rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-yellow-500/20 to-transparent rounded-full blur-xl animate-pulse"></div>
       <div
-        className="absolute bottom-32 right-16 w-32 h-32 bg-gradient-to-r from-paan-blue/20 to-transparent rounded-full blur-xl animate-pulse"
+        className="absolute bottom-32 right-16 w-32 h-32 bg-gradient-to-r from-blue-500/20 to-transparent rounded-full blur-xl animate-pulse"
         style={{ animationDelay: "1s" }}
       ></div>
 
@@ -296,18 +296,18 @@ export default function HRLogin() {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://paan.africa"
+                href="https://callcentersolutionsafrica.com"
                 className="inline-block group"
               >
                 <div className="relative bg-white/80 backdrop-blur-xl border border-white/20 rounded-lg p-3 shadow-2xl">
                   <Image
                     src="/assets/images/logo.svg"
-                    alt="PAAN Logo"
+                    alt="Call Center Solutions Africa Logo"
                     width={180}
                     height={180}
                     className="mx-auto transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-2xl"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-paan-yellow/30 to-paan-blue/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/30 to-blue-500/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 </div>
               </a>
             </div>
@@ -316,7 +316,7 @@ export default function HRLogin() {
             <div className="text-center mb-8">
               <h1 className="text-3xl md:text-4xl font-semibold text-white mb-4">
                 Welcome to{" "}
-                <span className="text-paan-yellow">
+                <span className="text-orange-400">
                   Call Center Solutions Africa
                 </span>
               </h1>
@@ -324,8 +324,8 @@ export default function HRLogin() {
                 Admin backend
               </p>
               <div className="relative mb-6">
-                <div className="h-px bg-gradient-to-r from-transparent via-paan-yellow to-transparent"></div>
-                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-paan-yellow rounded-full animate-pulse"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
               </div>
             </div>
 
@@ -344,7 +344,7 @@ export default function HRLogin() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-3 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-paan-blue focus:border-transparent transition-all duration-300 text-white placeholder-gray-300 hover:bg-white/20"
+                    className="w-full pl-10 pr-3 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-300 hover:bg-white/20"
                     placeholder="Enter support email"
                     required
                   />
@@ -365,14 +365,14 @@ export default function HRLogin() {
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-10 pr-10 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-paan-blue focus:border-transparent transition-all duration-300 text-white placeholder-gray-300 hover:bg-white/20"
+                      className="w-full pl-10 pr-10 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-300 hover:bg-white/20"
                       placeholder="Enter your password"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 text-white hover:text-paan-blue focus:outline-none transition-colors"
+                      className="absolute right-3 text-white hover:text-blue-500 focus:outline-none transition-colors"
                     >
                       <Icon
                         icon={showPassword ? "mdi:eye-off" : "mdi:eye"}
@@ -391,7 +391,7 @@ export default function HRLogin() {
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="mr-2 h-4 w-4 text-paan-blue focus:ring-paan-blue border-white/30 rounded bg-white/10"
+                        className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-500 border-white/30 rounded bg-white/10"
                       />
                       Remember me
                     </label>
@@ -415,33 +415,23 @@ export default function HRLogin() {
                 <div className="flex justify-between gap-4">
                   <button
                     type="submit"
-                    className="group relative flex-1 py-3 px-4 bg-paan-blue text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden flex items-center justify-center gap-2"
+                    className="group relative flex-1 py-3 px-4 bg-blue-900 text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden flex items-center justify-center gap-2"
                   >
-                    <div className="absolute inset-0 bg-paan-blue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                    <div className="absolute inset-0 bg-orange-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                     <span className="relative z-10">Sign In</span>
                     <Icon
                       icon="mdi:login"
                       className="relative z-10 h-5 w-5 group-hover:rotate-45 transition-transform duration-300"
                     />
                   </button>
-                  <Link
-                    href="/"
-                    className="group relative flex-1 py-3 px-4 bg-paan-dark-blue text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden flex items-center justify-center gap-2"
-                  >
-                    <div className="absolute inset-0 bg-paan-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                    <span className="relative z-10">Return</span>
-                    <Icon
-                      icon="mdi:arrow-left"
-                      className="relative z-10 h-5 w-5 group-hover:rotate-45 transition-transform duration-300"
-                    />
-                  </Link>
+                  
                 </div>
               ) : (
                 <button
                   type="submit"
-                  className="group relative w-full py-3 px-4 bg-paan-blue text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden flex items-center justify-center gap-2"
+                  className="group relative w-full py-3 px-4 bg-orange-400 text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden flex items-center justify-center gap-2"
                 >
-                  <div className="absolute inset-0 bg-paan-blue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="absolute inset-0 bg-orange-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   <span className="relative z-10">Send Magic Link</span>
                   <Icon
                     icon="mdi:email-fast"
@@ -454,7 +444,7 @@ export default function HRLogin() {
                 <button
                   type="button"
                   onClick={() => setShowPasswordField(!showPasswordField)}
-                  className="text-base text-paan-blue hover:text-paan-blue transition-colors"
+                  className="text-base text-orange-400 hover:text-orange-200 transition-colors"
                 >
                   {showPasswordField
                     ? "Sign in using magic link"
@@ -469,7 +459,7 @@ export default function HRLogin() {
                 href="https://callcentersolutionsafrica.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-paan-blue font-medium hover:text-paan-blue transition-colors"
+                className="text-orange-400 font-medium hover:text-orange-200 transition-colors"
               >
                 Call Center Solutions Africa
               </a>

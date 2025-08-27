@@ -5,9 +5,6 @@ import { Icon } from "@iconify/react";
 import Search from "@/components/Search";
 import FullscreenToggle from "@/components/FullscreenToggle";
 import TooltipIconButton from "@/components/TooltipIconButton";
-import LanguageSwitch from "@/components/LanguageSwitch";
-import NotificationDropdown from "@/components/NotificationDropdown";
-import useNotifications from "@/hooks/useNotifications";
 import { supabase } from "@/lib/supabase";
 
 const HRHeader = ({
@@ -22,7 +19,6 @@ const HRHeader = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const headerRef = useRef(null);
-  const { notifications, loading, unreadCount, markAsRead, markAllAsRead } = useNotifications();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -31,7 +27,7 @@ const HRHeader = ({
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
           const { data: hrUser, error } = await supabase
-            .from("hr_users")
+            .from("admin_users")
             .select("name, username")
             .eq("id", user.id)
             .single();
@@ -128,18 +124,7 @@ const HRHeader = ({
             {/* Fullscreen Toggle */}
             <FullscreenToggle mode={mode} />
 
-            {/* Language Switch */}
-            <LanguageSwitch mode={mode} />
-
-            {/* Notifications */}
-            <NotificationDropdown
-              notifications={notifications}
-              loading={loading}
-              unreadCount={unreadCount}
-              onMarkAsRead={markAsRead}
-              onMarkAllAsRead={markAllAsRead}
-              mode={mode}
-            />
+           
 
             {/* User Dropdown */}
             <div

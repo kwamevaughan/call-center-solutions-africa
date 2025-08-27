@@ -25,7 +25,7 @@ export default function useAuthSession() {
       }
 
       const { data: hrUser, error: hrUserError } = await supabase
-        .from("hr_users")
+        .from("admin_users")
         .select("id")
         .eq("id", session.user.id)
         .single();

@@ -13,6 +13,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "framer-motion": "^12.16.0",
     "@iconify/react": "^5.2.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "next": "15.2.4",
@@ -24,7 +25,27 @@
     "react-google-recaptcha": "^3.1.0",
     "react-hot-toast": "^2.5.2",
     "react-slick": "^0.30.3",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "@tiptap/extension-code-block-lowlight": "^2.14.0",
+    "@tiptap/extension-color": "^2.14.0",
+    "@tiptap/extension-highlight": "^2.14.0",
+    "@tiptap/extension-horizontal-rule": "^2.14.0",
+    "@tiptap/extension-image": "^2.14.0",
+    "@tiptap/extension-link": "^2.14.0",
+    "@tiptap/extension-placeholder": "^2.14.0",
+    "@tiptap/extension-subscript": "^2.14.0",
+    "@tiptap/extension-superscript": "^2.14.0",
+    "@tiptap/extension-table": "^2.14.0",
+    "@tiptap/extension-table-cell": "^2.14.0",
+    "@tiptap/extension-table-header": "^2.14.0",
+    "@tiptap/extension-table-row": "^2.14.0",
+    "@tiptap/extension-task-item": "^2.14.0",
+    "@tiptap/extension-task-list": "^2.14.0",
+    "@tiptap/extension-text-align": "^2.14.0",
+    "@tiptap/extension-text-style": "^2.14.0",
+    "@tiptap/extension-underline": "^2.14.0",
+    "@tiptap/react": "^2.14.0",
+    "@tiptap/starter-kit": "^2.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",

@@ -55,7 +55,7 @@ export const useBlog = (blogId) => {
       if (!user) return;
 
       const { data: hrUserData, error: hrUserError } = await supabase
-        .from("hr_users")
+        .from("admin_users")
         .select("id, name, username")
         .eq("id", user.id)
         .single();
@@ -121,7 +121,7 @@ export const useBlog = (blogId) => {
           tags:blog_post_tags(
             tag:blog_tags(name)
           ),
-          author_details:hr_users(name, username)
+          author_details:admin_users(name, username)
         `
         )
         .order("created_at", { ascending: false });
