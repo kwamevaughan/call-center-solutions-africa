@@ -37,24 +37,6 @@ const fetchAdminUser = async (supabaseServer, userId) => {
   return adminUser;
 };
 
-// Common function to fetch candidates map
-const fetchCandidatesMap = async (supabaseServer) => {
-  const { data: candidatesData, error: candidatesError } = await supabaseServer
-    .from("candidates")
-    .select("id, auth_user_id, primaryContactName");
-
-  if (candidatesError) {
-    throw new Error(`Failed to fetch candidates: ${candidatesError.message}`);
-  }
-
-  return candidatesData.reduce((acc, candidate) => {
-    if (candidate.auth_user_id) {
-      acc[candidate.auth_user_id] = candidate.primaryContactName || "Unknown";
-    }
-    return acc;
-  }, {});
-};
-
 
 
 export async function withAuth(req, res, options = {}) {
