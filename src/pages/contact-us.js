@@ -164,7 +164,7 @@ export default function ContactPage() {
       <main className="relative">
         <ScrollToTop />
 
-        <section className="relative -mt-20 z-10 mx-do max-w-7xl px-4 pb-20">
+        <section className="relative -mt-20 z-10 mx-auto max-w-7xl px-4 pb-20">
           <div className="bg-white/80 backdrop-blur-lg border border-white/20 p-8 md:p-12 rounded-3xl max-w-5xl w-full mx-auto shadow-2xl shadow-[#2a2b5f]/10">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">

@@ -75,7 +75,7 @@ html {
 
 .footer-bg {
     background-image: url('/assets/images/footer-pattern.png');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: repeat;
     background-attachment: fixed;
