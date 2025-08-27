@@ -88,7 +88,7 @@ const HRSidebar = ({
         onMouseLeave={handleMouseLeave}
         className={`fixed left-0 top-0 z-50 rounded-xl m-0 md:m-3 transition-all duration-300
           ${isMobile ? (isSidebarOpen ? "block" : "hidden") : "block"}
-          ${mode === "dark" ? "bg-[#05050a]" : "bg-[#101720]"}
+          ${mode === "dark" ? "bg-[#05050a]" : "bg-gradient-to-b from-blue-500 to-orange-400"}
           ${
             isHovering && !isSidebarOpen && !isMobile
               ? "backdrop-blur-sm backdrop-filter border border-gray-700"
@@ -253,12 +253,14 @@ const HRSidebar = ({
             <div
               className={`px-4 py-2 mt-auto ${
                 mode === "dark"
-                  ? "bg-gradient-to-r from-gray-800 to-gray-700"
+                  ? ""
                   : ""
               } shadow-inner`}
             >
               <div
-                className="flex items-center space-x-4 cursor-pointer bg-[#0a1215] rounded-2xl p-2"
+                className={`flex items-center space-x-4 cursor-pointer rounded-2xl p-2 ${
+                  mode === "dark" ? "bg-gray-900" : "bg-gray-700"
+                }`}
                 onClick={() => setShowLogout((prev) => !prev)}
               >
                 <div className="w-10 h-10 overflow-hidden rounded-full">
