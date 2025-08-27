@@ -40,7 +40,7 @@ export function useAuth() {
   const signOut = async () => {
     try {
       await supabase.auth.signOut();
-      router.push("/hr/login");
+      router.push("/admin/login");
     } catch (error) {
       console.error("Error signing out:", error.message);
     }

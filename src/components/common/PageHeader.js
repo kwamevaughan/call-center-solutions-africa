@@ -25,7 +25,7 @@ export default function PageHeader({
                   <div key={index} className="flex items-center gap-2">
                     <Icon
                       icon={stat.icon}
-                      className={`w-4 h-4 ${stat.iconColor || "text-paan-blue"}`}
+                      className={`w-4 h-4 ${stat.iconColor || "text-blue-600"}`}
                     />
                     <span className="text-gray-600 dark:text-gray-300">
                       {stat.value}
@@ -47,8 +47,8 @@ export default function PageHeader({
                   className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:scale-105 transition-all duration-300 ease-in-out ${
                     action.variant === "primary"
                       ? mode === "dark"
-                        ? "bg-paan-blue hover:bg-paan-dark-blue text-white shadow-md hover:shadow-lg"
-                        : "bg-paan-blue hover:bg-paan-blue text-white shadow-md hover:shadow-lg"
+                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
+                        : "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
                       : mode === "dark"
                       ? "bg-gray-700 hover:bg-gray-600 text-gray-200 shadow-md hover:shadow-lg"
                       : "bg-gray-200 hover:bg-gray-300 text-gray-700 shadow-md hover:shadow-lg"
@@ -66,20 +66,20 @@ export default function PageHeader({
         <div
           className={`w-full h-full rounded-full bg-gradient-to-br ${
             mode === "dark"
-              ? "from-paan-blue to-paan-dark-blue"
-              : "from-paan-blue to-paan-dark-blue"
+              ? "from-blue-600 to-blue-700"
+              : "from-blue-600 to-blue-700"
           }`}
         ></div>
       </div>
       <div
         className={`absolute bottom-0 left-0 right-0 h-1 ${
           mode === "dark"
-            ? "bg-gradient-to-r from-paan-blue via-paan-dark-blue to-paan-dark-blue"
-            : "bg-paan-blue"
+            ? "bg-gradient-to-r from-blue-600 via-blue-700 to-blue-700"
+            : "bg-blue-600"
         }`}
       ></div>
       <div
-        className={`absolute -bottom-1 -left-1 w-2 sm:w-3 h-2 sm:h-3 bg-paan-red rounded-full opacity-40 animate-pulse delay-1000`}
+        className={`absolute -bottom-1 -left-1 w-2 sm:w-3 h-2 sm:h-3 bg-red-500 rounded-full opacity-40 animate-pulse delay-1000`}
       ></div>
     </div>
   );

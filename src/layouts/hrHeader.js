@@ -26,14 +26,14 @@ const HRHeader = ({
       try {
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
-          const { data: hrUser, error } = await supabase
+          const { data: adminUser, error } = await supabase
             .from("admin_users")
             .select("name, username")
             .eq("id", user.id)
             .single();
           
           if (error) throw error;
-          setUserData(hrUser);
+          setUserData(adminUser);
         }
       } catch (error) {
         console.error("[HRHeader] Error fetching user data:", error);
@@ -151,8 +151,8 @@ const HRHeader = ({
                   <Image
                     src={
                       mode === "dark"
-                        ? "/assets/images/paan-logo-icon-white.svg"
-                        : "/assets/images/paan-logo-icon.svg"
+                        ? "/assets/images/logo-white.svg"
+                        : "/assets/images/logo.svg"
                     }
                     alt="User Profile"
                     width={40}
@@ -176,8 +176,8 @@ const HRHeader = ({
                         <Image
                           src={
                             mode === "dark"
-                              ? "/assets/images/paan-logo-icon-white.svg"
-                              : "/assets/images/paan-logo-icon.svg"
+                              ? "/assets/images/logo-white.svg"
+                              : "/assets/images/logo.svg"
                           }
                           alt="User Profile"
                           width={40}

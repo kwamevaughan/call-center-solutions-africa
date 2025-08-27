@@ -23,14 +23,14 @@ export default async function handler(req, res) {
     });
 
     const mailOptions = {
-      from: `"Pan-African Agency Network Membership Management Dashboard" <${process.env.EMAIL_USER}>`,
+      from: `"Call Center Solutions Africa Membership Management Dashboard" <${process.env.EMAIL_USER}>`,
       to: email,
       subject:
-        "Your Password Recovery Magic Link - Pan-African Agency Network Membership Dashboard",
+        "Your Password Recovery Magic Link - Call Center Solutions Africa Membership Dashboard",
       text: `Forgot your password? No worries! Click this link to log in: ${magicLink}\n\nThis link will expire in 15 minutes.`,
       html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #261914;">
-                <img src="https://membership.paan.africa/assets/images/logo.png" alt="PAAN Logo" style="display: block; margin: 0 auto 20px; max-width: 150px;">
+                <img src="https://callcentersolutionsafrica.com/assets/images/logo.png" alt="CCSA Logo" style="display: block; margin: 0 auto 20px; max-width: 150px;">
                 
                 <h2 style="color: #f05d23; text-align: center;">Password Recovery - GCG Career Management Dashboard</h2>
                 
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
                 <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
                 
                 <p style="font-size: 16px; line-height: 1.5; color: #261914;">
-                    <strong>Pan-African Agency Network (PAAN)</strong><br/>
+                    <strong>Call Center Solutions Africa (CCSA)</strong><br/>
                     7th Floor, Mitsumi Business Park,<br/>
                     Westlands – Nairobi, Kenya<br/>
                     P.O. Box 1093-00606<br/>
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
                 <p style="font-size: 14px; text-align: center; color: #777; margin-top: 20px;">
                     Best regards,<br/>
                     The Hiring Team<br/>
-                    PAN-African Agency Network
+                    Call Center Solutions Africa
                 </p>
             </div>
         `,

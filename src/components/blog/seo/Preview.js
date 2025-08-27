@@ -52,8 +52,8 @@ export default function Preview({ formData, mode }) {
             }`}
           >
             {formData.slug
-              ? `https://paan.org/blog/${formData.slug}`
-              : "https://paan.org/blog/..."}
+              ? `https://callcentersolutionsafrica.com/blog/${formData.slug}`
+              : "https://callcentersolutionsafrica.com/blog/..."}
           </div>
 
           {/* Title Preview */}

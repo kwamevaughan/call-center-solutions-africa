@@ -1,7 +1,6 @@
 // pages/api/imagekit/auth.js
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
-import { createHmac } from "crypto";
-import { v4 as uuidv4 } from "uuid";
+import { createHmac, randomUUID } from "crypto";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -29,7 +28,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Server configuration error" });
     }
 
-    const token = uuidv4();
+    const token = randomUUID();
     const now = Date.now();
     const expire = Math.floor(now / 1000) + 600; // 10 minutes
 

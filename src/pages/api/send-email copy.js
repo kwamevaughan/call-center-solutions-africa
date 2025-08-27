@@ -66,7 +66,7 @@ export default async function handler(req, res) {
 
   try {
     await transporter.sendMail({
-      from: `"PAAN HR Team" <${process.env.EMAIL_USER}>`,
+      from: `"CCSA Admin" <${process.env.EMAIL_USER}>`,
       to: email,
       replyTo: process.env.EMAIL_REPLYTO,
       subject,

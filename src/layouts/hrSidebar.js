@@ -119,7 +119,7 @@ const HRSidebar = ({
               <>
                 <Image
                   src={"/assets/images/logo-white.svg"}
-                  alt="PAAN Logo"
+                  alt="CCSA Logo"
                   width={120}
                   height={75}
                   className="object-contain"
@@ -263,7 +263,11 @@ const HRSidebar = ({
               >
                 <div className="w-10 h-10 overflow-hidden rounded-full">
                   <Image
-                    src="/assets/images/paan-logo-icon-white.svg"
+                    src={
+                      mode === "dark"
+                        ? "/assets/images/logo-white.svg"
+                        : "/assets/images/logo.svg"
+                    }
                     alt="Profile"
                     width={38}
                     height={38}

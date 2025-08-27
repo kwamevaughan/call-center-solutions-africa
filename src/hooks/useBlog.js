@@ -10,7 +10,7 @@ export const useBlog = (blogId) => {
   const [editorContent, setEditorContent] = useState("");
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
-  const [hrUser, setHrUser] = useState(null);
+  const [adminUser, setAdminUser] = useState(null);
   const [formData, setFormData] = useState({
     id: null,
     article_name: "",
@@ -47,27 +47,27 @@ export const useBlog = (blogId) => {
     sort: "newest"
   });
 
-  const fetchHRUser = async () => {
+  const fetchAdminUser = async () => {
     try {
       const {
         data: { user },
       } = await supabase.auth.getUser();
       if (!user) return;
 
-      const { data: hrUserData, error: hrUserError } = await supabase
+      const { data: adminUserData, error: adminUserError } = await supabase
         .from("admin_users")
         .select("id, name, username")
         .eq("id", user.id)
         .single();
 
-      if (hrUserError) throw hrUserError;
-      setHrUser(hrUserData);
+      if (adminUserError) throw adminUserError;
+      setAdminUser(adminUserData);
       setFormData((prev) => ({
         ...prev,
-        author: hrUserData.name || hrUserData.username,
+        author: adminUserData.name || adminUserData.username,
       }));
     } catch (error) {
-      console.error("Error fetching HR user:", error);
+      console.error("Error fetching Admin user:", error);
     }
   };
 
@@ -146,7 +146,7 @@ export const useBlog = (blogId) => {
   };
 
   useEffect(() => {
-    fetchHRUser();
+    fetchAdminUser();
     fetchCategories();
     fetchTags();
     fetchBlogs();
@@ -464,7 +464,7 @@ export const useBlog = (blogId) => {
       is_published: blog.is_published || false,
       is_draft: blog.is_draft || true,
       publish_date: blog.publish_date || null,
-      author: blog.author_details?.name || blog.author_details?.username || "PAAN Admin",
+      author: blog.author_details?.name || blog.author_details?.username || "CCSA Admin",
       title: blog.article_name || "",
       description: blog.meta_description || "",
       keywords: blog.meta_keywords ? blog.meta_keywords.split(",").map(k => k.trim()) : [],
@@ -528,7 +528,7 @@ export const useBlog = (blogId) => {
     setEditorContent,
     categories,
     tags,
-    hrUser,
+    adminUser,
     handleCategoryAdded,
     handleTagAdded,
     fetchBlogs,

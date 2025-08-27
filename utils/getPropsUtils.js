@@ -5,7 +5,7 @@ const handleDBError = (error, context) => {
   console.error(`[${context}] Error:`, error.message);
   return {
     redirect: {
-      destination: "/hr/login",
+      destination: "/admin/login",
       permanent: false,
     },
   };
@@ -23,18 +23,18 @@ const createProps = (data, breadcrumbs) => ({
 });
 
 // Common function to fetch HR user data
-const fetchHRUser = async (supabaseServer, userId) => {
-  const { data: hrUser, error: hrUserError } = await supabaseServer
+const fetchAdminUser = async (supabaseServer, userId) => {
+  const { data: adminUser, error: adminUserError } = await supabaseServer
     .from("admin_users")
     .select("id, name")
     .eq("id", userId)
     .single();
 
-  if (hrUserError || !hrUser) {
-    throw new Error(hrUserError?.message || "User not in admin_users");
+  if (adminUserError || !adminUser) {
+    throw new Error(adminUserError?.message || "User not in admin_users");
   }
 
-  return hrUser;
+  return adminUser;
 };
 
 // Common function to fetch candidates map
@@ -58,7 +58,7 @@ const fetchCandidatesMap = async (supabaseServer) => {
 
 
 export async function withAuth(req, res, options = {}) {
-  const { redirectTo = "/hr/login" } = options;
+  const { redirectTo = "/admin/login" } = options;
   console.log(
     `[withAuth] Starting session check at ${new Date().toISOString()}`
   );
@@ -80,8 +80,8 @@ export async function withAuth(req, res, options = {}) {
       };
     }
 
-    const hrUser = await fetchHRUser(supabaseServer, session.user.id);
-    return { session, supabaseServer, hrUser };
+    const adminUser = await fetchAdminUser(supabaseServer, session.user.id);
+    return { session, supabaseServer, adminUser };
   } catch (error) {
     console.error("[withAuth] Error:", error.message);
     return {
@@ -101,7 +101,7 @@ export async function getAdminBlogProps({ req, res }) {
     const authResult = await withAuth(req, res);
     if (authResult.redirect) return authResult;
 
-    const { supabaseServer, hrUser } = authResult;
+    const { supabaseServer, adminUser } = authResult;
 
     const { data: blogs, error: blogsError } = await supabaseServer
       .from("blogs")
@@ -126,7 +126,7 @@ export async function getAdminBlogProps({ req, res }) {
       author:
         blog.author_details?.name ||
         blog.author_details?.username ||
-        "PAAN Admin",
+        "CCSA Admin",
     }));
 
     const { data: categoriesData, error: categoriesError } =
@@ -149,7 +149,7 @@ export async function getAdminBlogProps({ req, res }) {
         initialBlogs: transformedBlogs || [],
         categories: categoriesData || [],
         tags: tagsData || [],
-        hrUser,
+        adminUser,
       },
       [{ label: "Dashboard", href: "/admin" }, { label: "Blog" }]
     );

@@ -20,21 +20,21 @@ export default function useAuthSession() {
 
       if (sessionError || !session) {
         console.log("[useAuthSession] No session found, redirecting to login");
-        router.push("/hr/login");
+        router.push("/admin/login");
         return;
       }
 
-      const { data: hrUser, error: hrUserError } = await supabase
+      const { data: adminUser, error: adminUserError } = await supabase
         .from("admin_users")
         .select("id")
         .eq("id", session.user.id)
         .single();
-      console.log("[useAuthSession] HR User:", { hrUser, hrUserError });
+        console.log("[useAuthSession] Admin User:", { adminUser, adminUserError });
 
-      if (hrUserError || !hrUser) {
-        console.log("[useAuthSession] No HR user found, signing out");
+      if (adminUserError || !adminUser) {
+        console.log("[useAuthSession] No Admin user found, signing out");
         await supabase.auth.signOut();
-        router.push("/hr/login");
+          router.push("/admin/login");
       }
     };
 
@@ -44,7 +44,7 @@ export default function useAuthSession() {
       (event, session) => {
         // console.log("[useAuthSession] Auth State Change:", { event, session });
         if (event === "SIGNED_OUT" || !session) {
-          router.push("/hr/login");
+          router.push("/admin/login");
         }
       }
     );

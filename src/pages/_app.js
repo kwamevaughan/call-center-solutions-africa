@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       <Component {...pageProps} />
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 }

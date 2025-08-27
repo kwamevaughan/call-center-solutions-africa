@@ -54,7 +54,7 @@ const SimpleFooter = ({ mode, isSidebarOpen }) => {
             Copyright © {currentYear}
             <span className="relative group ml-1">
               <span className="cursor-pointer hover:text-blue-400 transition-colors">
-                Pan-African Agency Network (PAAN)
+                Call Center Solutions Africa (CCSA)
               </span>
               <span
                 className={`absolute bottom-full mb-2 left-1/2 -translate-x-1/2 text-xs 

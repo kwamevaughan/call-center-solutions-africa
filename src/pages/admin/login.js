@@ -22,7 +22,7 @@ export default function HRLogin() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("[HRLogin] Component mounted");
+    console.log("[AdminLogin] Component mounted");
     const savedEmail = localStorage.getItem("admin_remembered_email");
     if (savedEmail) {
       setEmail(savedEmail);
@@ -41,7 +41,7 @@ export default function HRLogin() {
 
   const handleLogin = useCallback(async (e) => {
     e.preventDefault();
-    console.log("[HRLogin] Form submitted, handleLogin called");
+    console.log("[AdminLogin] Form submitted, handleLogin called");
 
     if (isLoading) return;
 
@@ -70,7 +70,7 @@ export default function HRLogin() {
     }
 
     if (!captchaVerified) {
-      console.log("[HRLogin] CAPTCHA not verified");
+      console.log("[AdminLogin] CAPTCHA not verified");
       toast.error("Please verify the CAPTCHA.", { icon: "⚠️" });
       return;
     }
@@ -80,7 +80,7 @@ export default function HRLogin() {
     lastAttemptTime.current = now;
 
     try {
-      console.log("[HRLogin] Attempting login with email:", email);
+      console.log("[AdminLogin] Attempting login with email:", email);
       const {
         data: { user, session },
         error: authError,
@@ -89,7 +89,7 @@ export default function HRLogin() {
         password,
       });
 
-      console.log("[HRLogin] Auth response:", {
+      console.log("[AdminLogin] Auth response:", {
         user: user ? { id: user.id, email: user.email } : null,
         session: session
           ? { access_token: session.access_token.slice(0, 10) + "..." }
@@ -98,7 +98,7 @@ export default function HRLogin() {
       });
 
       if (authError) {
-        console.error("[HRLogin] Supabase auth error:", authError);
+        console.error("[AdminLogin] Supabase auth error:", authError);
         
         // Handle rate limiting specifically
         if (authError.status === 429) {
@@ -128,7 +128,7 @@ export default function HRLogin() {
       }
 
       if (!session) {
-        console.error("[HRLogin] No session returned");
+        console.error("[AdminLogin] No session returned");
         toast.error("No session established. Please try again.", {
           icon: "❌",
         });
@@ -136,13 +136,13 @@ export default function HRLogin() {
       }
 
       const cookies = getBrowserCookies();
-      console.log("[HRLogin] Browser cookies after login:", cookies);
+      console.log("[AdminLogin] Browser cookies after login:", cookies);
 
       const {
         data: { session: currentSession },
         error: sessionError,
       } = await supabase.auth.getSession();
-      console.log("[HRLogin] Current session after login:", {
+      console.log("[AdminLogin] Current session after login:", {
         currentSession: currentSession
           ? { access_token: currentSession.access_token.slice(0, 10) + "..." }
           : null,
@@ -150,7 +150,7 @@ export default function HRLogin() {
       });
 
       if (sessionError || !currentSession) {
-        console.error("[HRLogin] Session verification failed:", sessionError);
+        console.error("[AdminLogin] Session verification failed:", sessionError);
         toast.error("Failed to verify session. Please try again.", { 
           icon: "❌",
           duration: 5000
@@ -163,29 +163,29 @@ export default function HRLogin() {
       loginAttempts.current = 0;
       setIsLoading(false);
 
-      console.log("[HRLogin] Checking admin_users for user ID:", user.id);
-      const { data: hrUser, error: hrError } = await supabase
+      console.log("[AdminLogin] Checking admin_users for user ID:", user.id);
+      const { data: adminUser, error: adminUserError } = await supabase
         .from("admin_users")
         .select("id")
         .eq("id", user.id)
         .single();
 
-      console.log("[HRLogin] HR User check:", {
-        hrUser,
-        hrError: hrError ? hrError.message : null,
+        console.log("[AdminLogin] HR User check:", {
+        adminUser,
+        adminUserError: adminUserError ? adminUserError.message : null,
       });
 
-      if (hrError || !hrUser) {
-        console.log("[HRLogin] Adding user to admin_users");
+      if (adminUserError || !adminUser) {
+        console.log("[AdminLogin] Adding user to admin_users");
         const { error: insertError } = await supabase
           .from("admin_users")
           .insert([{ id: user.id, username: email }]);
         if (insertError) {
-          console.error("[HRLogin] Error adding to admin_users:", insertError);
+          console.error("[AdminLogin] Error adding to admin_users:", insertError);
           toast.error("Failed to authorize user.", { icon: "❌" });
           return;
         }
-        console.log("[HRLogin] Added user to admin_users:", {
+        console.log("[AdminLogin] Added user to admin_users:", {
           id: user.id,
           username: email,
         });
@@ -197,16 +197,16 @@ export default function HRLogin() {
         localStorage.removeItem("admin_remembered_email");
       }
 
-      console.log("[HRLogin] Attempting redirect to /hr/overview");
+          console.log("[AdminLogin] Attempting redirect to /admin/blogs");
       toast.success("Login successful! Redirecting...", { icon: "✅" });
       await router.push("/admin/blogs").catch((err) => {
-        console.error("[HRLogin] Redirect error:", err);
+        console.error("[AdminLogin] Redirect error:", err);
         toast.error("Failed to redirect. Please navigate manually.", {
           icon: "❌",
         });
       });
     } catch (error) {
-      console.error("[HRLogin] Unexpected error:", error);
+      console.error("[AdminLogin] Unexpected error:", error);
       toast.error("An unexpected error occurred.", { icon: "❌" });
     } finally {
       setIsLoading(false);
@@ -215,24 +215,24 @@ export default function HRLogin() {
 
   const handleMagicLink = async (e) => {
     e.preventDefault();
-    console.log("[HRLogin] Form submitted, handleMagicLink called");
+    console.log("[AdminLogin] Form submitted, handleMagicLink called");
     const loadingToast = toast.loading("Please wait...");
 
     try {
-      console.log("[HRLogin] Sending magic link to:", email);
+      console.log("[AdminLogin] Sending magic link to:", email);
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/hr/verify`,
+          emailRedirectTo: `${window.location.origin}/admin/verify`,
         },
       });
 
-      console.log("[HRLogin] OTP response:", {
+      console.log("[AdminLogin] OTP response:", {
         error: error ? error.message : null,
       });
 
       if (error) {
-        console.error("[HRLogin] OTP error:", error);
+        console.error("[AdminLogin] OTP error:", error);
         toast.error("Failed to send magic link.", {
           id: loadingToast,
           icon: "❌",
@@ -246,7 +246,7 @@ export default function HRLogin() {
       });
       setEmail("");
     } catch (error) {
-      console.error("[HRLogin] OTP unexpected error:", error);
+      console.error("[AdminLogin] OTP unexpected error:", error);
       toast.error("An unexpected error occurred.", {
         id: loadingToast,
         icon: "❌",
@@ -257,7 +257,7 @@ export default function HRLogin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(
-      "[HRLogin] handleSubmit called, showPasswordField:",
+      "[AdminLogin] handleSubmit called, showPasswordField:",
       showPasswordField
     );
     if (showPasswordField) {
@@ -401,7 +401,7 @@ export default function HRLogin() {
                     <ReCAPTCHA
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                       onChange={(value) => {
-                        console.log("[HRLogin] ReCAPTCHA verified:", !!value);
+                        console.log("[AdminLogin] ReCAPTCHA verified:", !!value);
                         setCaptchaVerified(!!value);
                       }}
                       className="transform scale-90 origin-center"
@@ -514,7 +514,6 @@ export default function HRLogin() {
         </div>
       </div>
 
-      <Toaster />
     </div>
   );
 }

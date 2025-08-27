@@ -24,7 +24,7 @@ export default function AdminBlog({
   categories,
   tags,
   breadcrumbs,
-  hrUser,
+  adminUser,
 }) {
   const [showForm, setShowForm] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
@@ -370,19 +370,7 @@ export default function AdminBlog({
           : "bg-gray-100 text-gray-900"
       } transition-colors duration-300`}
     >
-      <Toaster
-        toastOptions={{
-          className:
-            mode === "dark"
-              ? "bg-gray-800 text-gray-100 border-gray-700"
-              : "bg-white text-gray-900 border-gray-200",
-          style: {
-            borderRadius: "8px",
-            padding: "12px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          },
-        }}
-      />
+      
       <HRHeader
         toggleSidebar={toggleSidebar}
         isSidebarOpen={isSidebarOpen}
@@ -401,7 +389,7 @@ export default function AdminBlog({
           toggleSidebar={toggleSidebar}
           onLogout={handleLogout}
           setDragOffset={updateDragOffset}
-          user={{ name: "PAAN Admin" }}
+          user={{ name: "CCSA Admin" }}
           isMobile={isMobile}
           isHovering={isHovering}
           handleMouseEnter={handleMouseEnter}
@@ -583,7 +571,7 @@ export default function AdminBlog({
           isEditing={isEditing}
           categories={categories}
           tags={tags}
-          hrUser={hrUser}
+          adminUser={adminUser}
           fetchBlogs={fetchBlogs}
           width="max-w-7xl"
         />

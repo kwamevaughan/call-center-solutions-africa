@@ -6,7 +6,7 @@ export default function useLogout() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/hr/login");
+    router.push("/admin/login");
   };
 
   return handleLogout;

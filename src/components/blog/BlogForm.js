@@ -690,7 +690,7 @@ export default function BlogForm({
           <div className="flex items-center gap-2">
             {isEditing && formData.slug && (
               <a
-                href={`https://paan.africa/blog/${formData.slug}`}
+                href={`https://callcentersolutionsafrica.com/blog/${formData.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg hover:bg-white/20 text-white transition"
@@ -964,7 +964,7 @@ export default function BlogForm({
                         : "bg-gray-50 border-gray-300 text-gray-500"
                     }`}
                   >
-                    {formData.author || "PAAN Admin"}
+                    {formData.author || "CCSA Admin"}
                   </div>
                 </div>
 
