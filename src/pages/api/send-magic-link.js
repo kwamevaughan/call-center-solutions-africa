@@ -23,22 +23,22 @@ export default async function handler(req, res) {
     });
 
     const mailOptions = {
-      from: `"Call Center Solutions Africa Membership Management Dashboard" <${process.env.EMAIL_USER}>`,
+      from: `"Call Center Solutions Africa Dashboard" <${process.env.EMAIL_USER}>`,
       to: email,
       subject:
-        "Your Password Recovery Magic Link - Call Center Solutions Africa Membership Dashboard",
+        "Your Password Recovery Magic Link - Call Center Solutions Africa Dashboard",
       text: `Forgot your password? No worries! Click this link to log in: ${magicLink}\n\nThis link will expire in 15 minutes.`,
       html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #261914;">
                 <img src="https://callcentersolutionsafrica.com/assets/images/logo.png" alt="CCSA Logo" style="display: block; margin: 0 auto 20px; max-width: 150px;">
                 
-                <h2 style="color: #f05d23; text-align: center;">Password Recovery - GCG Career Management Dashboard</h2>
+                <h2 style="color: #f05d23; text-align: center;">Password Recovery - CCSA Dashboard</h2>
                 
                 <p style="font-size: 16px; line-height: 1.5; color: #261914;">
                     Hello,
                 </p>
                 <p style="font-size: 16px; line-height: 1.5; color: #261914;">
-                    Forgot your password? Use the link below to access the GCG Career Management Dashboard. This is a one-time magic link for your convenience.
+                    Forgot your password? Use the link below to access the CCSA Dashboard. This is a one-time magic link for your convenience.
                 </p>
                 
                 <div style="text-align: center; margin: 30px 0;">
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
                 
                 <p style="font-size: 14px; text-align: center; color: #777; margin-top: 20px;">
                     Best regards,<br/>
-                    The Hiring Team<br/>
+                    The CCSA Team<br/>
                     Call Center Solutions Africa
                 </p>
             </div>
