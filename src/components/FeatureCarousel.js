@@ -49,15 +49,15 @@ const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
-      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
+      className="absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
       style={{ ...style }}
       onClick={onClick}
     >
-      <div className="bg-white border border-black hover:border-blue-400 hover:bg-white/90 rounded-full shadow-lg p-3 flex items-center justify-center transition-all duration-300 ease-in-out">
+      <div className="bg-white border border-black hover:border-blue-400 hover:bg-white/90 rounded-full shadow-lg p-2 sm:p-3 flex items-center justify-center transition-all duration-300 ease-in-out">
         <Icon
           icon="material-symbols:arrow-forward-rounded"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           className="text-gray-800"
         />
       </div>
@@ -69,15 +69,15 @@ const PrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
-      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
+      className="absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
       style={{ ...style }}
       onClick={onClick}
     >
-      <div className="bg-white border border-black hover:border-blue-400 hover:bg-white/90 rounded-full shadow-lg p-3 flex items-center justify-center transition-all duration-300 ease-in-out">
+      <div className="bg-white border border-black hover:border-blue-400 hover:bg-white/90 rounded-full shadow-lg p-2 sm:p-3 flex items-center justify-center transition-all duration-300 ease-in-out">
         <Icon
           icon="material-symbols:arrow-back-rounded"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           className="text-gray-800"
         />
       </div>
@@ -86,9 +86,9 @@ const PrevArrow = (props) => {
 };
 
 const FeatureCard = ({ feature }) => (
-  <div className="px-6">
+  <div className="px-3 sm:px-6">
     <div className="bg-white rounded-lg hover:shadow-lg transition-all duration-300 ease-in-out hover:translate-y-[-5px] overflow-hidden">
-      <div className="relative h-72">
+      <div className="relative h-48 sm:h-72">
         <Image
           src={feature.image}
           alt={feature.title}
@@ -96,13 +96,13 @@ const FeatureCard = ({ feature }) => (
           objectFit="cover"
         />
       </div>
-      <div className="p-6">
-        <h3 className="relative text-xl font-bold mb-6 mt-[-3em]">{feature.title}</h3>
+      <div className="p-4 sm:p-6">
+        <h3 className="relative text-lg sm:text-xl font-bold mb-4 sm:mb-6 mt-[-2em] sm:mt-[-3em]">{feature.title}</h3>
         <ul className="space-y-2">
           {feature.bullets.map((bullet, idx) => (
             <li key={idx} className="flex items-start">
-              <span className="mr-2">•</span>
-              <span>{bullet}</span>
+              <span className="mr-2 text-sm sm:text-base">•</span>
+              <span className="text-sm sm:text-base leading-relaxed">{bullet}</span>
             </li>
           ))}
         </ul>
@@ -123,7 +123,7 @@ const FeatureCarousel = () => {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "100px",
-      autoplay: true,
+    autoplay: true,
     autoplaySpeed: 3000,
     responsive: [
       {
@@ -134,22 +134,32 @@ const FeatureCarousel = () => {
         },
       },
       {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: "30px",
+        },
+      },
+      {
         breakpoint: 640,
         settings: {
           slidesToShow: 1,
           centerPadding: "20px",
+          arrows: false,
         },
       },
     ],
   };
 
   return (
-    <div className="relative pt-10 sm:pt-0 px-0 sm:px-12">
-      <Slider {...settings}>
-        {features.map((feature, idx) => (
-          <FeatureCard key={idx} feature={feature} />
-        ))}
-      </Slider>
+    <div className="relative pt-6 sm:pt-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4">
+        <Slider {...settings}>
+          {features.map((feature, idx) => (
+            <FeatureCard key={idx} feature={feature} />
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const LogoMarquee = () => {
     <div key={index} className={styles.logoItem}>
       <Image
         src={logo}
-        width={150}
+        width={120}
         height={0}
         alt={`Partner Logo ${index + 1}`}
         className={styles.logo}

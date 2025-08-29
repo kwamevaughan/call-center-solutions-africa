@@ -49,12 +49,12 @@ const HeroSlider = () => {
       <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none"></div>
 
       {/* Dots or any other foreground content */}
-      <div className="absolute bottom-10 right-6 flex flex-col gap-2 z-20">
+      <div className="absolute bottom-6 sm:bottom-10 right-4 sm:right-6 flex flex-col gap-2 z-20">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentSlide(idx)}
-            className={`w-4 h-4 rounded-full border-2 transition-all duration-300
+            className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 transition-all duration-300
           ${
             idx === currentSlide
               ? "bg-[#F45B00] border-[#F45B00]"

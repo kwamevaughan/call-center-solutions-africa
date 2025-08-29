@@ -10,7 +10,7 @@ const TestimonialSlider = () => {
     },
     {
       quote:
-        "Thanks to their swift implementation, we were able to set up a customer support center in Nairobi in less than 3 weeks. The team’s attention to detail is second to none.",
+        "Thanks to their swift implementation, we were able to set up a customer support center in Nairobi in less than 3 weeks. The team's attention to detail is second to none.",
       name: "Kwame Osei, Head of Operations",
     },
     {
@@ -107,26 +107,26 @@ const TestimonialSlider = () => {
       onTouchEnd={handleMouseLeave}
     >
       <div className="overflow-hidden">
-        <div className="flex gap-3 items-center px-0 sm:px-24">
+        <div className="flex gap-3 items-center px-4 sm:px-0 md:px-24">
           <div className="w-4 h-4 bg-[#ED761E] rounded-full flex-shrink-0" />
-          <p className="text-xl font-semibold text-white">Testimonial</p>
+          <p className="text-lg sm:text-xl font-semibold text-white">Testimonial</p>
         </div>
       </div>
 
       <div
         className={`flex flex-col transition-opacity duration-1000 ease-in-out ${isTransitioning ? "opacity-0" : "opacity-100"}`}
       >
-        <div className="flex items-center px-0 sm:px-24 gap-3">
+        <div className="flex items-center px-4 sm:px-0 md:px-24 gap-3">
           {getVisibleSlides().map((slide, index) => (
             <div
               key={`${currentSlide}-${index}`}
-              className="flex flex-col w-full px-4 py-6 bg-transparent rounded-lg transition-all duration-300 hover:bg-white/80 hover:translate-y-[-10px] hover:shadow-2xl group"
+              className="flex flex-col w-full px-4 py-4 sm:py-6 bg-transparent rounded-lg transition-all duration-300 hover:bg-white/80 hover:translate-y-[-10px] hover:shadow-2xl group"
             >
               <div className="flex flex-col h-full justify-between">
-                <p className="text-sm mb-4 text-white group-hover:text-black transition-colors duration-300">
+                <p className="text-sm sm:text-base mb-3 sm:mb-4 text-white group-hover:text-black transition-colors duration-300 leading-relaxed">
                   {`${slide.quote}`}
                 </p>
-                <p className="text-lg text-white group-hover:text-black transition-colors duration-300">
+                <p className="text-base sm:text-lg text-white group-hover:text-black transition-colors duration-300 font-medium">
                   {slide.name}
                 </p>
               </div>
@@ -135,30 +135,30 @@ const TestimonialSlider = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-[-1rem] right-4 flex gap-2">
+      <div className="absolute bottom-[-1rem] right-2 sm:right-4 flex gap-2">
         <button
           onClick={prevSlide}
-          className="bg-[#ED761E] p-2 rounded-full shadow-md hover:bg-[#ED761E]/80 transition-all duration-300 cursor-pointer"
+          className="bg-[#ED761E] p-1.5 sm:p-2 rounded-full shadow-md hover:bg-[#ED761E]/80 transition-all duration-300 cursor-pointer"
           aria-label="Previous slide"
           disabled={isTransitioning}
         >
           <Icon
             icon="charm:arrow-left"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             className="text-white"
           />
         </button>
         <button
           onClick={nextSlide}
-          className="bg-[#ED761E] p-2 rounded-full shadow-md hover:bg-[#ED761E]/80 transition-all duration-300 cursor-pointer"
+          className="bg-[#ED761E] p-1.5 sm:p-2 rounded-full shadow-md hover:bg-[#ED761E]/80 transition-all duration-300 cursor-pointer"
           aria-label="Next slide"
           disabled={isTransitioning}
         >
           <Icon
             icon="charm:arrow-right"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             className="text-white"
           />
         </button>

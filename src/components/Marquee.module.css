@@ -1,15 +1,18 @@
 /* components/Marquee.module.css */
 .marqueeContainer {
   width: 100%;
+  max-width: 100vw;
   overflow: hidden;
   white-space: nowrap;
-  padding:40px 0;
+  padding: 40px 0;
+  position: relative;
 }
 
 .marquee {
   display: inline-flex; /* Use flex for precise alignment */
   animation: marquee 40s linear infinite;
   will-change: transform; /* Optimize performance */
+  width: max-content;
 }
 
 .item {
@@ -38,6 +41,23 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .word {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .dot {
+    font-size: 1.3rem;
+    margin: 0 0.5rem;
+  }
+  
+  .marqueeContainer {
+    padding: 20px 0;
   }
 }
 
