@@ -14,7 +14,6 @@ const BlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [blogs, setBlogs] = useState([]);
-  const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,20 +44,19 @@ const BlogPage = () => {
       const categoriesData = await blogService.getCategories();
       setCategories(categoriesData);
 
-      // Fetch featured blogs
-      const featuredData = await blogService.getFeaturedBlogs(3);
-      setFeaturedBlogs(featuredData.map(formatBlogData));
-
       // Fetch blogs with filters
-      const blogsData = await blogService.getBlogs({
-        category: selectedCategory === "all" ? null : selectedCategory,
-        search: searchTerm || null,
-        page: currentPage,
-        limit: 12
-      });
+      const blogsData = await blogService.getBlogs(
+        currentPage,
+        12,
+        null, // Temporarily remove category filter to test
+        null  // Temporarily remove search filter to test
+      );
+
+      console.log('Blogs data received:', blogsData);
+      console.log('Blogs array:', blogsData.blogs);
 
       if (currentPage === 1) {
-      setBlogs(blogsData.blogs.map(formatBlogData));
+        setBlogs(blogsData.blogs.map(formatBlogData));
       } else {
         setBlogs(prev => [...prev, ...blogsData.blogs.map(formatBlogData)]);
       }
@@ -67,6 +65,8 @@ const BlogPage = () => {
       setHasMore(blogsData.hasMore);
     } catch (error) {
       console.error('Error fetching blog data:', error);
+      console.error('Error details:', error.message);
+      console.error('Error stack:', error.stack);
     } finally {
       setLoading(false);
     }
@@ -117,99 +117,75 @@ const BlogPage = () => {
       
       <main className="min-h-screen bg-gray-50">
         {/* Hero Section */}
-        <div className="bg-white border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+        <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-40">
+            <div className="text-center text-white">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                 Insights & Resources
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                Discover expert insights, best practices, and actionable strategies for call center excellence and business growth.
+              <p className="text-xl sm:text-2xl text-blue-100 max-w-4xl mx-auto mb-12">
+                Discover expert insights, best practices, and actionable strategies for call center excellence and business growth in Africa.
               </p>
               
               {/* Search Bar */}
-              <div className="max-w-2xl mx-auto">
+              <div className="max-w-2xl mx-auto mb-8">
                 <div className="relative">
                   <input
                     type="text"
                     placeholder="Search articles..."
                     value={searchTerm}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="w-full px-6 py-4 pl-12 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-6 py-4 pl-12 text-lg border-0 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
                   />
                   <Icon 
                     icon="heroicons:magnifying-glass" 
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" 
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-blue-200" 
                   />
                 </div>
-                </div>
               </div>
-            </div>
-          </div>
 
-        {/* Categories Filter */}
-        <div className="bg-white border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => handleCategoryChange("all")}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  selectedCategory === "all"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                All Articles
-              </button>
-              {categories.map((category) => (
+              {/* Categories Filter */}
+              <div className="flex flex-wrap justify-center gap-3">
                 <button
-                  key={category.id}
-                  onClick={() => handleCategoryChange(category.slug)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                    selectedCategory === category.slug
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  onClick={() => handleCategoryChange("all")}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                    selectedCategory === "all"
+                      ? "bg-white text-blue-600 shadow-lg"
+                      : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                   }`}
                 >
-                  {category.name}
+                  All Articles
                 </button>
-              ))}
-            </div>
-          </div>
-                </div>
-
-        {/* Featured Articles */}
-        {featuredBlogs.length > 0 && currentPage === 1 && (
-          <div className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Articles</h2>
-                <p className="text-gray-600">Handpicked content from our experts</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredBlogs.map((blog) => (
-                  <BlogCardProfessional
-                    key={blog.id}
-                    post={blog}
-                    variant="featured"
-                  />
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryChange(category.slug)}
+                    className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                      selectedCategory === category.slug
+                        ? "bg-white text-blue-600 shadow-lg"
+                        : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
+                    }`}
+                  >
+                    {category.name}
+                  </button>
                 ))}
               </div>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* All Articles */}
-        <div className="bg-gray-50">
+        {/* Articles Grid */}
+        <div className="bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">
-                {selectedCategory === "all" ? "All Articles" : categories.find(c => c.slug === selectedCategory)?.name}
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  {selectedCategory === "all" ? "All Articles" : categories.find(c => c.slug === selectedCategory)?.name}
                 </h2>
-              <span className="text-gray-600">
-                {totalCount} {totalCount === 1 ? 'article' : 'articles'}
-              </span>
+                <p className="text-gray-600">
+                  {totalCount} {totalCount === 1 ? 'article' : 'articles'} available
+                </p>
+              </div>
             </div>
 
             {loading && blogs.length === 0 ? (
@@ -286,29 +262,6 @@ const BlogPage = () => {
           </div>
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="bg-gray-900">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Stay Updated
-              </h2>
-              <p className="text-gray-300 text-lg mb-8">
-                Get the latest insights and tips delivered to your inbox.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </main>
       
         <Footer />

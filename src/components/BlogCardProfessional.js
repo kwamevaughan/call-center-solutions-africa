@@ -4,6 +4,13 @@ import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/blogService";
 
 const BlogCardProfessional = ({ post, variant = "default" }) => {
+  console.log('BlogCardProfessional received post:', post);
+  
+  if (!post) {
+    console.error('BlogCardProfessional: No post data provided');
+    return null;
+  }
+
   const variants = {
     default: {
       container: "bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 overflow-hidden group",
@@ -34,7 +41,7 @@ const BlogCardProfessional = ({ post, variant = "default" }) => {
   const styles = variants[variant] || variants.default;
 
   // Handle missing image with fallback
-  const imageSrc = post.image || "/assets/images/hero-1.jpg";
+  const imageSrc = post.image || "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop&crop=center";
   const imageAlt = post.title || "Blog post image";
 
   return (
