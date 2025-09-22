@@ -8,8 +8,10 @@ import useSidebar from "@/hooks/useSidebar";
 import useLogout from "@/hooks/useLogout";
 import useAuthSession from "@/hooks/useAuthSession";
 import { useBlog } from "@/hooks/useBlog";
+import { useDebounce } from "@/hooks/useDebounce";
 import SimpleFooter from "@/layouts/simpleFooter";
 import BlogForm from "@/components/blog/BlogForm";
+import BlogFormOptimized from "@/components/blog/BlogFormOptimized";
 import BlogGrid from "@/components/blog/BlogGrid";
 import ItemActionModal from "@/components/ItemActionModal";
 import { getAdminBlogProps } from "utils/getPropsUtils";
@@ -39,6 +41,9 @@ export default function AdminBlog({
   const [showFilters, setShowFilters] = useState(false);
   const [sortOrder, setSortOrder] = useState("newest");
   const itemsPerPage = 12;
+  
+  // Debounce search term to reduce API calls
+  const debouncedFilterTerm = useDebounce(filterTerm, 300);
   useAuthSession();
 
   const {
@@ -132,7 +137,7 @@ export default function AdminBlog({
     const newFilters = {
       category: selectedCategory,
       tags: selectedTags,
-      search: filterTerm,
+      search: debouncedFilterTerm,
       status: selectedStatus,
       author: selectedAuthor,
       dateRange: selectedDateRange,
@@ -159,7 +164,7 @@ export default function AdminBlog({
         clearTimeout(filterUpdateTimeout.current);
       }
     };
-  }, [selectedCategory, selectedTags, filterTerm, selectedStatus, selectedAuthor, selectedDateRange, sortOrder, updateFilters, filters.sort]);
+  }, [selectedCategory, selectedTags, debouncedFilterTerm, selectedStatus, selectedAuthor, selectedDateRange, sortOrder, updateFilters, filters.sort]);
 
   const handleCreateBlog = useCallback(() => {
     setSelectedIds([]);
@@ -341,10 +346,10 @@ export default function AdminBlog({
     return blogs.filter((blog) => {
       if (!blog) return false;
       
-      // Search filter
-      const matchesSearch = !filterTerm || (
-        (blog.article_name && blog.article_name.toLowerCase().includes(filterTerm.toLowerCase())) ||
-        (blog.article_body && blog.article_body.toLowerCase().includes(filterTerm.toLowerCase()))
+      // Search filter using debounced term
+      const matchesSearch = !debouncedFilterTerm || (
+        (blog.article_name && blog.article_name.toLowerCase().includes(debouncedFilterTerm.toLowerCase())) ||
+        (blog.article_body && blog.article_body.toLowerCase().includes(debouncedFilterTerm.toLowerCase()))
       );
 
       // Category filter
@@ -360,7 +365,7 @@ export default function AdminBlog({
 
       return matchesSearch && matchesCategory && matchesTags;
     });
-  }, [blogs, filterTerm, selectedCategory, selectedTags]);
+  }, [blogs, debouncedFilterTerm, selectedCategory, selectedTags]);
 
   return (
     <div
@@ -559,7 +564,7 @@ export default function AdminBlog({
           />
         )}
 
-        <BlogForm
+        <BlogFormOptimized
           showForm={isModalOpen}
           mode={mode}
           blogId={editingId}

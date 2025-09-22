@@ -6,8 +6,7 @@ import Footer from "@/layouts/footer";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import BlogSearch from "@/components/BlogSearch";
-import BlogCard from "@/components/BlogCard";
+import BlogCardProfessional from "@/components/BlogCardProfessional";
 import { blogService, formatBlogData, formatDate } from "@/lib/blogService";
 
 const BlogPage = () => {
@@ -50,15 +49,20 @@ const BlogPage = () => {
       const featuredData = await blogService.getFeaturedBlogs(3);
       setFeaturedBlogs(featuredData.map(formatBlogData));
 
-      // Fetch main blogs
-      const blogsData = await blogService.getBlogs(
-        currentPage, 
-        9, 
-        selectedCategory === 'all' ? null : selectedCategory, 
-        searchTerm || null
-      );
-      
+      // Fetch blogs with filters
+      const blogsData = await blogService.getBlogs({
+        category: selectedCategory === "all" ? null : selectedCategory,
+        search: searchTerm || null,
+        page: currentPage,
+        limit: 12
+      });
+
+      if (currentPage === 1) {
       setBlogs(blogsData.blogs.map(formatBlogData));
+      } else {
+        setBlogs(prev => [...prev, ...blogsData.blogs.map(formatBlogData)]);
+      }
+
       setTotalCount(blogsData.totalCount);
       setHasMore(blogsData.hasMore);
     } catch (error) {
@@ -68,195 +72,246 @@ const BlogPage = () => {
     }
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+    setBlogs([]);
+    
+    // Update URL
+    const query = { ...router.query };
+    if (category === "all") {
+      delete query.category;
+    } else {
+      query.category = category;
+    }
+    router.push({ pathname: '/blog', query }, undefined, { shallow: true });
+  };
+
   const handleSearch = (term) => {
     setSearchTerm(term);
     setCurrentPage(1);
-  };
-
-  const handleCategoryFilter = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
+    setBlogs([]);
+    
+    // Update URL
+    const query = { ...router.query };
+    if (term) {
+      query.search = term;
+    } else {
+      delete query.search;
+    }
+    router.push({ pathname: '/blog', query }, undefined, { shallow: true });
   };
 
   const loadMore = () => {
     setCurrentPage(prev => prev + 1);
   };
 
-  const getCategoryCount = (categoryId) => {
-    return blogs.filter(blog => blog.category === categoryId).length;
-  };
-
   return (
     <>
       <SEO 
         title="Blog - Call Center Solutions Africa"
-        description="Stay ahead of the curve with expert insights, best practices, and the latest trends in call center operations and customer experience across Africa."
-        keywords="call center blog, customer experience, BPO insights, Africa call center, industry trends"
+        description="Stay updated with the latest insights, tips, and strategies for call center operations, customer service, and business growth in Africa."
+        keywords="call center blog, customer service tips, business insights, Africa call center"
       />
       <Header />
-      <main className="relative overflow-x-hidden">
-        {/* Corporate Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#0088D2] via-[#0056B3] to-[#003366] py-20 sm:py-28">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="absolute inset-0 bg-[url('/assets/images/section-bg.jpg')] bg-cover bg-center opacity-10"></div>
-          <div className="relative max-w-7xl mx-auto px-4">
+      
+      <main className="min-h-screen bg-gray-50">
+        {/* Hero Section */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="text-center">
-              <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
-                <Icon icon="mdi:file-document-multiple" className="text-white mr-2" />
-                <span className="text-white font-medium">Industry Insights</span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Strategic Insights & 
-                <span className="block text-[#FFD100]">Best Practices</span>
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+                Insights & Resources
               </h1>
-              <p className="text-xl sm:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed mb-8">
-                Stay ahead of the curve with expert insights, best practices, and the latest trends in call center operations and customer experience across Africa.
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Discover expert insights, best practices, and actionable strategies for call center excellence and business growth.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <div className="flex items-center text-white/80">
-                  <Icon icon="mdi:account-group" className="mr-2" />
-                  <span>Expert Contributors</span>
+              
+              {/* Search Bar */}
+              <div className="max-w-2xl mx-auto">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchTerm}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className="w-full px-6 py-4 pl-12 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <Icon 
+                    icon="heroicons:magnifying-glass" 
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" 
+                  />
                 </div>
-                <div className="flex items-center text-white/80">
-                  <Icon icon="mdi:trending-up" className="mr-2" />
-                  <span>Industry Trends</span>
-                </div>
-                <div className="flex items-center text-white/80">
-                  <Icon icon="mdi:map-marker" className="mr-2" />
-                  <span>Africa Focus</span>
                 </div>
               </div>
             </div>
           </div>
-        </section>
 
-        {/* Featured Posts Section */}
-        {featuredBlogs.length > 0 && (
-          <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center bg-[#0088D2]/10 text-[#0088D2] rounded-full px-4 py-2 mb-4">
-                  <Icon icon="mdi:star" className="mr-2" />
-                  <span className="font-medium">Featured Content</span>
+        {/* Categories Filter */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => handleCategoryChange("all")}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  selectedCategory === "all"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                All Articles
+              </button>
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategoryChange(category.slug)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    selectedCategory === category.slug
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
+          </div>
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                  Strategic Insights
-                </h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                  Discover our most comprehensive and impactful articles that drive business transformation
-                </p>
+
+        {/* Featured Articles */}
+        {featuredBlogs.length > 0 && currentPage === 1 && (
+          <div className="bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Articles</h2>
+                <p className="text-gray-600">Handpicked content from our experts</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredBlogs.map((blog, index) => (
-                  <div key={blog.id} className={`transform transition-all duration-300 hover:-translate-y-2 ${index === 1 ? 'lg:scale-105' : ''}`}>
-                    <BlogCard post={blog} variant="featured" />
-                  </div>
+                {featuredBlogs.map((blog) => (
+                  <BlogCardProfessional
+                    key={blog.id}
+                    post={blog}
+                    variant="featured"
+                  />
                 ))}
               </div>
             </div>
-          </section>
+          </div>
         )}
 
-        {/* Search and Filter Section */}
-        <section className="py-12 bg-white border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-8 shadow-sm">
-              <BlogSearch
-                onSearch={handleSearch}
-                onCategoryFilter={handleCategoryFilter}
-                categories={categories}
-                selectedCategory={selectedCategory}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* All Posts Section */}
-        <section className="py-16 sm:py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                  {searchTerm ? `Search Results for "${searchTerm}"` : 'Latest Articles'}
+        {/* All Articles */}
+        <div className="bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-gray-900">
+                {selectedCategory === "all" ? "All Articles" : categories.find(c => c.slug === selectedCategory)?.name}
                 </h2>
-                <p className="text-gray-600">
-                  {totalCount} {totalCount === 1 ? 'article' : 'articles'} found
-                </p>
-              </div>
-              <div className="mt-4 sm:mt-0 flex items-center space-x-4">
-                <div className="flex items-center text-gray-500">
-                  <Icon icon="mdi:sort" className="mr-2" />
-                  <span className="text-sm">Latest First</span>
-                </div>
-                <div className="flex items-center text-gray-500">
-                  <Icon icon="mdi:view-grid" className="mr-2" />
-                  <span className="text-sm">Grid View</span>
-                </div>
-              </div>
+              <span className="text-gray-600">
+                {totalCount} {totalCount === 1 ? 'article' : 'articles'}
+              </span>
             </div>
 
-            {loading ? (
+            {loading && blogs.length === 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[...Array(6)].map((_, index) => (
-                  <div key={index} className="animate-pulse">
+                  <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
                     <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
                     <div className="bg-gray-200 h-4 rounded mb-2"></div>
-                    <div className="bg-gray-200 h-6 rounded mb-2"></div>
-                    <div className="bg-gray-200 h-4 rounded"></div>
+                    <div className="bg-gray-200 h-4 w-3/4 rounded mb-4"></div>
+                    <div className="bg-gray-200 h-3 rounded"></div>
                   </div>
                 ))}
               </div>
             ) : blogs.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {blogs.map((blog) => (
-                    <BlogCard key={blog.id} post={blog} variant="default" />
+                    <BlogCardProfessional
+                      key={blog.id}
+                      post={blog}
+                      variant="default"
+                    />
                   ))}
                 </div>
 
+                {/* Load More Button */}
                 {hasMore && (
-                  <div className="text-center">
+                  <div className="text-center mt-12">
                     <button
                       onClick={loadMore}
-                      className="inline-flex items-center bg-gradient-to-r from-[#0088D2] to-[#0056B3] text-white px-8 py-4 rounded-lg hover:from-[#0056B3] hover:to-[#003366] transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                      disabled={loading}
+                      className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
-                      <Icon icon="mdi:plus" className="mr-2" />
+                      {loading ? (
+                        <>
+                          <Icon icon="heroicons:arrow-path" className="w-5 h-5 mr-2 animate-spin" />
+                          Loading...
+                        </>
+                      ) : (
+                        <>
                       Load More Articles
+                          <Icon icon="heroicons:arrow-down" className="w-5 h-5 ml-2" />
+                        </>
+                      )}
                     </button>
                   </div>
                 )}
               </>
             ) : (
               <div className="text-center py-16">
-                <div className="bg-gray-50 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
-                  <Icon icon="mdi:file-document-outline" className="text-gray-400 text-4xl" />
+                <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Icon icon="heroicons:document-text" className="w-12 h-12 text-gray-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">No articles found</h3>
-                <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No articles found</h3>
+                <p className="text-gray-600 mb-6">
                   {searchTerm 
                     ? `No articles match your search for "${searchTerm}"`
-                    : 'No articles available at the moment.'
+                    : "No articles available in this category"
                   }
                 </p>
-                {searchTerm && (
                   <button
                     onClick={() => {
                       setSearchTerm("");
                       setSelectedCategory("all");
+                    setCurrentPage(1);
+                    setBlogs([]);
                     }}
-                    className="inline-flex items-center text-[#0088D2] hover:text-[#0056B3] font-medium"
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    <Icon icon="mdi:refresh" className="mr-2" />
-                    Clear search and show all articles
+                  Clear Filters
                   </button>
-                )}
               </div>
             )}
           </div>
-        </section>
-        <Footer />
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="bg-gray-900">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Stay Updated
+              </h2>
+              <p className="text-gray-300 text-lg mb-8">
+                Get the latest insights and tips delivered to your inbox.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
+      
+        <Footer />
     </>
   );
 };

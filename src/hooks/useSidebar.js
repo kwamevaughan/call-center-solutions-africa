@@ -1,5 +1,5 @@
 // src/hooks/useSidebar.js
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 const useSidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(null);
@@ -21,7 +21,7 @@ const useSidebar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  const isMobile = windowWidth !== null && windowWidth < 640;
+  const isMobile = useMemo(() => windowWidth !== null && windowWidth < 640, [windowWidth]);
 
   // Sidebar open/close state
   useEffect(() => {

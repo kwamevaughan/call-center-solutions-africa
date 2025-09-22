@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { calculateSEOScore, getScoreColor, getScoreBgColor, getScoreIcon } from '@/utils/seo';
 
-export default function BlogCard({
+const BlogCard = memo(function BlogCard({
   blog,
   mode,
   handleEditClick,
@@ -14,7 +14,11 @@ export default function BlogCard({
   isSelectable = false,
 }) {
   const [isHovered, setIsHovered] = useState(false);
-  const seoScore = calculateSEOScore(blog);
+  
+  // Memoize SEO score calculation to prevent repeated computations
+  const seoScore = useMemo(() => {
+    return blog.seo_score || calculateSEOScore(blog, blog.article_body);
+  }, [blog.seo_score, blog.article_body, blog.article_name, blog.meta_description, blog.slug, blog.focus_keyword]);
 
   const handleEdit = (e) => {
     e.stopPropagation();
@@ -79,14 +83,14 @@ export default function BlogCard({
           </span>
           <div className="flex items-center gap-2">
             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${
-              getScoreBgColor(blog.seo_score || calculateSEOScore(blog, blog.article_body), mode)
+              getScoreBgColor(seoScore, mode)
             }`}>
-              <span className={`text-sm font-medium ${getScoreColor(blog.seo_score || calculateSEOScore(blog, blog.article_body), mode)}`}>
-                SEO: {blog.seo_score || calculateSEOScore(blog, blog.article_body)}%
+              <span className={`text-sm font-medium ${getScoreColor(seoScore, mode)}`}>
+                SEO: {seoScore}%
               </span>
               <Icon 
-                icon={getScoreIcon(blog.seo_score || calculateSEOScore(blog, blog.article_body))}
-                className={`w-4 h-4 ${getScoreColor(blog.seo_score || calculateSEOScore(blog, blog.article_body), mode)}`}
+                icon={getScoreIcon(seoScore)}
+                className={`w-4 h-4 ${getScoreColor(seoScore, mode)}`}
               />
             </div>
           </div>
@@ -174,4 +178,6 @@ export default function BlogCard({
       </div>
     </div>
   );
-} 
+});
+
+export default BlogCard; 
