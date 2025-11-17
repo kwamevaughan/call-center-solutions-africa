@@ -14,6 +14,11 @@ const config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "ccsa-dark-blue": "#111827",
+        "ccsa-orange": "#ED761E",
+        "ccsa-blue": "#0088D2",
+        "ccsa-yellow": "#FFD100",
+        "ccsa-gradient": "linear-gradient(135deg, #FFD100 0%, #0088D2 100%)",
       },
       animation: {
         circularGradient: "circularGradient 6s linear infinite",

@@ -120,7 +120,7 @@ export default function ContactPage() {
       <SEO
         title="Contact Us | Call Center Solutions Africa"
         description="Get in touch with our Nairobi-based team to discuss your call center and BPO needs. Request a custom proposal today!"
-        keywords="contact call center solutions Africa, BPO services contact, Nairobi contact center, customer experience solutions"
+        keywords="contact call center solutions Africa, BPO services contact, Nairobi contact center, customer experience solutions, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service"
       />
 
       {/* Rest of the ContactPage component remains unchanged */}

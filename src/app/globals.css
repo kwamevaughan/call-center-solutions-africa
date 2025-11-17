@@ -7,6 +7,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --ccsa-dark-blue: #111827;
+  --ccsa-orange: #ED761E;
+  --ccsa-yellow: #FFD100;
+  --ccsa-blue: #0088D2;
 }
 
 @media (prefers-color-scheme: dark) {

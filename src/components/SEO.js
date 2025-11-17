@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const SEO = ({
   title = "Call Center Solutions Africa | Advanced BPO & Contact Center Services",
   description = "Empowering African businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less.",
-  keywords = "call center solutions Africa, BPO services Africa, contact center technology, African business solutions, cloud call center, customer experience Africa, Nairobi call center services",
+  keywords = "call center solutions Africa, BPO services Africa, contact center technology, African business solutions, cloud call center, customer experience Africa, Nairobi call center services, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support Africa, claims processing, telehealth support, digital payments support, omnichannel contact center, 24/7 customer service Africa, ISO 27001 call center, PCI-DSS compliant, customer retention, back-office outsourcing",
   image = "https://callcentersolutionsafrica.com/assets/images/opengraph.png",
   noindex = false,
   imageWidth = 1200, // Default image width
