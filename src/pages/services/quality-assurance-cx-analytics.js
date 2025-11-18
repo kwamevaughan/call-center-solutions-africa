@@ -1,0 +1,331 @@
+// pages/index.js
+import SEO from "@/components/SEO";
+import Header from "@/layouts/header";
+import Image from "next/image";
+import Link from "next/link";
+import { Icon } from "@iconify/react";
+import Footer from "@/layouts/footer";
+import FloatingCTA from "@/components/FloatingCTA";
+import { useEffect, useRef } from "react";
+import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+
+const QualityAssuranceCXAnalyticsPage = () => {
+  const sectionRefs = {
+    home: useRef(null),
+    "about-us": useRef(null),
+    industries: useRef(null),
+  };
+
+
+  const isFixed = useFixedHeader();
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("section-visible");
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    Object.values(sectionRefs).forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
+
+    return () => {
+      Object.values(sectionRefs).forEach((ref) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
+    };
+  }, []);
+
+  return (
+    <>
+      <SEO
+        title="Quality Assurance & CX Analytics | Call Center Solutions Africa"
+        description="AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations. Real-time coaching, macro tuning, and root-cause analysis from Africa."
+        keywords="quality assurance, CX analytics, customer experience analytics, QA scoring, conversation analytics, VOC dashboards, sentiment tracking, playbook optimization, customer service quality, contact center QA, quality monitoring, customer satisfaction analytics, NPS tracking, CSAT improvement, service quality management"
+      />
+      <Header />
+
+      <main className="relative overflow-x-hidden">
+        <div
+          className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-center overflow-hidden"
+          id="home"
+          ref={sectionRefs.home}
+        >
+          {/* Radial Ellipse at Bottom Left - Orange */}
+          <div 
+            className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
+              transform: 'translate(-30%, 30%)'
+            }}
+          />
+          {/* Radial Ellipse at Top Right - Yellow */}
+          <div 
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Middle - Blue */}
+          <div 
+            className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)',
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
+          <div className="max-w-7xl mx-auto w-full relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left Side: Title, Description, and CTA Buttons */}
+              <div className="flex flex-col gap-5 sm:gap-6 text-white">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Solution</p>
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+                See quality. Improve fast.
+              </h1>
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
+                AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations.
+              </p>
+                
+                <div className="flex flex-col sm:flex-row gap-3">
+                    <Link
+                      href="/contact-us"
+                  className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
+                  style={{
+                    background: "var(--ccsa-gradient)"
+                  }}
+                >
+                  <Icon icon="mdi:lightning-bolt" width={18} height={18} />
+                  Start a 10-day pilot
+                </Link>
+                <button
+                  onClick={() => window.location.href = "/contact-us"}
+                  className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
+                >
+                  Get Pricing
+                    </button>
+                  </div>                
+              </div>
+
+              {/* Right Side: Hero Image */}
+              <div className="flex items-center justify-center lg:justify-end">
+                <div className="relative w-full max-w-md">
+                  <Image
+                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/hero.webp?updatedAt=1762971504618"
+                    alt="Call Center Solutions Africa"
+                    width={350}
+                    height={350}
+                    className="rounded-2xl shadow-2xl object-cover w-full h-auto"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Certification Badges */}
+            <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-20">
+              {[
+                "QA ≥ 90%",
+                "Real-time coaching",
+                "Root-cause analysis",
+                "GDPR‑aligned"
+              ].map((badge) => (
+                <div
+                  key={badge}
+                  className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
+                >
+                  <Icon icon="mdi:check" width={20} height={20} className="text-white flex-shrink-0" />
+                  <span>{badge}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Value */}
+        <div id="about-us" ref={sectionRefs["about-us"]} className="bg-ccsa-dark-blue relative overflow-hidden">
+          {/* Radial Ellipse at Top Left */}
+          <div 
+            className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
+              transform: 'translate(-30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Left Middle - Yellow */}
+          <div 
+            className="absolute left-0 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(-30%, -50%)'
+            }}
+          />
+          <section className="w-full px-4 relative z-10">
+            <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
+              <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
+                <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">VALUE</p>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Why teams pick this solution</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Real-time coaching signals</h3>
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    With targeted plans
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Macro/deflection tuning</h3>
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    To cut handle time without losing quality
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Root-cause analysis</h3>
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    Across channels to prevent repeat issues
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="w-full px-4 relative z-10">
+            <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
+              <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
+                <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Scope</p>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">What we do</h2>
+              <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    QA rubric design, calibration workshops, double-scoring
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    Conversation scoring (accuracy/empathy/compliance) across 100% or samples
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    VOC dashboards, topic clustering, sentiment tracking
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    Playbook optimization and experiment design (A/B tests)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="w-full px-4 relative z-10">
+            <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
+              <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
+                <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Impact</p>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Outcomes & KPIs</h2>
+              <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    QA ≥ 90%
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    TTFR ↓
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    CSAT/NPS ↑
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    Reopened ↓
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
+                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
+                    Policy breaches ↓
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* Radial Ellipse at Bottom Right */}
+          <div 
+            className="absolute right-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(30%, 30%)'
+            }}
+          />
+        </div>
+
+        {/* Next Section */}
+        <section className="bg-white w-full px-4 relative overflow-hidden py-8">
+          <div className="max-w-7xl mx-auto flex justify-end">
+            <Link
+              href="/services/back-office-admin-outsourcing"
+              className="group flex items-end gap-3 text-ccsa-dark-blue hover:text-ccsa-blue transition-colors duration-300"
+            >
+              <div className="flex flex-col items-end">
+                <span className="text-sm font-medium text-ccsa-dark-blue/70 uppercase tracking-wide">
+                  Next
+                </span>
+                <span className="text-base sm:text-lg font-semibold">
+                  Back-Office & Administrative Outsourcing
+                </span>
+              </div>
+              <Icon 
+                icon="mdi:arrow-right" 
+                width={24} 
+                height={24} 
+                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1" 
+              />
+            </Link>
+          </div>
+        </section>
+
+        <FloatingCTA />
+        <Footer />
+      </main>
+    </>
+  );
+};
+
+export default QualityAssuranceCXAnalyticsPage;
