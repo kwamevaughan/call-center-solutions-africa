@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import SEO from "@/components/SEO";
 import Header from "@/layouts/header";
 import Footer from "@/layouts/footer";
+import FloatingCTA from "@/components/FloatingCTA";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
@@ -115,43 +116,74 @@ const BlogPage = () => {
       />
       <Header />
       
-      <main className="min-h-screen bg-gray-50">
+      <main className="relative overflow-x-hidden min-h-screen bg-white">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-40">
-            <div className="text-center text-white">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Insights & Resources
+        <div className="relative bg-ccsa-dark-blue px-4 overflow-hidden">
+          {/* Radial Ellipse at Left Bottom */}
+          <div 
+            className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
+              transform: 'translate(-30%, 30%)'
+            }}
+          />
+          {/* Radial Ellipse at Top Right */}
+          <div 
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
+              transform: 'translate(30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Middle */}
+          <div 
+            className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
+          
+          <div className="max-w-7xl mx-auto w-full relative z-10 py-12 sm:py-16 lg:py-20">
+            <div className="flex flex-col items-center gap-6 sm:gap-8 text-center max-w-4xl mx-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl font-light text-white uppercase tracking-wide">
+                  Insights & Resources
+                </p>
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Discover Expert Insights
               </h1>
-              <p className="text-xl sm:text-2xl text-blue-100 max-w-4xl mx-auto mb-12">
-                Discover expert insights, best practices, and actionable strategies for call center excellence and business growth in Africa.
+              <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
+                Best practices and actionable strategies for call center excellence and business growth in Africa.
               </p>
               
               {/* Search Bar */}
-              <div className="max-w-2xl mx-auto mb-8">
+              <div className="max-w-2xl mx-auto w-full mt-8">
                 <div className="relative">
                   <input
                     type="text"
                     placeholder="Search articles..."
                     value={searchTerm}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="w-full px-6 py-4 pl-12 text-lg border-0 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
+                    className="w-full px-6 py-4 pl-12 text-lg border-0 rounded-full bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
                   />
                   <Icon 
-                    icon="heroicons:magnifying-glass" 
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-blue-200" 
+                    icon="mdi:magnify" 
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/80" 
                   />
                 </div>
               </div>
 
               {/* Categories Filter */}
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-3 mt-6">
                 <button
                   onClick={() => handleCategoryChange("all")}
-                  className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                  className={`px-6 py-3 rounded-full font-medium transition-all ${
                     selectedCategory === "all"
-                      ? "bg-white text-blue-600 shadow-lg"
-                      : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
+                      ? "bg-white text-ccsa-dark-blue shadow-lg"
+                      : "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
                   }`}
                 >
                   All Articles
@@ -160,10 +192,10 @@ const BlogPage = () => {
                   <button
                     key={category.id}
                     onClick={() => handleCategoryChange(category.slug)}
-                    className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                    className={`px-6 py-3 rounded-full font-medium transition-all ${
                       selectedCategory === category.slug
-                        ? "bg-white text-blue-600 shadow-lg"
-                        : "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
+                        ? "bg-white text-ccsa-dark-blue shadow-lg"
+                        : "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
                     }`}
                   >
                     {category.name}
@@ -175,14 +207,31 @@ const BlogPage = () => {
         </div>
 
         {/* Articles Grid */}
-        <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="bg-white w-full px-4 relative overflow-hidden py-16">
+          {/* Radial Ellipse at Top Left */}
+          <div 
+            className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(-30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Top Right */}
+          <div 
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
+              transform: 'translate(30%, -30%)'
+            }}
+          />
+          
+          <div className="relative z-10 max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-12">
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-2">
                   {selectedCategory === "all" ? "All Articles" : categories.find(c => c.slug === selectedCategory)?.name}
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-base sm:text-lg text-ccsa-dark-blue/70">
                   {totalCount} {totalCount === 1 ? 'article' : 'articles'} available
                 </p>
               </div>
@@ -191,11 +240,11 @@ const BlogPage = () => {
             {loading && blogs.length === 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[...Array(6)].map((_, index) => (
-                  <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
-                    <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
-                    <div className="bg-gray-200 h-4 rounded mb-2"></div>
-                    <div className="bg-gray-200 h-4 w-3/4 rounded mb-4"></div>
-                    <div className="bg-gray-200 h-3 rounded"></div>
+                  <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse shadow-sm">
+                    <div className="bg-ccsa-dark-blue/10 h-48 rounded-lg mb-4"></div>
+                    <div className="bg-ccsa-dark-blue/10 h-4 rounded mb-2"></div>
+                    <div className="bg-ccsa-dark-blue/10 h-4 w-3/4 rounded mb-4"></div>
+                    <div className="bg-ccsa-dark-blue/10 h-3 rounded"></div>
                   </div>
                 ))}
               </div>
@@ -217,17 +266,20 @@ const BlogPage = () => {
                     <button
                       onClick={loadMore}
                       disabled={loading}
-                      className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{
+                        background: "var(--ccsa-gradient)"
+                      }}
                     >
                       {loading ? (
                         <>
-                          <Icon icon="heroicons:arrow-path" className="w-5 h-5 mr-2 animate-spin" />
+                          <Icon icon="mdi:loading" className="w-5 h-5 animate-spin" />
                           Loading...
                         </>
                       ) : (
                         <>
-                      Load More Articles
-                          <Icon icon="heroicons:arrow-down" className="w-5 h-5 ml-2" />
+                          Load More Articles
+                          <Icon icon="mdi:arrow-down" className="w-5 h-5" />
                         </>
                       )}
                     </button>
@@ -236,35 +288,40 @@ const BlogPage = () => {
               </>
             ) : (
               <div className="text-center py-16">
-                <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon icon="heroicons:document-text" className="w-12 h-12 text-gray-400" />
+                <div className="w-24 h-24 bg-ccsa-dark-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Icon icon="mdi:file-document-outline" className="w-12 h-12 text-ccsa-dark-blue/50" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No articles found</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-xl font-semibold text-ccsa-dark-blue mb-2">No articles found</h3>
+                <p className="text-base sm:text-lg text-ccsa-dark-blue/70 mb-6">
                   {searchTerm 
                     ? `No articles match your search for "${searchTerm}"`
                     : "No articles available in this category"
                   }
                 </p>
-                  <button
-                    onClick={() => {
-                      setSearchTerm("");
-                      setSelectedCategory("all");
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedCategory("all");
                     setCurrentPage(1);
                     setBlogs([]);
-                    }}
-                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                  >
+                  }}
+                  className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base mx-auto"
+                  style={{
+                    background: "var(--ccsa-gradient)"
+                  }}
+                >
+                  <Icon icon="mdi:filter-remove" width={18} height={18} />
                   Clear Filters
-                  </button>
+                </button>
               </div>
             )}
           </div>
-        </div>
+        </section>
 
       </main>
       
-        <Footer />
+      <FloatingCTA />
+      <Footer />
     </>
   );
 };

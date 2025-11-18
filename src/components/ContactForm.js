@@ -56,7 +56,7 @@ export default function ContactForm({
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
               placeholder="Enter your full name"
             />
           </div>
@@ -74,7 +74,7 @@ export default function ContactForm({
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
               placeholder="+1 (555) 123-4567"
             />
           </div>
@@ -95,7 +95,7 @@ export default function ContactForm({
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
               placeholder="your.email@company.com"
             />
           </div>
@@ -114,7 +114,7 @@ export default function ContactForm({
               value={formData.company}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
               placeholder="Your Company Name"
             />
           </div>
@@ -141,7 +141,7 @@ export default function ContactForm({
               value={formData.industry}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
             >
               <option value="">Select your industry</option>
               <option value="Telecommunications">Telecommunications</option>
@@ -166,7 +166,7 @@ export default function ContactForm({
               value={formData.teamSize}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
             >
               <option value="">Select team size</option>
               <option value="1-10">1-10 agents</option>
@@ -196,7 +196,7 @@ export default function ContactForm({
               key={service.name}
               className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
                 formData.services.includes(service.name)
-                  ? "border-blue-500 bg-blue-50 shadow-md"
+                  ? "border-ccsa-blue bg-ccsa-blue/10 shadow-md"
                   : "border-gray-200 bg-gray-50/50 hover:border-gray-300"
               }`}
             >
@@ -219,7 +219,7 @@ export default function ContactForm({
                 </span>
               </div>
               {formData.services.includes(service.name) && (
-                <div className="absolute top-2 right-2 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                <div className="absolute top-2 right-2 w-5 h-5 bg-ccsa-blue rounded-full flex items-center justify-center">
                   <Icon icon="lucide:check" className="w-3 h-3 text-white" />
                 </div>
               )}
@@ -267,7 +267,7 @@ export default function ContactForm({
               value={formData.timeline}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
             >
               <option value="">Select timeline</option>
               <option value="Immediate">
@@ -329,7 +329,7 @@ export default function ContactForm({
                 setIsCustomBudget(e.target.value === "Custom");
               }}
               required
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
             >
               <option value="">Select budget range</option>
               <option value="Under $10,000">
@@ -400,7 +400,7 @@ export default function ContactForm({
               name="customBudget"
               value={formData.customBudget}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-gray-50/50"
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
               placeholder="Please specify your budget"
             />
           </div>
@@ -427,28 +427,27 @@ export default function ContactForm({
           <button
             type="submit"
             disabled={loading}
-            className="group relative px-8 py-4 bg-gradient-to-r from-[#0088d2] to-[#4db7f0] text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: "var(--ccsa-gradient)"
+            }}
           >
-            <span className="relative z-10 flex items-center">
-              {loading ? (
-                <>
-                  <Icon
-                    icon="lucide:loader-2"
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  />
-                  Sending your request...
-                </>
-              ) : (
-                <>
-                  Submit Proposal Request
-                  <Icon
-                    icon="lucide:arrow-right"
-                    className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
-                  />
-                </>
-              )}
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-[#4db7f0] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            {loading ? (
+              <>
+                <Icon
+                  icon="mdi:loading"
+                  className="animate-spin w-5 h-5"
+                  width={18}
+                  height={18}
+                />
+                Sending your request...
+              </>
+            ) : (
+              <>
+                <Icon icon="mdi:send" width={18} height={18} />
+                Submit Proposal Request
+              </>
+            )}
           </button>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
-import ScrollToTop from "@/components/ScrollToTop";
+import FloatingCTA from "@/components/FloatingCTA";
 import { useEffect, useRef } from "react";
 import { useFixedHeader, handleScroll } from "../../utils/scrollUtils";
 
@@ -64,7 +64,6 @@ const About = () => {
       <Header />
 
       <main className="relative overflow-x-hidden">
-        <ScrollToTop />
         <div
           className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-center overflow-hidden"
           id="home"
@@ -647,6 +646,7 @@ const About = () => {
             </div>
           </div>
         </section>
+        <FloatingCTA />
         <Footer />
         </main>
       </>

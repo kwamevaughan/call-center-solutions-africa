@@ -7,7 +7,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
 import Header from "../layouts/header";
 import Footer from "../layouts/footer";
-import ScrollToTop from "@/components/ScrollToTop";
+import FloatingCTA from "@/components/FloatingCTA";
 import SEO from "@/components/SEO";
 import LogoMarquee from "@/components/LogoMarquee";
 import { Icon } from "@iconify/react";
@@ -123,77 +123,124 @@ export default function ContactPage() {
         keywords="contact call center solutions Africa, BPO services contact, Nairobi contact center, customer experience solutions, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service"
       />
 
-      {/* Rest of the ContactPage component remains unchanged */}
-      <div className="relative min-h-[60vh] bg-gradient-to-br from-[#2a2b5f] via-[#0088d2] to-[#faf7f5] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0088d2]/20 via-[#2a2b5f]/20 to-[#ffd100]/20"></div>
-        <div className="absolute top-10 left-10 w-72 h-72 bg-[#0088d2]/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#f45b01]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <Header />
 
-        <Header className="relative z-20" />
-
-        <div className="relative z-10 flex items-center justify-center min-h-[60vh] px-4">
-          <div className="text-center text-white max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-[#ffd100] to-[#ffd100] bg-clip-text text-transparent">
-              Powering African Businesses
-              <span className="block text-transparent bg-gradient-to-r from-[#dfdfdf] to-[#f88543] bg-clip-text">
-                with Call Center & BPO Solutions
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-8 font-light">
-              Cloud tech, expert guidance, and equipment to scale your contact
-              center.
-            </p>
-            <div className="flex items-center justify-center space-x-6 text-sm text-gray-100">
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-[#ffd100] rounded-full mr-2"></div>
-                <span>Full Support</span>
+      <main className="relative overflow-x-hidden">
+        {/* Hero Section */}
+        <div
+          className="relative bg-ccsa-dark-blue px-4 min-h-[60vh] flex items-center overflow-hidden"
+        >
+          {/* Radial Ellipse at Left Bottom */}
+          <div 
+            className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
+              transform: 'translate(-30%, 30%)'
+            }}
+          />
+          {/* Radial Ellipse at Top Right */}
+          <div 
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
+              transform: 'translate(30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Middle */}
+          <div 
+            className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
+          
+          <div className="max-w-7xl mx-auto w-full relative z-10 py-12 sm:py-16 lg:py-20">
+            <div className="flex flex-col items-center gap-6 sm:gap-8 text-center max-w-4xl mx-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl font-light text-white uppercase tracking-wide">
+                  Get in Touch
+                </p>
               </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-[#e3e3e3] rounded-full mr-2"></div>
-                <span>Fast Setup</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-[#f45b01] rounded-full mr-2"></div>
-                <span>Proven Expertise</span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Request Your Custom Proposal
+              </h1>
+              <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
+                Tell us about your business needs and we'll craft a tailored solution that drives results
+              </p>
+              {/* Certification Badges */}
+              <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
+                {[
+                  "ISO 27001",
+                  "GDPR",
+                  "PCI-DSS",
+                  "HIPAA-ready",
+                  "24/7 Multilingual"
+                ].map((badge) => (
+                  <div
+                    key={badge}
+                    className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
+                  >
+                    <Icon icon="mdi:shield-check" width={20} height={20} className="text-ccsa-orange flex-shrink-0" />
+                    <span>{badge}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <main className="relative">
-        <ScrollToTop />
-
-        <section className="relative -mt-20 z-10 mx-auto max-w-7xl px-4 pb-20">
-          <div className="bg-white/80 backdrop-blur-lg border border-white/20 p-8 md:p-12 rounded-3xl max-w-5xl w-full mx-auto shadow-2xl shadow-[#2a2b5f]/10">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Request Your Custom Proposal
-              </h2>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                Tell us about your business needs and we'll craft a tailored
-                solution that drives results
-              </p>
+        {/* Form Section */}
+        <section className="bg-white w-full px-4 relative overflow-hidden pb-20">
+          {/* Radial Ellipse at Top Left */}
+          <div 
+            className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              transform: 'translate(-30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Top Right */}
+          <div 
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
+              transform: 'translate(30%, -30%)'
+            }}
+          />
+          {/* Radial Ellipse at Bottom Middle */}
+          <div 
+            className="absolute left-1/2 bottom-0 w-[400px] h-[400px] rounded-full opacity-20 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
+              transform: 'translate(-50%, 30%)'
+            }}
+          />
+          
+          <div className="relative mx-auto max-w-5xl mt-10">
+            <div className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border border-gray-100">
+              <ContactForm
+                formData={formData}
+                setFormData={setFormData}
+                handleSubmit={handleSubmit}
+                error={error}
+                loading={loading}
+                isCustomBudget={isCustomBudget}
+                setIsCustomBudget={setIsCustomBudget}
+                handleRecaptcha={handleRecaptcha}
+              />
             </div>
-
-            <ContactForm
-              formData={formData}
-              setFormData={setFormData}
-              handleSubmit={handleSubmit}
-              error={error}
-              loading={loading}
-              isCustomBudget={isCustomBudget}
-              setIsCustomBudget={setIsCustomBudget}
-              handleRecaptcha={handleRecaptcha}
-            />
           </div>
         </section>
 
-        <section className="w-full pt-10 pb-10 bg-gradient-to-b from-gray-50 to-white">
+        {/* Logo Marquee Section */}
+        <section className="w-full pt-10 pb-10 bg-white relative overflow-hidden">
           <LogoMarquee />
         </section>
       </main>
 
+      <FloatingCTA />
       <Footer />
     </>
   );
