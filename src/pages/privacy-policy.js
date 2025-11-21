@@ -12,14 +12,14 @@ const PrivacyPolicy = () => {
         description="Learn how Call Center Solutions Africa collects, uses, and protects your personal information. Read our Privacy Policy for more details."
         keywords="Call Center Solutions Africa, privacy policy, data protection, call center services Africa"
       />
-      <main className="min-h-screen flex flex-col pt-20">
+      <main className="min-h-screen flex flex-col">
         <Header />
         <div className="flex-grow px-4 py-16 max-w-6xl mx-auto">
           <h1 className="text-4xl font-semibold text-[#172840] mb-6 text-center">
             Privacy Policy
           </h1>
           <p className="text-gray-600 mb-8 text-center">
-            Last Updated: April 14, 2025
+            Last Updated: November 20, 2025
           </p>
 
           <section className="space-y-6 text-gray-700">

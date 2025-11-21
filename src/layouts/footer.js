@@ -85,25 +85,25 @@ const Footer = () => {
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Solutions</h3>
               <div className="flex flex-col gap-3">
                 <Link 
-                  href="./services"
+                  href="/services"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Services
                 </Link>
                 <Link 
-                  href="./industries"
+                  href="/industries"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Industries
                 </Link>
                 <Link 
-                  href="./delivery-models"
+                  href="/delivery-models"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Delivery Models
                 </Link>
                 <Link 
-                  href="./security-and-compliance"
+                  href="/security-and-compliance"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Security and Compliance
@@ -116,20 +116,21 @@ const Footer = () => {
             <div className="lg:col-span-1">
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Resources</h3>
               <div className="flex flex-col gap-3">
-                <Link 
-                  href="#"
+                <a 
+                  href="/assets/documents/africa_cx_advantage_report.pdf"
+                  download
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Africa CX Advantage Report
-                </Link>
+                </a>
                 <Link 
-                  href="#" 
+                  href="/global-compliance-playbook" 
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Global Compliance Playbook
                 </Link>
                 <Link 
-                  href="#"
+                  href="/case-studies"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Case Studies Library
@@ -141,24 +142,26 @@ const Footer = () => {
             <div className="lg:col-span-1">
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Contact</h3>
               <div className="flex flex-col gap-3">
-                <Link 
-                  href="#"
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=Mitsumi+Business+Park+Nairobi"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   7th floor, Mitsumi Business Park, Nairobi
-                </Link>
+                </a>
                 <Link 
-                  href="#"
+                  href="/contact-us"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Talk to sales
                 </Link>
-                <Link 
-                  href="#"
+                <a 
+                  href="mailto:hello@callcentersolutionsafrica.com"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   General inquiries
-                </Link>
+                </a>
               </div>
             </div>
 
@@ -169,25 +172,25 @@ const Footer = () => {
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Legal</h3>
               <div className="flex flex-col gap-3">
                 <Link 
-                  href="#"
+                  href="/privacy-policy"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Privacy Policy
                 </Link>
                 <Link 
-                  href="#"
+                  href="/terms-of-service"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Terms of Service
                 </Link>
                 <Link 
-                  href="#"
+                  href="/data-processing-addendum"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Data Processing Addendum
                 </Link>
                 <Link 
-                  href="#"
+                  href="/responsible-disclosure"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Responsible Disclosure
