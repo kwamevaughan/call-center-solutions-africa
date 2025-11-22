@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useFixedHeader } from "../../utils/scrollUtils";
+import toast from "react-hot-toast";
 
 const CareersPage = () => {
   const [formData, setFormData] = useState({
@@ -81,6 +82,8 @@ const CareersPage = () => {
     setError("");
     setLoading(true);
 
+    const toastId = toast.loading("Submitting your application...");
+
     try {
       // Create FormData for file upload
       const formDataToSend = new FormData();
@@ -93,7 +96,7 @@ const CareersPage = () => {
         formDataToSend.append("resume", formData.resume);
       }
 
-      const response = await fetch("/api/send-email", {
+      const response = await fetch("/api/submit-application", {
         method: "POST",
         body: formDataToSend,
       });
@@ -101,6 +104,7 @@ const CareersPage = () => {
       const result = await response.json();
 
       if (response.ok) {
+        toast.success("Application submitted successfully!", { id: toastId });
         setSubmitted(true);
         setFormData({
           fullName: "",
@@ -111,9 +115,11 @@ const CareersPage = () => {
           position: "",
         });
       } else {
+        toast.error(result.error || "Something went wrong. Please try again.", { id: toastId });
         setError(result.error || "Something went wrong. Please try again.");
       }
     } catch (err) {
+      toast.error("Failed to submit application. Please try again.", { id: toastId });
       setError("Failed to submit application. Please try again.");
     } finally {
       setLoading(false);
@@ -633,6 +639,12 @@ const CareersPage = () => {
                       accept=".pdf,.doc,.docx"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-ccsa-blue focus:ring-2 focus:ring-ccsa-blue/20 transition-colors duration-200 bg-white"
                     />
+                    {formData.resume && (
+                      <p className="text-sm text-ccsa-blue flex items-center gap-2">
+                        <Icon icon="mdi:file-check" width={18} height={18} />
+                        Selected: {formData.resume.name}
+                      </p>
+                    )}
                     <p className="text-xs text-gray-500">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
                   </div>
 

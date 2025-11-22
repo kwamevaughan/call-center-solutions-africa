@@ -146,22 +146,32 @@ const Footer = () => {
                   href="https://www.google.com/maps/search/?api=1&query=Mitsumi+Business+Park+Nairobi"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
+                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
+                  <Icon icon="mdi:map-marker" width={18} height={18} className="flex-shrink-0" />
                   7th floor, Mitsumi Business Park, Nairobi
+                </a>
+                <a 
+                  href="tel:+254701850850"
+                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
+                >
+                  <Icon icon="mdi:phone" width={18} height={18} className="flex-shrink-0" />
+                  +254 701 850 850
+                </a>
+                <a 
+                  href="mailto:hello@callcentersolutionsafrica.com"
+                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
+                >
+                  <Icon icon="mdi:email" width={18} height={18} className="flex-shrink-0" />
+                  hello@callcentersolutionsafrica.com
                 </a>
                 <Link 
                   href="/contact-us"
-                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
+                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
+                  <Icon icon="mdi:account-group" width={18} height={18} className="flex-shrink-0" />
                   Talk to sales
                 </Link>
-                <a 
-                  href="mailto:hello@callcentersolutionsafrica.com"
-                  className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
-                >
-                  General inquiries
-                </a>
               </div>
             </div>
 

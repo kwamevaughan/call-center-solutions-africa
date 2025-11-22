@@ -191,6 +191,8 @@ export default function ContactForm({
             { name: "Equipment Setup", icon: "ic:baseline-build" },
             { name: "Cloud Platforms", icon: "lucide:cloud" },
             { name: "AI & Analytics", icon: "lucide:brain" },
+            { name: "Outsource call center", icon: "mdi:phone-in-talk" },
+            { name: "Call center agent", icon: "mdi:account-voice" },
           ].map((service) => (
             <label
               key={service.name}

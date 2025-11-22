@@ -758,8 +758,8 @@ const HomePage = () => {
 
             {/* Partner Logos Grid */}
             <div className="mt-8 sm:mt-12">
-              {/* Top 6 boxes in 3x2 grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
+              {/* All logos in 4-column grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {[
                   { name: "HoduSoft", logo: "/assets/images/partners/hodusoft.svg" },
                   { name: "Google Cloud", logo: "/assets/images/partners/google-cloud.svg" },
@@ -767,37 +767,23 @@ const HomePage = () => {
                   { name: "Iristel", logo: "/assets/images/partners/iristel.svg" },
                   { name: "AWS", logo: "/assets/images/partners/aws.svg" },
                   { name: "Backblaze", logo: "/assets/images/partners/backblaze.svg" },
+                  { name: "ConnexAI", logo: "/assets/images/partners/connexai.svg" },
                 ].map((partner, index) => (
                   <div
                     key={index}
-                    className="bg-white border-2 border-gray-200 rounded-xl p-6 sm:p-8 flex items-center justify-center hover:border-ccsa-orange hover:shadow-lg transition-all duration-300 transform hover:translate-y-[-5px]"
+                    className="bg-white border-2 border-gray-200 rounded-xl p-4 sm:p-6 flex items-center justify-center hover:border-ccsa-orange hover:shadow-lg transition-all duration-300 transform hover:translate-y-[-5px]"
                   >
-                    <div className="relative w-full h-16 sm:h-20 flex items-center justify-center">
+                    <div className="relative w-full h-12 sm:h-16 flex items-center justify-center">
                       <Image
                         src={partner.logo}
                         alt={partner.name}
-                        width={120}
-                        height={80}
+                        width={100}
+                        height={60}
                         className="object-contain w-full h-full"
                       />
                     </div>
                   </div>
                 ))}
-              </div>
-              
-              {/* Bottom centered box */}
-              <div className="flex justify-center">
-                <div className="bg-white border-2 border-gray-200 rounded-xl p-6 sm:p-8 flex items-center justify-center hover:border-ccsa-orange hover:shadow-lg transition-all duration-300 transform hover:translate-y-[-5px] w-full max-w-md">
-                  <div className="relative w-full h-16 sm:h-20 flex items-center justify-center">
-                    <Image
-                      src="/assets/images/partners/connexai.svg"
-                      alt="ConnexAI"
-                      width={120}
-                      height={80}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
             

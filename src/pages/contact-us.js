@@ -218,18 +218,88 @@ export default function ContactPage() {
             }}
           />
           
-          <div className="relative mx-auto max-w-5xl mt-10">
-            <div className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border border-gray-100">
-              <ContactForm
-                formData={formData}
-                setFormData={setFormData}
-                handleSubmit={handleSubmit}
-                error={error}
-                loading={loading}
-                isCustomBudget={isCustomBudget}
-                setIsCustomBudget={setIsCustomBudget}
-                handleRecaptcha={handleRecaptcha}
-              />
+          <div className="relative mx-auto max-w-7xl mt-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Form Section */}
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border border-gray-100">
+                  <ContactForm
+                    formData={formData}
+                    setFormData={setFormData}
+                    handleSubmit={handleSubmit}
+                    error={error}
+                    loading={loading}
+                    isCustomBudget={isCustomBudget}
+                    setIsCustomBudget={setIsCustomBudget}
+                    handleRecaptcha={handleRecaptcha}
+                  />
+                </div>
+              </div>
+
+              {/* Contact Information Sidebar */}
+              <div className="lg:col-span-1">
+                <div className="bg-ccsa-dark-blue rounded-lg p-8 shadow-2xl border border-gray-100 sticky top-24">
+                  <h3 className="text-2xl font-semibold text-white mb-6">Contact Information</h3>
+                  <div className="flex flex-col gap-6">
+                    {/* Address */}
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-1">
+                        <Icon icon="mdi:map-marker" width={24} height={24} className="text-ccsa-yellow" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-semibold mb-1">Address</h4>
+                        <a 
+                          href="https://www.google.com/maps/search/?api=1&query=Mitsumi+Business+Park+Nairobi"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block"
+                        >
+                          7th floor, Mitsumi Business Park, Nairobi
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Phone */}
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-1">
+                        <Icon icon="mdi:phone" width={24} height={24} className="text-ccsa-yellow" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-semibold mb-1">Phone</h4>
+                        <a 
+                          href="tel:+254701850850"
+                          className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block"
+                        >
+                          +254 701 850 850
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Email */}
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-1">
+                        <Icon icon="mdi:email" width={24} height={24} className="text-ccsa-yellow" />
+                      </div>
+                      <div>
+                        <h4 className="text-white font-semibold mb-1">Email</h4>
+                        <a 
+                          href="mailto:hello@callcentersolutionsafrica.com"
+                          className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block break-all"
+                        >
+                          hello@callcentersolutionsafrica.com
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-white/20 pt-6">
+                      <p className="text-sm text-white/80 leading-relaxed">
+                        Our team typically responds within one business day. We're here to help you find the perfect solution for your business needs.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

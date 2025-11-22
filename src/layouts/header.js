@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import { menuItems } from "../data/menuData";
@@ -11,7 +11,17 @@ import { handleScroll } from "../../utils/scrollUtils";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const dropdownTimeoutRef = useRef(null);
   const router = useRouter();
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <nav className="sticky top-0 left-0 right-0 w-full z-50 bg-ccsa-dark-blue shadow-lg">
@@ -73,12 +83,28 @@ const Header = () => {
               
               // Solutions dropdown
               if (item.hasDropdown && item.submenu) {
+                const handleMouseEnter = () => {
+                  // Clear any pending timeout
+                  if (dropdownTimeoutRef.current) {
+                    clearTimeout(dropdownTimeoutRef.current);
+                    dropdownTimeoutRef.current = null;
+                  }
+                  setIsSolutionsOpen(true);
+                };
+
+                const handleMouseLeave = () => {
+                  // Add a delay before closing to allow user to navigate to dropdown
+                  dropdownTimeoutRef.current = setTimeout(() => {
+                    setIsSolutionsOpen(false);
+                  }, 200); // 200ms delay
+                };
+
                 return (
                   <div 
                     key={item.href}
                     className="relative"
-                    onMouseEnter={() => setIsSolutionsOpen(true)}
-                    onMouseLeave={() => setIsSolutionsOpen(false)}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <div className={`${activeClasses} px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-sm lg:text-base flex items-center gap-1`}>
                       <Link href={item.href} className="hover:text-inherit">
@@ -98,7 +124,11 @@ const Header = () => {
                       </button>
                     </div>
                     {isSolutionsOpen && (
-                      <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-xl py-2 min-w-[380px] z-50 border border-gray-200">
+                      <div 
+                        className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-xl py-2 min-w-[380px] z-50 border border-gray-200"
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.href}
