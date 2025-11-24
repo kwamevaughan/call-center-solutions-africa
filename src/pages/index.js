@@ -59,7 +59,7 @@ const HomePage = () => {
     <>
       <SEO
         title="Excellence in Customer Service Outsourcing from Africa | CCSA"
-        description="CCSA delivers world-class, secure, and multilingual customer service outsourcing from Africa—offering 45–60% cost savings, ISO 27001 compliance, and 24/7 CX delivery."
+        description="CCSA delivers world-class, secure, and multilingual customer service outsourcing from Africa. Offering 45–60% cost savings, ISO 27001 compliance, and 24/7 CX delivery."
         keywords="call center solutions, BPO services, contact center technology, business solutions, cloud call center, customer experience, Nairobi call center services, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support, claims processing, telehealth support, digital payments support, omnichannel contact center, 24/7 customer service, ISO 27001 call center, PCI-DSS compliant, customer retention, back-office outsourcing"
       />
       <Header />

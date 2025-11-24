@@ -37,15 +37,15 @@ class MyDocument extends Document {
           />
           <link
             rel="icon"
-            type="image/png"
+            type="image/svg"
             sizes="32x32"
-            href="/favicon-32x32.png"
+            href="/favicon.svg"
           />
           <link
             rel="icon"
-            type="image/png"
+            type="image/svg"
             sizes="16x16"
-            href="/favicon-16x16.png"
+            href="/favicon.svg"
           />
 
           {/* Web App Manifest for PWA */}
@@ -58,9 +58,9 @@ class MyDocument extends Document {
           />
           <meta
             name="apple-mobile-web-app-title"
-            content="Call Center Solutions Africa"
+            content="CCSA | Customer Service Outsourcing from Africa"
           />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="apple-touch-icon" href="/favicon.svg" />
         </Head>
         <body>
           <Main />
