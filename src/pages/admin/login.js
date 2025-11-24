@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
@@ -268,7 +269,14 @@ export default function HRLogin() {
   };
 
   return (
-    <div
+    <>
+      <SEO
+        title="Admin Login | Call Center Solutions Africa"
+        description="Admin login portal for Call Center Solutions Africa content management system."
+        keywords="admin login, Call Center Solutions Africa admin, CMS login"
+        noindex={true}
+      />
+      <div
       className="relative min-h-screen overflow-hidden"
       style={{ marginTop: "-91px" }}
     >
@@ -514,6 +522,7 @@ export default function HRLogin() {
         </div>
       </div>
 
-    </div>
+      </div>
+    </>
   );
 }

@@ -118,9 +118,9 @@ export default function ContactPage() {
       </Script>
 
       <SEO
-        title="Contact Us | Call Center Solutions Africa"
-        description="Get in touch with our Nairobi-based team to discuss your call center and BPO needs. Request a custom proposal today!"
-        keywords="contact call center solutions Africa, BPO services contact, Nairobi contact center, customer experience solutions, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service"
+        title="Contact Us | Get a Custom Proposal | Call Center Solutions Africa"
+        description="Ready to outsource your customer service? Contact our Nairobi-based team for a free consultation and custom BPO proposal. ISO 27001 certified, multilingual support."
+        keywords="contact Call Center Solutions Africa, BPO proposal, Nairobi contact center, customer service outsourcing Africa, ISO 27001 certified contact center, multilingual BPO services"
       />
 
       <Header />

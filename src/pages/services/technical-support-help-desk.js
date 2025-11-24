@@ -57,9 +57,9 @@ const TechnicalSupportHelpDeskPage = () => {
   return (
     <>
       <SEO
-        title="Omnichannel Contact Center Operations | Call Center Solutions Africa"
-        description="Unified routing, knowledge, and analytics into one operating model. Faster customer responses, lower cost per contact, and consistent voice across all channels. Smart routing and WFM coverage from Africa."
-        keywords="omnichannel contact center, unified customer service, contact center routing, customer service analytics, multi-channel customer support, unified playbook, customer service knowledge base, contact center WFM, smart routing, customer service automation, unified CRM, contact center efficiency, cost per contact reduction, SLA management, customer service integration, contact center operations, unified customer view, customer service technology"
+        title="Customer Retention & Loyalty Management | Call Center Solutions Africa"
+        description="Reduce churn and boost LTV with behavioral analytics, personalized outreach, and loyalty program management. GDPR-compliant retention strategies from Africa."
+        keywords="customer retention management, loyalty program management, churn reduction, customer loyalty Africa, behavioral analytics, personalized outreach, LTV optimization, customer retention strategies, loyalty operations, churn prevention, customer lifecycle management"
       />
       <Header />
 

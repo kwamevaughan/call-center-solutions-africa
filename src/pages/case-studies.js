@@ -9,9 +9,9 @@ const CaseStudies = () => {
   return (
     <>
       <SEO
-        title="Case Studies Library | Call Center Solutions Africa"
-        description="Explore our case studies to see how Call Center Solutions Africa has helped businesses achieve success through our call center and customer service solutions."
-        keywords="Call Center Solutions Africa, case studies, customer success stories, call center solutions, customer service examples"
+        title="Customer Success Stories & Case Studies | Call Center Solutions Africa"
+        description="Read real case studies showing how businesses improved CSAT, reduced costs, and scaled operations with our BPO services. ISO 27001 certified results from Africa."
+        keywords="case studies BPO, customer success stories, call center case studies Africa, customer service ROI, BPO success metrics, customer experience case studies"
       />
       <main className="min-h-screen flex flex-col">
         <Header />

@@ -8,9 +8,9 @@ const PrivacyPolicy = () => {
   return (
     <>
       <SEO
-        title="Privacy Policy | Call Center Solutions Africa"
-        description="Learn how Call Center Solutions Africa collects, uses, and protects your personal information. Read our Privacy Policy for more details."
-        keywords="Call Center Solutions Africa, privacy policy, data protection, call center services Africa"
+        title="Privacy Policy | Data Protection & GDPR Compliance | Call Center Solutions Africa"
+        description="Learn how we protect your data with ISO 27001 & GDPR compliance. Read our comprehensive privacy policy for secure BPO services in Africa."
+        keywords="privacy policy Call Center Solutions Africa, data protection, GDPR compliance, ISO 27001, secure BPO services, data privacy Africa"
       />
       <main className="min-h-screen flex flex-col">
         <Header />

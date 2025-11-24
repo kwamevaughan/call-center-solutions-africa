@@ -8,9 +8,9 @@ const TermsOfService = () => {
   return (
     <>
       <SEO
-        title="Terms of Service | Call Center Solutions Africa"
-        description="Read the Terms of Service for Call Center Solutions Africa. Understand the terms and conditions for using our website and services."
-        keywords="Call Center Solutions Africa, terms of service, terms and conditions, call center services Africa"
+        title="Terms of Service | Legal Agreement | Call Center Solutions Africa"
+        description="Review our terms of service for BPO and call center services. Understand usage policies, liability, and legal agreements for secure outsourcing in Africa."
+        keywords="terms of service Call Center Solutions Africa, legal agreement BPO, service terms Africa, call center contract terms"
       />
       <main className="min-h-screen flex flex-col">
         <Header />

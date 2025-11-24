@@ -108,9 +108,9 @@ const SecurityAndCompliance = () => {
   return (
     <>
       <SEO
-        title="Security and Compliance | Call Center Solutions Africa"
-        description="Learn about our comprehensive security measures and compliance certifications including ISO 27001, GDPR, HIPAA, PCI DSS, and SOC 2. Your data security is our priority."
-        keywords="security compliance, ISO 27001, GDPR compliance, HIPAA compliant, PCI DSS, SOC 2, data security, information security, call center security"
+        title="Security & Compliance | ISO 27001, GDPR, HIPAA | Call Center Solutions Africa"
+        description="Enterprise-grade security with ISO 27001, GDPR, HIPAA, PCI DSS compliance. Secure BPO services with end-to-end encryption and 24/7 monitoring from Africa."
+        keywords="security compliance BPO, ISO 27001 certified, GDPR compliant call center, HIPAA compliant, PCI DSS secure, SOC 2 compliance, data security Africa"
       />
       <main className="min-h-screen flex flex-col">
         <Header />

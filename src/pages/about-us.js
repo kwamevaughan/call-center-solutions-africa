@@ -57,9 +57,9 @@ const About = () => {
   return (
     <>
       <SEO
-        title="Call Center Solutions Africa | Advanced BPO & Contact Center Services"
-        description="Empowering African businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less."
-        keywords="call center solutions Africa, BPO services Africa, contact center technology, African business solutions, cloud call center, customer experience Africa, Nairobi call center services, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support Africa, claims processing, telehealth support, digital payments support, omnichannel contact center, 24/7 customer service Africa, ISO 27001 call center, PCI-DSS compliant, customer retention, back-office outsourcing"
+        title="About Us | Call Center Solutions Africa"
+        description="Learn about Call Center Solutions Africa - your trusted partner for world-class customer experience outsourcing from Africa. Discover our mission, values, and commitment to excellence."
+        keywords="about Call Center Solutions Africa, CCSA company, African BPO provider, customer experience outsourcing, Nairobi contact center, ISO 27001 certified, GDPR compliant BPO, multilingual customer service Africa"
       />
       <Header />
 

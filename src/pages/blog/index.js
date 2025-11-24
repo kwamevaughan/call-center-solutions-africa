@@ -109,10 +109,10 @@ const BlogPage = () => {
 
   return (
     <>
-      <SEO 
-        title="Blog - Call Center Solutions Africa"
-        description="Stay updated with the latest insights, tips, and strategies for call center operations, customer service, and business growth in Africa."
-        keywords="call center blog, customer service tips, business insights, Africa call center"
+      <SEO
+        title="Blog | Customer Service Insights & BPO Strategies | Call Center Solutions Africa"
+        description="Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips from Africa's leading contact center provider."
+        keywords="call center blog, customer service tips, BPO insights, contact center strategies, customer experience Africa, business process outsourcing blog"
       />
       <Header />
       

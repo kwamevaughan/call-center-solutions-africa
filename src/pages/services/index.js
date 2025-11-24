@@ -110,9 +110,9 @@ const ServicesPage = () => {
   return (
     <>
       <SEO
-        title="Our Services | Call Center Solutions Africa"
-        description="Comprehensive call center and customer service solutions including inbound/outbound support, omnichannel operations, sales enablement, technical support, and more."
-        keywords="call center services, customer service solutions, BPO services Africa, omnichannel support, technical support, sales enablement, customer retention"
+        title="BPO Services & Customer Experience Solutions | Call Center Solutions Africa"
+        description="Discover our full range of BPO services: inbound/outbound customer service, omnichannel operations, sales enablement, technical support, claims processing, and more. ISO 27001 certified."
+        keywords="BPO services Africa, customer experience solutions, call center outsourcing, omnichannel support, technical support Africa, sales enablement, customer retention management, claims processing BPO"
       />
       <Header />
 

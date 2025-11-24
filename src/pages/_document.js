@@ -29,7 +29,7 @@ class MyDocument extends Document {
           />
 
           {/* Favicon Links */}
-          <link rel="icon" href="/favicon.png" />
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"

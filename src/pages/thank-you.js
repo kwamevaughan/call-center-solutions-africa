@@ -10,9 +10,9 @@ const ThankYouPage = () => {
   return (
     <>
       <SEO
-        title="Thank You | Call Center Solutions Africa"
-        description="Thank you for contacting Call Center Solutions Africa. We’ve received your request and will get back to you shortly. We're here to help you scale your business with the best BPO & contact center services in Africa."
-        keywords="thank you, Call Center Solutions Africa, BPO services Africa, customer service, contact center, African business solutions"
+        title="Thank You for Your Inquiry | Call Center Solutions Africa"
+        description="Thank you for contacting us. We've received your request and will respond within 24-48 hours with a customized BPO solution for your business needs."
+        keywords="thank you contact, Call Center Solutions Africa inquiry, BPO consultation booked, customer service proposal"
         noindex={true}
       />
       <main className="min-h-screen flex flex-col bg-gradient-to-br from-[#2a2b5f] via-[#0088d2] to-[#faf7f5]">
