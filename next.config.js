@@ -91,6 +91,9 @@ const baseConfig = {
     }
     return config;
   },
+
+  // Turbopack config (empty to silence error - using webpack instead)
+  turbopack: {},
 };
 
 // Combine all plugins with base config
