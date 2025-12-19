@@ -12,7 +12,7 @@ const IndustriesTab = () => {
       id: "healthcare",
       label: "Healthcare",
       icon: "mdi:medical-bag",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/healthcare.webp",
+      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/health-care.webp",
       title: "Healthcare",
       description: "Patient engagement for providers, payers, and telehealth platforms.",
       tags: [
@@ -26,7 +26,7 @@ const IndustriesTab = () => {
       id: "fintech",
       label: "Fintech",
       icon: "mdi:credit-card-multiple",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/healthcare.webp",
+      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/fintech.webp",
       title: "Fintech",
       description: "Multilingual, compliant CX for fintech and digital payments.",
       tags: [
@@ -40,7 +40,7 @@ const IndustriesTab = () => {
       id: "saas",
       label: "SaaS",
       icon: "mdi:cloud",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/healthcare.webp",
+      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/saas.webp",
       title: "SaaS",
       description: "Support across onboarding, troubleshooting, and renewal.",
       tags: [
@@ -54,7 +54,7 @@ const IndustriesTab = () => {
       id: "insurance",
       label: "Insurance",
       icon: "mdi:shield-account",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/healthcare.webp",
+      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/Insurance.webp",
       title: "Insurance",
       description: "Precision for policyholders, claims, and renewals.",
       tags: [
@@ -68,7 +68,7 @@ const IndustriesTab = () => {
       id: "travel",
       label: "Travel",
       icon: "mdi:airplane",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/healthcare.webp",
+      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/travel.webp",
       title: "Travel",
       description: "Real-time support for disruption-heavy operations.",
       tags: [
@@ -82,7 +82,7 @@ const IndustriesTab = () => {
       id: "telecoms",
       label: "Telecoms",
       icon: "mdi:phone",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/healthcare.webp",
+      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/telecoms.webp",
       title: "Telecoms",
       description: "Network-aware helpdesk and customer care.",
       tags: [
