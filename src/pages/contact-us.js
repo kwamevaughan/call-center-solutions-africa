@@ -249,12 +249,12 @@ export default function ContactPage() {
                       <div>
                         <h4 className="text-white font-semibold mb-1">Address</h4>
                         <a 
-                          href="https://www.google.com/maps/search/?api=1&query=Mitsumi+Business+Park+Nairobi"
+                          href="https://www.google.com/maps/search/?api=1&query=The+Westwood+Office+Westlands+Nairobi+Kenya"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block"
                         >
-                          7th floor, Mitsumi Business Park, Nairobi
+                          The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
                         </a>
                       </div>
                     </div>

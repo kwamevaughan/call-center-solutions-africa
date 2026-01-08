@@ -325,7 +325,7 @@ const DataProcessingAddendum = () => {
                 </a>
               </p>
               <p className="mt-2">
-                Address: 7th floor, Mitsumi Business Park, Nairobi, Kenya
+                Address: The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
               </p>
             </div>
           </section>

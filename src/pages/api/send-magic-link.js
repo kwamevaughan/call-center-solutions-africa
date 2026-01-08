@@ -53,8 +53,8 @@ export default async function handler(req, res) {
                 
                 <p style="font-size: 16px; line-height: 1.5; color: #261914;">
                     <strong>Call Center Solutions Africa (CCSA)</strong><br/>
-                    7th Floor, Mitsumi Business Park,<br/>
-                    Westlands – Nairobi, Kenya<br/>
+                    The Westwood Office, 6th Floor 6A, Comply Guide Advisory,<br/>
+                    Westlands, Nairobi, Kenya<br/>
                     P.O. Box 1093-00606<br/>
                     <strong>Phone:</strong> +254 701 850 850
                 </p>

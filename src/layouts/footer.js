@@ -143,13 +143,13 @@ const Footer = () => {
               <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Contact</h3>
               <div className="flex flex-col gap-3">
                 <a 
-                  href="https://www.google.com/maps/search/?api=1&query=Mitsumi+Business+Park+Nairobi"
+                  href="https://www.google.com/maps/search/?api=1&query=The+Westwood+Office+Westlands+Nairobi+Kenya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
                   <Icon icon="mdi:map-marker" width={18} height={18} className="flex-shrink-0" />
-                  7th floor, Mitsumi Business Park, Nairobi
+                  The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
                 </a>
                 <a 
                   href="tel:+254701850850"
