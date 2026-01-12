@@ -91,7 +91,7 @@ const HomePage = () => {
               {/* Left Side: Title, Description, and CTA Buttons */}
               <div className="flex flex-col gap-5 sm:gap-6 text-white">
                 <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-                Excellence in Customer Service Outsourcing - <br/>From{" "}
+                Accelerate Revenue Through Expert Sales Conversion From<br/>From{" "}
                   <span className="text-ccsa-orange">Africa to the World</span>
                 </h1>
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
@@ -107,13 +107,13 @@ const HomePage = () => {
                     }}
                   >
                     <Icon icon="mdi:phone" width={18} height={18} />
-                    Partner With Us
+                    Talk to Us
                   </Link>
                   <button
                     onClick={() => window.location.href = "/about-us"}
                     className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
                   >
-                    Learn More
+                    Start a Pilot
                       </button>
                     </div>
                 <div className="mt-3 sm:mt-4 p-3 sm:p-5 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
@@ -204,8 +204,9 @@ const HomePage = () => {
                   </h2>
                   <div className="flex flex-col gap-4">
                     <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90">
-                      Call Center Solutions Africa (CCSA) provides scalable contact center and BPO services that connect brands to customers with professionalism, 
-                      empathy, and cultural understanding.
+                        CCSA Africa is a sales conversion, cx and customer engagement partner that helps fast-growing organizations maximize the value of their lead pipelines. 
+                        Instead of just generating leads, we help you convert them consistently and profitably. We combine high-performing agents, data-driven engagement playbooks, 
+                        and omnichannel execution across phone, WhatsApp, social, and email to help you close more deals and reactivate dormant revenue. 
                     </p>
                     <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90">
                       We blend technology, talent, and trust to deliver service excellence from Africa to global markets.
@@ -460,87 +461,71 @@ const HomePage = () => {
                   <p className="text-base sm:text-lg leading-relaxed text-white/90">Global standards with the African advantage - secure, compliant, and cost-efficient CX.</p>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Icon icon="mdi:shield-check" width={24} height={24} className="text-ccsa-yellow flex-shrink-0" />
-                        <h3 className="text-lg sm:text-xl font-semibold text-white">
-                          Global Standards
-                        </h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">ISO 27001 • GDPR • PCI-DSS • SOC 2</span>
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">45-60% cost reduction</span>
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">CXPA-aligned training & SLAs</span>
-                      </div>
-                    </div>
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Icon icon="mdi:shield-check" width={24} height={24} className="text-ccsa-yellow flex-shrink-0" />
-                        <h3 className="text-lg sm:text-xl font-semibold text-white">
-                          CX Intelligence + Human Empathy
-                        </h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">AI routing & analytics</span>
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">Human-centered service</span>
-                      </div>
-                    </div>
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Icon icon="mdi:shield-check" width={24} height={24} className="text-ccsa-yellow flex-shrink-0" />
-                        <h3 className="text-lg sm:text-xl font-semibold text-white">
-                          Security & Compliance That Inspire Confidence
-                        </h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">100% encrypted (in transit & at rest)</span>
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">HIPAA-ready • EU data handling</span>
-                      </div>
-                    </div>
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Icon icon="mdi:shield-check" width={24} height={24} className="text-ccsa-yellow flex-shrink-0" />
-                        <h3 className="text-lg sm:text-xl font-semibold text-white">
-                         Agile, Scalable & Transparent
-                        </h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">Pilot → multi-region</span>
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">Real-time dashboards</span>
-                        <span className="bg-white rounded-full px-3 py-1.5 text-xs sm:text-sm leading-relaxed text-ccsa-dark-blue whitespace-nowrap">Calibration calls & QBRs</span>
-                      </div>
-                    </div>
+                    <ol className="text-white list-none flex flex-col gap-3">
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">Proven sales closing teams that handle high-touch engagement</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">Omnichannel outreach (calls, WhatsApp, social, email, chat)</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">KPI-driven execution with transparent reporting</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">30-60 day pilot options with scale-up pathways</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">Global reach & expertise</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">24/7/365 Availability across all global time zones</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">Integrated technology for CRM and omnichannel CX</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">English & French speaking teams</span>
+                      </li>
+                    </ol>
                 </div>
-                <div>
-                <Link
-                  href="/contact-us"
-                  className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm w-auto"
-                  style={{
-                    background: "var(--ccsa-gradient)"
-                  }}
-                >
-                  <Icon icon="mdi:phone" width={18} height={18} />
-                  Partner With Us
-                </Link>
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="/contact-us"
+                    className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm w-fit"
+                    style={{
+                      background: "var(--ccsa-gradient)"
+                    }}
+                  >
+                    Book a discovery call
+                  </Link>
+                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed">*understand how to convert more of your existing lead flow into predictable revenue.</p>
                 </div>
               </div>
               <div className="flex flex-col gap-4 h-full">
-                <div className="relative w-full flex-1 rounded-lg overflow-hidden">
+                <div className="relative w-full flex-1 rounded-lg overflow-hidden min-h-0">
                   <Image
                     src="https://ik.imagekit.io/nkmvdjnna/CCSA/why-africa-1.webp"
                     width={500}
-                    height={500}
+                    height={300}
                     alt="Why Africa"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="object-cover rounded-lg"
                   />
                 </div>
-                <div className="relative w-full flex-1 rounded-lg overflow-hidden">
+                <div className="relative w-full flex-1 rounded-lg overflow-hidden min-h-0">
                   <Image
                     src="https://ik.imagekit.io/nkmvdjnna/CCSA/why-africa-2.webp"
                     width={500}
-                    height={500}
+                    height={300}
                     alt="Why Africa"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="object-cover rounded-lg"
                   />
                 </div>
               </div>
