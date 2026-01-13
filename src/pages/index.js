@@ -91,7 +91,7 @@ const HomePage = () => {
               {/* Left Side: Title, Description, and CTA Buttons */}
               <div className="flex flex-col gap-5 sm:gap-6 text-white">
                 <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-                Accelerate Revenue Through Expert Sales Conversion From<br/>From{" "}
+                Accelerate Revenue Through Expert Sales Conversion From<br/>{" "}
                   <span className="text-ccsa-orange">Africa to the World</span>
                 </h1>
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
