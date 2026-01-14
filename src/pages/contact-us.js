@@ -16,26 +16,42 @@ import ContactForm from "@/components/ContactForm";
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     company: "",
+    email: "",
     phone: "",
-    industry: "",
-    teamSize: "",
-    services: [],
-    currentChallenges: "",
-    timeline: "",
-    budget: "",
-    additionalInfo: "",
-    customBudget: "",
+    howCanWeHelp: "",
+    estimatedHours: "",
+    goals: "",
+    rfpFile: null,
+    privacyAgreement: false,
   });
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isCustomBudget, setIsCustomBudget] = useState(false);
   const router = useRouter();
 
   const handleRecaptcha = (token) => {
     setRecaptchaToken(token);
+  };
+
+  const scrollToForm = () => {
+    const formSection = document.getElementById('contact-form');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleBookCall = () => {
+    // Open calendar booking link or scroll to form
+    const calendarLink = 'https://calendly.com/callcentersolutionsafrica'; // Update with actual calendar link
+    window.open(calendarLink, '_blank');
+  };
+
+  const handleWhatsApp = () => {
+    const phoneNumber = '254701850850'; // WhatsApp number without + sign
+    const message = encodeURIComponent('Hello! I would like to learn more about your services.');
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const handleSubmit = async (e) => {
@@ -49,15 +65,46 @@ export default function ContactPage() {
       return;
     }
 
+    if (!formData.privacyAgreement) {
+      setError("Please agree to the Privacy Policy");
+      setLoading(false);
+      return;
+    }
+
     const toastId = toast.loading("Sending your request...");
 
     try {
+      // Convert file to base64 if present
+      let rfpFileBase64 = null;
+      let rfpFileName = null;
+      let rfpFileType = null;
+
+      if (formData.rfpFile) {
+        rfpFileBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64String = reader.result.split(",")[1];
+            resolve(base64String);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(formData.rfpFile);
+        });
+        rfpFileName = formData.rfpFile.name;
+        rfpFileType = formData.rfpFile.type;
+      }
+
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, recaptchaToken }),
+        body: JSON.stringify({
+          ...formData,
+          rfpFile: rfpFileBase64,
+          rfpFileName,
+          rfpFileType,
+          recaptchaToken,
+        }),
       });
 
       const result = await response.json();
@@ -70,20 +117,16 @@ export default function ContactPage() {
         toast.success("Message sent successfully!", { id: toastId });
         setFormData({
           name: "",
-          email: "",
           company: "",
+          email: "",
           phone: "",
-          industry: "",
-          teamSize: "",
-          services: [],
-          currentChallenges: "",
-          timeline: "",
-          budget: "",
-          additionalInfo: "",
-          customBudget: "",
+          howCanWeHelp: "",
+          estimatedHours: "",
+          goals: "",
+          rfpFile: null,
+          privacyAgreement: false,
         });
         setRecaptchaToken(null);
-        setIsCustomBudget(false);
         router.push("/thank-you");
       } else {
         toast.error(result.error || "Something went wrong", { id: toastId });
@@ -173,7 +216,8 @@ export default function ContactPage() {
                   {/* Certification Badges */}
                   <div className="hidden md:flex items-center justify-start gap-2 mt-4 sm:mt-6">
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={scrollToForm}
                       className="text-white px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 text-xs sm:text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{
                         background: "var(--ccsa-gradient)"
@@ -182,15 +226,17 @@ export default function ContactPage() {
                       <Icon icon="heroicons:document-text" width={16} height={16} />
                       Request a Proposal
                     </button>
-                    <button
-                      type="submit"
+                    {/* <button
+                      type="button"
+                      onClick={handleBookCall}
                       className="text-white border border-2-white px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 text-xs sm:text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Icon icon="heroicons:calendar-days" width={16} height={16} />
                       Book a discovery call
-                    </button>
+                    </button> */}
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={handleWhatsApp}
                       className="text-white border border-2-white px-4 py-2 rounded-full font-normal transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 text-xs sm:text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Icon icon="mdi:whatsapp" width={16} height={16} />
@@ -235,7 +281,7 @@ export default function ContactPage() {
         </div>
 
         {/* Form Section */}
-        <section className="bg-ccsa-dark-blue w-full px-4 relative overflow-hidden pb-20">
+        <section id="contact-form" className="bg-ccsa-dark-blue w-full px-4 relative overflow-hidden pb-20">
           {/* Radial Ellipse at Left Bottom */}
           <div 
             className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
@@ -295,15 +341,13 @@ export default function ContactPage() {
           
           <div className="relative mx-auto max-w-4xl mt-10">
             {/* Main Form Section */}
-            <div className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border border-white/20 relative z-10">
+            <div className="bg-transparent rounded-lg p-8 md:p-12 shadow-2xl border-2 border-white/30">
               <ContactForm
                 formData={formData}
                 setFormData={setFormData}
                 handleSubmit={handleSubmit}
                 error={error}
                 loading={loading}
-                isCustomBudget={isCustomBudget}
-                setIsCustomBudget={setIsCustomBudget}
                 handleRecaptcha={handleRecaptcha}
               />
             </div>
