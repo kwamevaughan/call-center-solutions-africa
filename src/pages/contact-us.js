@@ -150,163 +150,164 @@ export default function ContactPage() {
           <div 
             className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
+              background: 'radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)',
               transform: 'translate(-50%, -50%)'
             }}
           />
           
           <div className="max-w-7xl mx-auto w-full relative z-10 py-12 sm:py-16 lg:py-20">
-            <div className="flex flex-col items-center gap-6 sm:gap-8 text-center max-w-4xl mx-auto">
-              <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-light text-white uppercase tracking-wide">
-                  Get in Touch
-                </p>
-              </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Request Your Custom Proposal
-              </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
-                Tell us about your business needs and we'll craft a tailored solution that drives results
-              </p>
-              {/* Certification Badges */}
-              <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
-                {[
-                  "ISO 27001",
-                  "GDPR",
-                  "PCI-DSS",
-                  "HIPAA-ready",
-                  "24/7 Multilingual"
-                ].map((badge) => (
-                  <div
-                    key={badge}
-                    className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
-                  >
-                    <Icon icon="mdi:shield-check" width={20} height={20} className="text-ccsa-orange flex-shrink-0" />
-                    <span>{badge}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 items-center">
+                <div className="flex flex-col items-start gap-6 sm:gap-8 text-left">
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                    <p className="text-lg sm:text-xl font-light text-white tracking-wide">
+                        Response time: under 24h
+                    </p>
                   </div>
-                ))}
-              </div>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                      Let's talk about your CX
+                  </h1>
+                  <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
+                  Sales, customer support, multilingual help desks, or a fully managed contact center—tell us what you need and we'll tailor a plan.
+                  </p>
+                  {/* Certification Badges */}
+                  <div className="hidden md:flex items-center justify-start gap-2 mt-4 sm:mt-6">
+                    <button
+                      type="submit"
+                      className="text-white px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 text-xs sm:text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{
+                        background: "var(--ccsa-gradient)"
+                      }}
+                    >
+                      <Icon icon="heroicons:document-text" width={16} height={16} />
+                      Request a Proposal
+                    </button>
+                    <button
+                      type="submit"
+                      className="text-white border border-2-white px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 text-xs sm:text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Icon icon="heroicons:calendar-days" width={16} height={16} />
+                      Book a discovery call
+                    </button>
+                    <button
+                      type="submit"
+                      className="text-white border border-2-white px-4 py-2 rounded-full font-normal transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-1.5 text-xs sm:text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Icon icon="mdi:whatsapp" width={16} height={16} />
+                      WhatsApp
+                    </button>
+                  </div>
+                </div>
+                <div className="bg-transparent text-white shadow-2xl border border-white/20 rounded-lg p-6 sm:p-8 flex flex-col gap-4 items-start">
+                  <h3 className="text-xl font-semibold mb-2">Talk to us</h3>
+                  <div className="flex items-start gap-3">
+                    <Icon icon="mdi:email" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-1" />
+                    <a href="mailto:hello@callcentersolutionsafrica.com" className="text-white/90 hover:text-ccsa-yellow transition-colors break-all">
+                      hello@callcentersolutionsafrica.com
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Icon icon="mdi:phone" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-1" />
+                    <a href="tel:+254701850850" className="text-white/90 hover:text-ccsa-yellow transition-colors">
+                      +254 701 850 850
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Icon icon="mdi:map-marker" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-1" />
+                    <p className="text-white/90 text-sm leading-relaxed">
+                        The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 mt-2">
+                    <a href="https://www.linkedin.com/company/callcentersolutionsafrica" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <Icon icon="mdi:linkedin" width={24} height={24} className="text-white/90 hover:text-ccsa-yellow transition-colors cursor-pointer" />
+                    </a>
+                    <a href="https://www.facebook.com/callcentersolutionsafrica" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                      <Icon icon="mdi:facebook" width={24} height={24} className="text-white/90 hover:text-ccsa-yellow transition-colors cursor-pointer" />
+                    </a>
+                    <a href="https://www.instagram.com/cssa_africa" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                      <Icon icon="mdi:instagram" width={24} height={24} className="text-white/90 hover:text-ccsa-yellow transition-colors cursor-pointer" />
+                    </a>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
 
         {/* Form Section */}
-        <section className="bg-white w-full px-4 relative overflow-hidden pb-20">
-          {/* Radial Ellipse at Top Left */}
+        <section className="bg-ccsa-dark-blue w-full px-4 relative overflow-hidden pb-20">
+          {/* Radial Ellipse at Left Bottom */}
           <div 
-            className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(-30%, -30%)'
+              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
+              transform: 'translate(-30%, 30%)'
             }}
           />
           {/* Radial Ellipse at Top Right */}
           <div 
-            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
               background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
               transform: 'translate(30%, -30%)'
             }}
           />
-          {/* Radial Ellipse at Bottom Middle */}
+          {/* Radial Ellipse at Middle */}
           <div 
-            className="absolute left-1/2 bottom-0 w-[400px] h-[400px] rounded-full opacity-20 blur-3xl"
+            className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)',
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
+          {/* Radial Ellipse at Top Left */}
+          <div 
+            className="absolute left-0 top-0 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 30%, transparent 100%)',
+              transform: 'translate(-20%, -20%)'
+            }}
+          />
+          {/* Radial Ellipse at Right Bottom */}
+          <div 
+            className="absolute right-0 bottom-0 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #F45B00 0%, transparent 100%)',
+              transform: 'translate(20%, 20%)'
+            }}
+          />
+          {/* Radial Ellipse at Center Top */}
+          <div 
+            className="absolute left-1/2 top-0 w-[400px] h-[400px] rounded-full opacity-20 blur-3xl"
             style={{
               background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
+              transform: 'translate(-50%, -40%)'
+            }}
+          />
+          {/* Radial Ellipse at Center Bottom */}
+          <div 
+            className="absolute left-1/2 bottom-0 w-[450px] h-[450px] rounded-full opacity-25 blur-3xl"
+            style={{
+              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 30%, transparent 100%)',
               transform: 'translate(-50%, 30%)'
             }}
           />
           
-          <div className="relative mx-auto max-w-7xl mt-10">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Main Form Section */}
-              <div className="lg:col-span-2">
-                <div className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border border-gray-100">
-                  <ContactForm
-                    formData={formData}
-                    setFormData={setFormData}
-                    handleSubmit={handleSubmit}
-                    error={error}
-                    loading={loading}
-                    isCustomBudget={isCustomBudget}
-                    setIsCustomBudget={setIsCustomBudget}
-                    handleRecaptcha={handleRecaptcha}
-                  />
-                </div>
-              </div>
-
-              {/* Contact Information Sidebar */}
-              <div className="lg:col-span-1">
-                <div className="bg-ccsa-dark-blue rounded-lg p-8 shadow-2xl border border-gray-100 sticky top-24">
-                  <h3 className="text-2xl font-semibold text-white mb-6">Contact Information</h3>
-                  <div className="flex flex-col gap-6">
-                    {/* Address */}
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 mt-1">
-                        <Icon icon="mdi:map-marker" width={24} height={24} className="text-ccsa-yellow" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-semibold mb-1">Address</h4>
-                        <a 
-                          href="https://www.google.com/maps/search/?api=1&query=The+Westwood+Office+Westlands+Nairobi+Kenya"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block"
-                        >
-                          The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Phone */}
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 mt-1">
-                        <Icon icon="mdi:phone" width={24} height={24} className="text-ccsa-yellow" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-semibold mb-1">Phone</h4>
-                        <a 
-                          href="tel:+254701850850"
-                          className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block"
-                        >
-                          +254 701 850 850
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Email */}
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 mt-1">
-                        <Icon icon="mdi:email" width={24} height={24} className="text-ccsa-yellow" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-semibold mb-1">Email</h4>
-                        <a 
-                          href="mailto:hello@callcentersolutionsafrica.com"
-                          className="text-sm text-white/90 hover:text-ccsa-yellow transition-colors block break-all"
-                        >
-                          hello@callcentersolutionsafrica.com
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="border-t border-white/20 pt-6">
-                      <p className="text-sm text-white/80 leading-relaxed">
-                        Our team typically responds within one business day. We're here to help you find the perfect solution for your business needs.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="relative mx-auto max-w-4xl mt-10">
+            {/* Main Form Section */}
+            <div className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border border-white/20 relative z-10">
+              <ContactForm
+                formData={formData}
+                setFormData={setFormData}
+                handleSubmit={handleSubmit}
+                error={error}
+                loading={loading}
+                isCustomBudget={isCustomBudget}
+                setIsCustomBudget={setIsCustomBudget}
+                handleRecaptcha={handleRecaptcha}
+              />
             </div>
           </div>
-        </section>
-
-        {/* Logo Marquee Section */}
-        <section className="w-full pt-10 pb-10 bg-white relative overflow-hidden">
-          <LogoMarquee />
         </section>
       </main>
 
