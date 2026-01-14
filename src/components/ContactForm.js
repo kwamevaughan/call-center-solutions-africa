@@ -31,6 +31,10 @@ export default function ContactForm({
     <form onSubmit={handleSubmit} className="space-y-8 bg-transparent">
       {/* Personal Information Section */}
       <div className="space-y-6">
+        <div className="space-y-2">
+        <h2 className="text-2xl font-semibold text-white">Contact Us</h2>
+        <p className="text-sm text-white">Please fill out the form below to contact us. We will get back to you as soon as possible.</p>
+        </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <label
