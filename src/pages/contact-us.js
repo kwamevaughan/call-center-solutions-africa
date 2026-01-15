@@ -20,9 +20,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     howCanWeHelp: "",
-    estimatedHours: "",
     goals: "",
-    rfpFile: null,
     privacyAgreement: false,
   });
   const [recaptchaToken, setRecaptchaToken] = useState(null);
@@ -74,25 +72,6 @@ export default function ContactPage() {
     const toastId = toast.loading("Sending your request...");
 
     try {
-      // Convert file to base64 if present
-      let rfpFileBase64 = null;
-      let rfpFileName = null;
-      let rfpFileType = null;
-
-      if (formData.rfpFile) {
-        rfpFileBase64 = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const base64String = reader.result.split(",")[1];
-            resolve(base64String);
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(formData.rfpFile);
-        });
-        rfpFileName = formData.rfpFile.name;
-        rfpFileType = formData.rfpFile.type;
-      }
-
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
@@ -100,9 +79,6 @@ export default function ContactPage() {
         },
         body: JSON.stringify({
           ...formData,
-          rfpFile: rfpFileBase64,
-          rfpFileName,
-          rfpFileType,
           recaptchaToken,
         }),
       });
@@ -121,9 +97,7 @@ export default function ContactPage() {
           email: "",
           phone: "",
           howCanWeHelp: "",
-          estimatedHours: "",
           goals: "",
-          rfpFile: null,
           privacyAgreement: false,
         });
         setRecaptchaToken(null);

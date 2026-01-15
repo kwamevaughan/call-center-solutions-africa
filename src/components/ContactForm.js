@@ -134,37 +134,13 @@ export default function ContactForm({
             className="w-full px-4 py-3 rounded-full border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
           >
             <option value="">Select how we can help</option>
-            <option value="Customer Support">Customer Support</option>
-            <option value="Sales & Lead Generation">Sales & Lead Generation</option>
-            <option value="Technical Support">Technical Support</option>
-            <option value="Multilingual Support">Multilingual Support</option>
-            <option value="Fully Managed Contact Center">Fully Managed Contact Center</option>
-            <option value="Technology Solutions">Technology Solutions</option>
-            <option value="Advisory Services">Advisory Services</option>
-            <option value="Other">Other</option>
+            <option value="Lead Follow-Up & Qualification">Lead Follow-Up & Qualification</option>
+            <option value="Outbound Sales Closing">Outbound Sales Closing</option>
+            <option value="Omnichannel Engagement (Calls + WhatsApp + Social + Email)">Omnichannel Engagement (Calls + WhatsApp + Social + Email)</option>
+            <option value="Reactivating Past Leads">Reactivating Past Leads</option>
+            <option value="CRM & CX Suite Integration & Reporting">CRM & CX Suite Integration & Reporting</option>
+            <option value="Other (Tell Us More)">Other (Tell Us More)</option>
           </select>
-        </div>
-      </div>
-
-      {/* Estimated Monthly Hours */}
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <label
-            htmlFor="estimatedHours"
-            className="block text-sm font-semibold text-white"
-          >
-            Estimated Monthly Hours
-          </label>
-          <input
-            type="number"
-            id="estimatedHours"
-            name="estimatedHours"
-            value={formData.estimatedHours}
-            onChange={handleChange}
-            min="0"
-            className="w-full px-4 py-3 rounded-full border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
-            placeholder="e.g., 160 hours"
-          />
         </div>
       </div>
 
@@ -187,34 +163,6 @@ export default function ContactForm({
             placeholder="Tell us about your goals and what you're looking to achieve..."
             className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50 resize-none"
           />
-        </div>
-      </div>
-
-      {/* File Upload Section */}
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <label
-            htmlFor="rfpFile"
-            className="block text-sm font-semibold text-white"
-          >
-            Attach RFP/brief (Optional)
-          </label>
-          <div className="relative">
-            <input
-              type="file"
-              id="rfpFile"
-              name="rfpFile"
-              onChange={handleChange}
-              accept=".pdf,.doc,.docx,.txt"
-              className="w-full px-4 py-3 rounded-full border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-ccsa-blue file:text-white hover:file:bg-ccsa-blue/90 file:cursor-pointer"
-            />
-            {formData.rfpFile && (
-              <div className="mt-2 flex items-center gap-2 text-sm text-white">
-                <Icon icon="mdi:file-document" className="w-5 h-5" />
-                <span>{formData.rfpFile.name}</span>
-              </div>
-            )}
-          </div>
         </div>
       </div>
 
@@ -286,7 +234,7 @@ export default function ContactForm({
             ) : (
               <>
                 <Icon icon="mdi:send" width={18} height={18} />
-                Submit Proposal Request
+                Submit Message
               </>
             )}
           </button>

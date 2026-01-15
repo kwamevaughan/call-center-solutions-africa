@@ -11,11 +11,7 @@ export default async function handler(req, res) {
     company,
     phone,
     howCanWeHelp,
-    estimatedHours,
     goals,
-    rfpFile,
-    rfpFileName,
-    rfpFileType,
     privacyAgreement,
     recaptchaToken,
   } = req.body;
@@ -62,9 +58,7 @@ export default async function handler(req, res) {
     Company: ${company}
     Phone: ${phone || "Not provided"}
     How can we help: ${howCanWeHelp || "Not provided"}
-    Estimated Monthly Hours: ${estimatedHours || "Not provided"}
     Goals: ${goals || "Not provided"}
-    RFP/Brief Attached: ${rfpFile ? "Yes" : "No"}
     Privacy Agreement: ${privacyAgreement ? "Agreed" : "Not agreed"}
   `;
 
@@ -80,9 +74,7 @@ export default async function handler(req, res) {
       <tr style="background-color: #f5f5f5;"><td style="border: 1px solid #ddd; padding: 10px;"><strong>Company:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${company}</td></tr>
       <tr><td style="border: 1px solid #ddd; padding: 10px;"><strong>Phone:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${phone || "Not provided"}</td></tr>
       <tr style="background-color: #f5f5f5;"><td style="border: 1px solid #ddd; padding: 10px;"><strong>How can we help:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${howCanWeHelp || "Not provided"}</td></tr>
-      <tr><td style="border: 1px solid #ddd; padding: 10px;"><strong>Estimated Monthly Hours:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${estimatedHours || "Not provided"}</td></tr>
-      <tr style="background-color: #f5f5f5;"><td style="border: 1px solid #ddd; padding: 10px;"><strong>Goals:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${goals ? goals.replace(/\n/g, "<br>") : "Not provided"}</td></tr>
-      <tr><td style="border: 1px solid #ddd; padding: 10px;"><strong>RFP/Brief Attached:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${rfpFile ? `Yes (${rfpFileName || "File"})` : "No"}</td></tr>
+      <tr><td style="border: 1px solid #ddd; padding: 10px;"><strong>Goals:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${goals ? goals.replace(/\n/g, "<br>") : "Not provided"}</td></tr>
       <tr style="background-color: #f5f5f5;"><td style="border: 1px solid #ddd; padding: 10px;"><strong>Privacy Agreement:</strong></td><td style="border: 1px solid #ddd; padding: 10px;">${privacyAgreement ? "Agreed" : "Not agreed"}</td></tr>
     </table>
     <p style="margin-top: 30px; font-size: 0.9em; color: #888;">This message was generated from the website contact form.</p>
@@ -98,17 +90,6 @@ export default async function handler(req, res) {
     text: emailText,
     html: emailHtml,
   };
-
-  // Attach file if provided
-  if (rfpFile && rfpFileName) {
-    mailOptions.attachments = [
-      {
-        filename: rfpFileName,
-        content: rfpFile,
-        encoding: "base64",
-      },
-    ];
-  }
 
   try {
     await transporter.sendMail(mailOptions);
