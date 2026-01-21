@@ -84,8 +84,15 @@ const ApplicationForm = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-ccsa-dark-blue mb-4">
             Submit Your Application
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-4">
             Complete the form below to apply for one of our open positions
+          </p>
+          <p className="text-sm text-gray-500 max-w-2xl mx-auto flex items-center justify-center gap-2">
+            <Icon icon="mdi:email" width={18} height={18} />
+            Or send your application directly to{" "}
+            <a href="mailto:careers@callcentersolutionsafrica.com" className="text-ccsa-blue hover:underline font-medium">
+              careers@callcentersolutionsafrica.com
+            </a>
           </p>
         </div>
 

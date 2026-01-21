@@ -107,7 +107,7 @@ export default async function handler(req, res) {
     // Prepare mail options
     const mailOptions = {
       from: process.env.SMTP_EMAIL,
-      to: [process.env.SMTP_EMAIL, process.env.SECONDARY_EMAIL].filter(Boolean),
+      to: "careers@callcentersolutionsafrica.com",
       replyTo: email,
       subject: `New Job Application: ${position} - ${fullName}`,
       text: emailText,

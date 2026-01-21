@@ -91,6 +91,12 @@ const CareersPage = () => {
                 Join Call Center Solutions Africa and be part of a team that delivers world-class customer service 
                 from Africa to the world. We're looking for passionate professionals ready to make an impact.
               </p>
+              <div className="flex items-center justify-center gap-2 mb-8 text-white/80">
+                <Icon icon="mdi:email" width={20} height={20} className="text-ccsa-yellow" />
+                <a href="mailto:careers@callcentersolutionsafrica.com" className="text-lg hover:text-white transition-colors">
+                  careers@callcentersolutionsafrica.com
+                </a>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="#positions"
