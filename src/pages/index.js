@@ -9,6 +9,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import { useEffect, useRef } from "react";
 import { useFixedHeader, handleScroll } from "../../utils/scrollUtils";
 import IndustriesTab from "@/components/IndustriesTab";
+import GoogleReviewsTestimonials from "@/components/GoogleReviewsTestimonials";
 
 const HomePage = () => {
   const sectionRefs = {
@@ -533,6 +534,9 @@ const HomePage = () => {
            
           </section>
         </div>
+
+        {/* Google Reviews Testimonials */}
+        <GoogleReviewsTestimonials />
 
           
           {/* Industries we serve in */}
