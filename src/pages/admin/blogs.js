@@ -11,7 +11,6 @@ import { useBlog } from "@/hooks/useBlog";
 import { useDebounce } from "@/hooks/useDebounce";
 import SimpleFooter from "@/layouts/simpleFooter";
 import BlogForm from "@/components/blog/BlogForm";
-import BlogFormOptimized from "@/components/blog/BlogFormOptimized";
 import BlogGrid from "@/components/blog/BlogGrid";
 import ItemActionModal from "@/components/ItemActionModal";
 import { getAdminBlogProps } from "utils/getPropsUtils";
@@ -28,7 +27,7 @@ export default function AdminBlog({
   breadcrumbs,
   adminUser,
 }) {
-  const [showForm, setShowForm] = useState(false);
+  const router = useRouter();
   const [viewMode, setViewMode] = useState("grid");
   const [selectedIds, setSelectedIds] = useState([]);
   const [filterTerm, setFilterTerm] = useState("");
@@ -79,10 +78,7 @@ export default function AdminBlog({
     setEditorContent,
   } = useBlog();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
 
   // Extract unique authors and create date ranges
@@ -167,104 +163,13 @@ export default function AdminBlog({
   }, [selectedCategory, selectedTags, debouncedFilterTerm, selectedStatus, selectedAuthor, selectedDateRange, sortOrder, updateFilters, filters.sort]);
 
   const handleCreateBlog = useCallback(() => {
-    setSelectedIds([]);
-    
-    // Reset form data first
-    setFormData({
-      id: null,
-      article_name: "",
-      article_body: "",
-      category_id: null,
-      tag_ids: [],
-      article_image: "",
-      meta_title: "",
-      meta_description: "",
-      meta_keywords: "",
-      slug: "",
-      is_published: false,
-      is_draft: true,
-      publish_date: null,
-      author: "",
-      title: "",
-      description: "",
-      keywords: [],
-      featured_image_url: "",
-      featured_image_upload: null,
-      featured_image_library: null,
-      content: "",
-      publish_option: "draft",
-      scheduled_date: null,
-    });
-
-    // Then open modal for new post
-    setIsEditing(false);
-    setEditingId(null);
-    setIsModalOpen(true);
-  }, [setFormData]);
+    router.push("/admin/blogs/new");
+  }, [router]);
 
   const handleEditClick = useCallback((blog) => {
-    setSelectedIds([]);
-    
-    // Reset form data first
-    setFormData({
-      id: null,
-      article_name: "",
-      article_body: "",
-      category_id: null,
-      tag_ids: [],
-      article_image: "",
-      meta_title: "",
-      meta_description: "",
-      meta_keywords: "",
-      slug: "",
-      is_published: false,
-      is_draft: true,
-      publish_date: null,
-      author: "",
-      title: "",
-      description: "",
-      keywords: [],
-      featured_image_url: "",
-      featured_image_upload: null,
-      featured_image_library: null,
-      content: "",
-      publish_option: "draft",
-      scheduled_date: null,
-    });
+    router.push(`/admin/blogs/edit/${blog.id}`);
+  }, [router]);
 
-    // Then set editing state and load new data
-    setIsEditing(true);
-    setEditingId(blog.id);
-    handleEdit(blog);
-    setIsModalOpen(true);
-  }, [handleEdit, setFormData]);
-
-  const handleCancel = useCallback(() => {
-    setIsModalOpen(false);
-    setSelectedIds([]);
-    // Reset form after modal closes
-    setTimeout(() => {
-      setIsEditing(false);
-      setEditingId(null);
-      handleEdit({
-        id: null,
-        article_name: "",
-        article_body: "",
-        article_category: "General",
-        article_tags: [],
-        article_image: "",
-        meta_title: "",
-        meta_description: "",
-        meta_keywords: "",
-        slug: "",
-        is_published: false,
-      });
-    }, 50);
-  }, [handleEdit]);
-
-  // Add effect to monitor modal state
-  useEffect(() => {
-  }, [isModalOpen, isEditing, editingId]);
 
   const handleFormSubmit = useCallback(async (e, updatedFormData) => {
     e.preventDefault();
@@ -558,28 +463,6 @@ export default function AdminBlog({
           <SimpleFooter mode={mode} isSidebarOpen={isSidebarOpen} />
         </div>
 
-        {isModalOpen && (
-          <div
-            className={`fixed inset-0 bg-black/30 backdrop-blur-md z-40`}
-          />
-        )}
-
-        <BlogFormOptimized
-          showForm={isModalOpen}
-          mode={mode}
-          blogId={editingId}
-          formData={formData}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleFormSubmit}
-          handleCancel={handleCancel}
-          loading={loading}
-          isEditing={isEditing}
-          categories={categories}
-          tags={tags}
-          adminUser={adminUser}
-          fetchBlogs={fetchBlogs}
-          width="max-w-7xl"
-        />
 
         <ItemActionModal
           isOpen={isDeleteModalOpen}

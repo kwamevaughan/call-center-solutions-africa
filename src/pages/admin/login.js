@@ -23,7 +23,6 @@ export default function HRLogin() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("[AdminLogin] Component mounted");
     const savedEmail = localStorage.getItem("admin_remembered_email");
     if (savedEmail) {
       setEmail(savedEmail);
@@ -42,7 +41,6 @@ export default function HRLogin() {
 
   const handleLogin = useCallback(async (e) => {
     e.preventDefault();
-    console.log("[AdminLogin] Form submitted, handleLogin called");
 
     if (isLoading) return;
 
@@ -71,7 +69,6 @@ export default function HRLogin() {
     }
 
     if (!captchaVerified) {
-      console.log("[AdminLogin] CAPTCHA not verified");
       toast.error("Please verify the CAPTCHA.", { icon: "⚠️" });
       return;
     }
@@ -81,7 +78,6 @@ export default function HRLogin() {
     lastAttemptTime.current = now;
 
     try {
-      console.log("[AdminLogin] Attempting login with email:", email);
       const {
         data: { user, session },
         error: authError,
@@ -90,26 +86,32 @@ export default function HRLogin() {
         password,
       });
 
-      console.log("[AdminLogin] Auth response:", {
-        user: user ? { id: user.id, email: user.email } : null,
-        session: session
-          ? { access_token: session.access_token.slice(0, 10) + "..." }
-          : null,
-        authError: authError ? authError.message : null,
-      });
-
       if (authError) {
-        console.error("[AdminLogin] Supabase auth error:", authError);
-        
-        // Handle rate limiting specifically
+        // Handle rate limiting
         if (authError.status === 429) {
           const retryAfter = authError.response?.headers?.get('Retry-After') || 60;
           toast.error(`Too many requests. Please try again in ${retryAfter} seconds.`, {
             duration: 5000,
             icon: '⏱️'
           });
-        } else {
-          toast.error(authError.message || "Invalid email or password.", {
+        }
+        // Handle invalid credentials
+        else if (authError.message?.includes('Invalid login credentials') || authError.status === 400) {
+          toast.error("Invalid email or password.", {
+            icon: "❌",
+            duration: 5000
+          });
+        }
+        // Handle network errors
+        else if (authError.name === 'AuthRetryableFetchError' || authError.message?.includes('Failed to fetch')) {
+          toast.error("Network error: Unable to connect to authentication service. Please check your internet connection and try again.", {
+            icon: "🌐",
+            duration: 5000
+          });
+        }
+        // Generic error
+        else {
+          toast.error(authError.message || "An error occurred during login. Please try again.", {
             icon: "❌",
             duration: 5000
           });
@@ -129,29 +131,19 @@ export default function HRLogin() {
       }
 
       if (!session) {
-        console.error("[AdminLogin] No session returned");
         toast.error("No session established. Please try again.", {
           icon: "❌",
         });
+        setIsLoading(false);
         return;
       }
-
-      const cookies = getBrowserCookies();
-      console.log("[AdminLogin] Browser cookies after login:", cookies);
 
       const {
         data: { session: currentSession },
         error: sessionError,
       } = await supabase.auth.getSession();
-      console.log("[AdminLogin] Current session after login:", {
-        currentSession: currentSession
-          ? { access_token: currentSession.access_token.slice(0, 10) + "..." }
-          : null,
-        sessionError: sessionError ? sessionError.message : null,
-      });
 
       if (sessionError || !currentSession) {
-        console.error("[AdminLogin] Session verification failed:", sessionError);
         toast.error("Failed to verify session. Please try again.", { 
           icon: "❌",
           duration: 5000
@@ -164,32 +156,21 @@ export default function HRLogin() {
       loginAttempts.current = 0;
       setIsLoading(false);
 
-      console.log("[AdminLogin] Checking admin_users for user ID:", user.id);
       const { data: adminUser, error: adminUserError } = await supabase
         .from("admin_users")
         .select("id")
         .eq("id", user.id)
         .single();
 
-        console.log("[AdminLogin] HR User check:", {
-        adminUser,
-        adminUserError: adminUserError ? adminUserError.message : null,
-      });
-
       if (adminUserError || !adminUser) {
-        console.log("[AdminLogin] Adding user to admin_users");
         const { error: insertError } = await supabase
           .from("admin_users")
           .insert([{ id: user.id, username: email }]);
         if (insertError) {
-          console.error("[AdminLogin] Error adding to admin_users:", insertError);
           toast.error("Failed to authorize user.", { icon: "❌" });
+          setIsLoading(false);
           return;
         }
-        console.log("[AdminLogin] Added user to admin_users:", {
-          id: user.id,
-          username: email,
-        });
       }
 
       if (rememberMe) {
@@ -198,17 +179,31 @@ export default function HRLogin() {
         localStorage.removeItem("admin_remembered_email");
       }
 
-          console.log("[AdminLogin] Attempting redirect to /admin/blogs");
       toast.success("Login successful! Redirecting...", { icon: "✅" });
-      await router.push("/admin/blogs").catch((err) => {
-        console.error("[AdminLogin] Redirect error:", err);
-        toast.error("Failed to redirect. Please navigate manually.", {
-          icon: "❌",
-        });
-      });
+      
+      // Use window.location.href to force full page reload so server can read session cookie
+      setTimeout(() => {
+        window.location.href = "/admin/blogs";
+      }, 500);
     } catch (error) {
-      console.error("[AdminLogin] Unexpected error:", error);
-      toast.error("An unexpected error occurred.", { icon: "❌" });
+      // Handle network errors
+      if (error.message?.includes('Failed to fetch') || error.name === 'TypeError') {
+        toast.error(
+          "Network error: Unable to connect to the server. Please check your internet connection.", 
+          { 
+            icon: "🌐",
+            duration: 5000
+          }
+        );
+      } else {
+        toast.error(
+          error.message || "An unexpected error occurred. Please try again.", 
+          { 
+            icon: "❌",
+            duration: 5000
+          }
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -216,11 +211,9 @@ export default function HRLogin() {
 
   const handleMagicLink = async (e) => {
     e.preventDefault();
-    console.log("[AdminLogin] Form submitted, handleMagicLink called");
     const loadingToast = toast.loading("Please wait...");
 
     try {
-      console.log("[AdminLogin] Sending magic link to:", email);
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -228,12 +221,7 @@ export default function HRLogin() {
         },
       });
 
-      console.log("[AdminLogin] OTP response:", {
-        error: error ? error.message : null,
-      });
-
       if (error) {
-        console.error("[AdminLogin] OTP error:", error);
         toast.error("Failed to send magic link.", {
           id: loadingToast,
           icon: "❌",
@@ -247,7 +235,6 @@ export default function HRLogin() {
       });
       setEmail("");
     } catch (error) {
-      console.error("[AdminLogin] OTP unexpected error:", error);
       toast.error("An unexpected error occurred.", {
         id: loadingToast,
         icon: "❌",
@@ -257,10 +244,6 @@ export default function HRLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      "[AdminLogin] handleSubmit called, showPasswordField:",
-      showPasswordField
-    );
     if (showPasswordField) {
       handleLogin(e);
     } else {
@@ -409,7 +392,6 @@ export default function HRLogin() {
                     <ReCAPTCHA
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                       onChange={(value) => {
-                        console.log("[AdminLogin] ReCAPTCHA verified:", !!value);
                         setCaptchaVerified(!!value);
                       }}
                       className="transform scale-90 origin-center"

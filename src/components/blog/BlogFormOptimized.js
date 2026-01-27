@@ -270,6 +270,7 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
   categories: propCategories,
   tags: propTags,
   adminUser,
+  standalone = false, // New prop to render without modal wrapper
 }) {
   const router = useRouter();
   const { user } = useAuth();
@@ -588,51 +589,18 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
 
   QuickActions.displayName = 'QuickActions';
 
-  return (
+  const formContent = (
     <>
-      <ItemActionModal
-        isOpen={showForm}
-        onClose={handleCancel}
-        title={isEditing ? "Edit Blog Post" : "Create Blog Post"}
-        mode={mode}
-        width="max-w-6xl"
-        hasUnsavedChanges={hasUnsavedChanges}
-        rightElement={
-          <div className="flex items-center gap-2">
-            {isEditing && formData.slug && (
-              <button
-                type="button"
-                onClick={handlePreview}
-                className="p-2 rounded-lg hover:bg-white/20 text-white transition"
-                title="Preview blog post (Ctrl+P)"
-              >
-                <Icon icon="heroicons:eye" className="w-5 h-5" />
-              </button>
-            )}
-            <div
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${getScoreBgColor(seoScore, mode)}`}
-            >
-              <span className={`text-sm font-medium ${getScoreColor(seoScore, mode)}`}>
-                Score: {seoScore}%
-              </span>
-              <Icon
-                icon={getScoreIcon(seoScore)}
-                className={`w-4 h-4 ${getScoreColor(seoScore, mode)}`}
-              />
-            </div>
-          </div>
-        }
-      >
-        {loading ? (
-          <div className="flex items-center justify-center p-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-          </div>
-        ) : (
-          <form
-            onSubmit={onSubmit}
-            className="space-y-6"
-            onClick={(e) => e.stopPropagation()}
-          >
+      {loading ? (
+        <div className="flex items-center justify-center p-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <form
+          onSubmit={onSubmit}
+          className="space-y-6"
+          onClick={(e) => e.stopPropagation()}
+        >
             {/* Quick Actions Toolbar */}
             <QuickActions />
 
@@ -839,6 +807,100 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
             </div>
           </form>
         )}
+    </>
+  );
+
+  // If standalone mode, render without modal wrapper
+  if (standalone) {
+    return (
+      <>
+        <div className={`w-full ${mode === "dark" ? "bg-gray-900" : "bg-white"} rounded-2xl shadow-lg border ${mode === "dark" ? "border-gray-800" : "border-gray-200"} p-8`}>
+          {/* Header */}
+          <div className={`flex items-center justify-between mb-6 pb-4 border-b ${mode === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+            <h2 className={`text-2xl font-bold ${mode === "dark" ? "text-white" : "text-gray-900"}`}>
+              {isEditing ? "Edit Blog Post" : "Create Blog Post"}
+            </h2>
+            <div className="flex items-center gap-2">
+              {isEditing && formData.slug && (
+                <button
+                  type="button"
+                  onClick={handlePreview}
+                  className={`p-2 rounded-lg transition ${mode === "dark" ? "hover:bg-gray-800 text-white" : "hover:bg-gray-100 text-gray-700"}`}
+                  title="Preview blog post (Ctrl+P)"
+                >
+                  <Icon icon="heroicons:eye" className="w-5 h-5" />
+                </button>
+              )}
+              <div
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${getScoreBgColor(seoScore, mode)}`}
+              >
+                <span className={`text-sm font-medium ${getScoreColor(seoScore, mode)}`}>
+                  Score: {seoScore}%
+                </span>
+                <Icon
+                  icon={getScoreIcon(seoScore)}
+                  className={`w-4 h-4 ${getScoreColor(seoScore, mode)}`}
+                />
+              </div>
+            </div>
+          </div>
+          {formContent}
+        </div>
+
+        {/* Lazy loaded modals */}
+        <React.Suspense fallback={null}>
+          <ImageLibrary
+            isOpen={showImageLibrary}
+            onClose={() => setShowImageLibrary(false)}
+            onSelect={(selectedImage) => {
+              handleImageChange(selectedImage.url);
+              setShowImageLibrary(false);
+            }}
+            mode={mode}
+            folder="/Blog"
+          />
+        </React.Suspense>
+      </>
+    );
+  }
+
+  // Default modal mode
+  return (
+    <>
+      <ItemActionModal
+        isOpen={showForm}
+        onClose={handleCancel}
+        title={isEditing ? "Edit Blog Post" : "Create Blog Post"}
+        mode={mode}
+        width="max-w-6xl"
+        hasUnsavedChanges={hasUnsavedChanges}
+        rightElement={
+          <div className="flex items-center gap-2">
+            {isEditing && formData.slug && (
+              <button
+                type="button"
+                onClick={handlePreview}
+                className="p-2 rounded-lg hover:bg-white/20 text-white transition"
+                title="Preview blog post (Ctrl+P)"
+              >
+                <Icon icon="heroicons:eye" className="w-5 h-5" />
+              </button>
+            )}
+            <div
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${getScoreBgColor(seoScore, mode)}`}
+            >
+              <span className={`text-sm font-medium ${getScoreColor(seoScore, mode)}`}>
+                Score: {seoScore}%
+              </span>
+              <Icon
+                icon={getScoreIcon(seoScore)}
+                className={`w-4 h-4 ${getScoreColor(seoScore, mode)}`}
+              />
+            </div>
+          </div>
+        }
+      >
+        {formContent}
       </ItemActionModal>
 
       {/* Lazy loaded modals */}
