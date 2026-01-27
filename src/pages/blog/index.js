@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { useRouter } from "next/router";
 import SEO from "@/components/SEO";
 import Header from "@/layouts/header";
@@ -33,11 +33,7 @@ const BlogPage = () => {
     }
   }, [router.isReady, router.query]);
 
-  useEffect(() => {
-    fetchData();
-  }, [selectedCategory, searchTerm, currentPage]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       
@@ -53,9 +49,6 @@ const BlogPage = () => {
         null  // Temporarily remove search filter to test
       );
 
-      console.log('Blogs data received:', blogsData);
-      console.log('Blogs array:', blogsData.blogs);
-
       if (currentPage === 1) {
         setBlogs(blogsData.blogs.map(formatBlogData));
       } else {
@@ -65,15 +58,17 @@ const BlogPage = () => {
       setTotalCount(blogsData.totalCount);
       setHasMore(blogsData.hasMore);
     } catch (error) {
-      console.error('Error fetching blog data:', error);
-      console.error('Error details:', error.message);
-      console.error('Error stack:', error.stack);
+      // Error handled silently - could add error toast here if needed
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, selectedCategory, searchTerm]);
 
-  const handleCategoryChange = (category) => {
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
     setBlogs([]);
@@ -86,9 +81,9 @@ const BlogPage = () => {
       query.category = category;
     }
     router.push({ pathname: '/blog', query }, undefined, { shallow: true });
-  };
+  }, [router]);
 
-  const handleSearch = (term) => {
+  const handleSearch = useCallback((term) => {
     setSearchTerm(term);
     setCurrentPage(1);
     setBlogs([]);
@@ -101,11 +96,24 @@ const BlogPage = () => {
       delete query.search;
     }
     router.push({ pathname: '/blog', query }, undefined, { shallow: true });
-  };
+  }, [router]);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     setCurrentPage(prev => prev + 1);
-  };
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setSearchTerm("");
+    setSelectedCategory("all");
+    setCurrentPage(1);
+    setBlogs([]);
+  }, []);
+
+  const categoryName = useMemo(() => {
+    return selectedCategory === "all" 
+      ? "All Articles" 
+      : categories.find(c => c.slug === selectedCategory)?.name || "All Articles";
+  }, [selectedCategory, categories]);
 
   return (
     <>
@@ -229,7 +237,7 @@ const BlogPage = () => {
             <div className="flex items-center justify-between mb-12">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-2">
-                  {selectedCategory === "all" ? "All Articles" : categories.find(c => c.slug === selectedCategory)?.name}
+                  {categoryName}
                 </h2>
                 <p className="text-base sm:text-lg text-ccsa-dark-blue/70">
                   {totalCount} {totalCount === 1 ? 'article' : 'articles'} available
@@ -238,24 +246,69 @@ const BlogPage = () => {
             </div>
 
             {loading && blogs.length === 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[...Array(6)].map((_, index) => (
-                  <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse shadow-sm">
-                    <div className="bg-ccsa-dark-blue/10 h-48 rounded-lg mb-4"></div>
-                    <div className="bg-ccsa-dark-blue/10 h-4 rounded mb-2"></div>
-                    <div className="bg-ccsa-dark-blue/10 h-4 w-3/4 rounded mb-4"></div>
-                    <div className="bg-ccsa-dark-blue/10 h-3 rounded"></div>
+              <div className="flex flex-col items-center justify-center py-16">
+                {/* Animated Spinner */}
+                <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
+                  <div className="absolute inset-0 border-4 border-ccsa-blue/20 rounded-full"></div>
+                  <div className="absolute inset-0 border-4 border-transparent border-t-ccsa-blue rounded-full animate-spin"></div>
+                  <div className="absolute inset-3 border-4 border-ccsa-orange/20 rounded-full"></div>
+                  <div 
+                    className="absolute inset-3 border-4 border-transparent border-t-ccsa-orange rounded-full animate-spin" 
+                    style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}
+                  ></div>
+                  <div className="relative z-10 flex items-center justify-center">
+                    <Icon icon="mdi:book-open-variant" className="w-8 h-8 text-ccsa-dark-blue" />
                   </div>
-                ))}
+                </div>
+                
+                {/* Loading Text */}
+                <div className="text-center mb-12">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-3">
+                    Loading Articles
+                  </h2>
+                  <p className="text-gray-600 text-sm sm:text-base mb-6">
+                    Please wait while we fetch the latest insights...
+                  </p>
+                  
+                  {/* Animated Dots */}
+                  <div className="flex items-center justify-center gap-2">
+                    <div 
+                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
+                      style={{ animationDelay: '0s' }}
+                    ></div>
+                    <div 
+                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
+                      style={{ animationDelay: '0.2s' }}
+                    ></div>
+                    <div 
+                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
+                      style={{ animationDelay: '0.4s' }}
+                    ></div>
+                  </div>
+                </div>
+
+                {/* Blog Cards Skeleton Preview */}
+                <div className="w-full">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
+                    {[...Array(6)].map((_, index) => (
+                      <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                        <div className="h-48 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-lg mb-4"></div>
+                        <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded mb-2"></div>
+                        <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-3/4 mb-4"></div>
+                        <div className="h-3 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-1/2"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : blogs.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {blogs.map((blog) => (
+                  {blogs.map((blog, index) => (
                     <BlogCardProfessional
                       key={blog.id}
                       post={blog}
-                      variant="default"
+                      variant={index === 0 ? "featured" : "default"}
                     />
                   ))}
                 </div>
@@ -299,12 +352,7 @@ const BlogPage = () => {
                   }
                 </p>
                 <button
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedCategory("all");
-                    setCurrentPage(1);
-                    setBlogs([]);
-                  }}
+                  onClick={clearFilters}
                   className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base mx-auto"
                   style={{
                     background: "var(--ccsa-gradient)"

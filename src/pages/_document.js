@@ -17,7 +17,23 @@ class MyDocument extends Document {
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'G-10ELYW45R8');
+                gtag('config', 'G-10ELYW45R8', {
+                  send_page_view: true,
+                  anonymize_ip: true
+                });
+                // Suppress Google Analytics fetch errors in console
+                if (typeof window !== 'undefined' && window.fetch) {
+                  const originalFetch = window.fetch;
+                  window.fetch = function(...args) {
+                    const url = args[0];
+                    if (typeof url === 'string' && (url.includes('google-analytics.com') || url.includes('googletagmanager.com') || url.includes('google.com/ccm'))) {
+                      return originalFetch.apply(this, args).catch(() => {
+                        return Promise.resolve(new Response(null, { status: 200 }));
+                      });
+                    }
+                    return originalFetch.apply(this, args);
+                  };
+                }
               `,
             }}
           />

@@ -118,8 +118,16 @@ const OptimizedImageUpload = memo(({
 }) => {
   const [dragActive, setDragActive] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState(formData?.article_image || formData?.featured_image_url || null);
   const fileInputRef = useRef(null);
+
+  // Update preview when formData changes (for edit mode)
+  useEffect(() => {
+    const imageUrl = formData?.article_image || formData?.featured_image_url;
+    if (imageUrl && imageUrl !== preview) {
+      setPreview(imageUrl);
+    }
+  }, [formData?.article_image, formData?.featured_image_url]);
 
   const handleDrag = useCallback((e) => {
     e.preventDefault();
@@ -289,16 +297,12 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
   } = useBlog(blogId);
 
   // Use props if available, otherwise fall back to hook values
-  const formData = propFormData || hookFormData;
-  const handleInputChange = propHandleInputChange || hookHandleInputChange;
-  const loading = propLoading || hookLoading;
-  const categories = propCategories || hookCategories;
-  const tags = propTags || hookTags;
-  
-  // Debug logging
-  console.log("BlogFormOptimized - propFormData:", propFormData);
-  console.log("BlogFormOptimized - hookFormData:", hookFormData);
-  console.log("BlogFormOptimized - final formData:", formData);
+  // Memoize to prevent unnecessary re-renders
+  const formData = useMemo(() => propFormData || hookFormData, [propFormData, hookFormData]);
+  const handleInputChange = useMemo(() => propHandleInputChange || hookHandleInputChange, [propHandleInputChange, hookHandleInputChange]);
+  const loading = useMemo(() => propLoading || hookLoading, [propLoading, hookLoading]);
+  const categories = useMemo(() => propCategories || hookCategories, [propCategories, hookCategories]);
+  const tags = useMemo(() => propTags || hookTags, [propTags, hookTags]);
 
   // State management
   const [imageSource, setImageSource] = useState("upload");
@@ -312,6 +316,7 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
   const [currentBlogId, setCurrentBlogId] = useState(null);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isSEOCollapsed, setIsSEOCollapsed] = useState(true);
+  const [isSEOAnalysisCollapsed, setIsSEOAnalysisCollapsed] = useState(true);
   const [isImageCollapsed, setIsImageCollapsed] = useState(true);
   const [isPublishingCollapsed, setIsPublishingCollapsed] = useState(true);
 
@@ -322,121 +327,127 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
     [formData, editorContent]
   );
 
+  // Track if we've initialized the editor content to prevent loops
+  const editorInitializedRef = useRef(false);
+  
   // Update editor content when formData changes (for edit mode)
   useEffect(() => {
-    console.log("BlogFormOptimized - formData.article_body:", formData.article_body);
-    console.log("BlogFormOptimized - editorContent:", editorContent);
-    console.log("BlogFormOptimized - isEditing:", isEditing);
-    
-    if (isEditing && formData.article_body && formData.article_body !== editorContent) {
-      console.log("Updating editor content from formData:", formData.article_body);
-      setEditorContent(formData.article_body);
+    if (isEditing && formData.article_body && !editorInitializedRef.current) {
+      // Only update editor content once when loading blog data
+      const contentToSet = formData.article_body;
+      if (contentToSet && contentToSet !== editorContent) {
+        setEditorContent(contentToSet);
+        editorInitializedRef.current = true;
+      }
     }
-  }, [formData.article_body, isEditing, editorContent]);
+    
+    // Reset initialization flag when blogId changes
+    if (blogId && editorInitializedRef.current) {
+      editorInitializedRef.current = false;
+    }
+  }, [formData.article_body, isEditing, blogId]); // Removed editorContent and setEditorContent from deps
 
+  // Track if tags have been initialized
+  const tagsInitializedRef = useRef(false);
+  
   // Update selected tags when formData changes (for edit mode)
   useEffect(() => {
-    if (isEditing && formData.tag_ids && formData.tag_ids.length > 0) {
+    if (isEditing && formData.tag_ids && formData.tag_ids.length > 0 && !tagsInitializedRef.current) {
       const tagNames = formData.tag_ids.map(tagId => {
         const tag = tags.find(t => t.id === tagId);
         return tag?.name;
       }).filter(Boolean);
       
-      if (tagNames.length > 0 && JSON.stringify(tagNames) !== JSON.stringify(selectedTags)) {
-        console.log("Updating selected tags from formData:", tagNames);
+      if (tagNames.length > 0) {
         setSelectedTags(tagNames);
+        tagsInitializedRef.current = true;
       }
     }
-  }, [formData.tag_ids, isEditing, tags, selectedTags]);
+    
+    // Reset initialization flag when blogId changes
+    if (blogId && tagsInitializedRef.current) {
+      tagsInitializedRef.current = false;
+    }
+  }, [formData.tag_ids, isEditing, blogId]); // Removed tags and selectedTags from deps to prevent loops
 
+  // Track if image source has been initialized
+  const imageSourceInitializedRef = useRef(false);
+  
   // Update image source when formData changes (for edit mode)
   useEffect(() => {
-    if (isEditing && formData.article_image && imageSource !== "library") {
-      console.log("Updating image source from formData:", formData.article_image);
+    if (isEditing && formData.article_image && !imageSourceInitializedRef.current) {
       setImageSource("library");
+      imageSourceInitializedRef.current = true;
     }
-  }, [formData.article_image, isEditing, imageSource]);
+    
+    // Reset initialization flag when blogId changes
+    if (blogId && imageSourceInitializedRef.current) {
+      imageSourceInitializedRef.current = false;
+    }
+  }, [formData.article_image, isEditing, blogId]); // Removed imageSource from deps
 
-  // Reset form when showForm changes
+  // Reset form when showForm changes or blogId changes
   useEffect(() => {
-    if (!showForm) {
-      // Reset all form state when modal is closed
-      if (setFormData) {
-        setFormData({
-          id: null,
-          article_name: "",
-          article_body: "",
-          category_id: null,
-          tag_ids: [],
-          article_image: "",
-          meta_title: "",
-          meta_description: "",
-          meta_keywords: "",
-          slug: "",
-          is_published: false,
-          is_draft: true,
-          publish_date: null,
-          author: "",
-          title: "",
-          description: "",
-          keywords: [],
-          featured_image_url: "",
-          featured_image_upload: null,
-          featured_image_library: null,
-          content: "",
-          publish_option: "draft",
-          scheduled_date: null,
-          focus_keyword: "",
-        });
+    if (!showForm || (blogId && blogId !== currentBlogId)) {
+      // Reset initialization flags
+      editorInitializedRef.current = false;
+      tagsInitializedRef.current = false;
+      imageSourceInitializedRef.current = false;
+      
+      if (!showForm) {
+        // Reset all form state when modal is closed
+        if (setFormData) {
+          setFormData({
+            id: null,
+            article_name: "",
+            article_body: "",
+            category_id: null,
+            tag_ids: [],
+            article_image: "",
+            meta_title: "",
+            meta_description: "",
+            meta_keywords: "",
+            slug: "",
+            is_published: false,
+            is_draft: true,
+            publish_date: null,
+            author: "",
+            title: "",
+            description: "",
+            keywords: [],
+            featured_image_url: "",
+            featured_image_upload: null,
+            featured_image_library: null,
+            content: "",
+            publish_option: "draft",
+            scheduled_date: null,
+            focus_keyword: "",
+          });
+        }
+        setEditorContent("");
+        setImageSource("upload");
+        setSelectedTags([]);
+        setCurrentBlogId(null);
+      } else if (blogId && blogId !== currentBlogId) {
+        setCurrentBlogId(blogId);
       }
-      setEditorContent("");
-      setImageSource("upload");
-      setSelectedTags([]);
-      setCurrentBlogId(null);
-    } else if (!blogId) {
+    } else if (!blogId && showForm && currentBlogId) {
       // Reset form when opening modal for new post
-      if (setFormData) {
-        setFormData({
-          id: null,
-          article_name: "",
-          article_body: "",
-          category_id: null,
-          tag_ids: [],
-          article_image: "",
-          meta_title: "",
-          meta_description: "",
-          meta_keywords: "",
-          slug: "",
-          is_published: false,
-          is_draft: true,
-          publish_date: null,
-          author: "",
-          title: "",
-          description: "",
-          keywords: [],
-          featured_image_url: "",
-          featured_image_upload: null,
-          featured_image_library: null,
-          content: "",
-          publish_option: "draft",
-          scheduled_date: null,
-          focus_keyword: "",
-        });
-      }
-      setEditorContent("");
-      setImageSource("upload");
-      setSelectedTags([]);
+      editorInitializedRef.current = false;
+      tagsInitializedRef.current = false;
+      imageSourceInitializedRef.current = false;
       setCurrentBlogId(null);
     }
-  }, [showForm, blogId, setFormData, setEditorContent]);
+  }, [showForm, blogId, currentBlogId]); // Removed setFormData and setEditorContent from deps
 
   // Add a separate effect to handle editor content reset
   useEffect(() => {
     if (!blogId && showForm) {
       // When creating a new blog, ensure editor content is cleared
       setEditorContent("");
+      editorInitializedRef.current = false;
     }
-  }, [blogId, showForm, setEditorContent]);
+  }, [blogId, showForm]); // Removed setEditorContent from deps
 
   // Auto-save functionality
   const { lastSaved, saveDraft } = useAutoSave(formData, editorContent, isEditing);
@@ -470,6 +481,22 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
         formData.article_image ||
         "";
 
+      // Get tag_ids from formData (which is updated by handleTagSelect)
+      // Also ensure we have tag_ids from selectedTags if formData.tag_ids is empty
+      let tagIds = formData.tag_ids || [];
+      
+      // If tag_ids is empty but we have selectedTags, convert tag names to IDs
+      if (tagIds.length === 0 && selectedTags.length > 0) {
+        tagIds = selectedTags.map(tagName => {
+          const tag = tags.find(t => t.name === tagName);
+          return tag?.id;
+        }).filter(Boolean);
+      }
+      
+      console.log("Submitting with tag_ids:", tagIds);
+      console.log("Selected tags:", selectedTags);
+      console.log("FormData tag_ids:", formData.tag_ids);
+      
       const updatedFormData = {
         ...formData,
         article_image: imageUrl,
@@ -477,7 +504,8 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
         featured_image_library: imageSource === "library" ? imageUrl : formData.featured_image_library,
         article_body: editorContent || formData.article_body || "",
         content: editorContent || formData.content || "",
-        article_tags: JSON.stringify(selectedTags),
+        tag_ids: tagIds, // Ensure tag_ids is included for saving tags
+        article_tags: JSON.stringify(selectedTags), // Keep for backward compatibility
         focus_keyword: formData.focus_keyword || "",
         seo_score: seoScore,
       };
@@ -495,7 +523,7 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
     } catch (error) {
       console.error("Form submission error:", error);
     }
-  }, [formData, editorContent, selectedTags, seoScore, handleSubmit, fetchBlogs, handleCancel, router, imageSource]);
+  }, [formData, editorContent, selectedTags, tags, seoScore, handleSubmit, fetchBlogs, handleCancel, router, imageSource]);
 
   // Optimized image handling
   const handleImageChange = useCallback((url) => {
@@ -559,6 +587,172 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
       }
     }
   }, [tags, setFormData]);
+
+  // Handle adding new category
+  const handleAddCategory = useCallback(async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!newCategoryName.trim()) {
+      toast.error("Please enter a category name");
+      return;
+    }
+
+    try {
+      setModalLoading(true);
+      
+      // Generate slug from name
+      const slug = newCategoryName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+
+      const { data, error } = await supabase
+        .from("blog_categories")
+        .insert([{ 
+          name: newCategoryName.trim(), 
+          slug,
+          description: newCategoryName.trim()
+        }])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      toast.success("Category added successfully");
+      await handleCategoryAdded(data);
+      setShowAddCategory(false);
+      setNewCategoryName("");
+    } catch (error) {
+      console.error("Error adding category:", error);
+      toast.error(error.message || "Failed to add category");
+    } finally {
+      setModalLoading(false);
+    }
+  }, [newCategoryName, handleCategoryAdded]);
+
+  // Handle adding new tag
+  const handleAddTag = useCallback(async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!newTagName.trim()) {
+      toast.error("Please enter a tag name");
+      return;
+    }
+
+    try {
+      setModalLoading(true);
+      
+      // Generate slug from name
+      const slug = newTagName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+
+      // Check if tag with same name or slug already exists
+      const { data: existingTags, error: checkError } = await supabase
+        .from("blog_tags")
+        .select("id, name, slug")
+        .or(`name.eq.${newTagName.trim()},slug.eq.${slug}`)
+        .limit(1);
+
+      if (checkError) {
+        console.error("Error checking for existing tag:", checkError);
+        throw checkError;
+      }
+
+      if (existingTags && existingTags.length > 0) {
+        toast.error("A tag with this name or slug already exists");
+        return;
+      }
+
+      // Check existing tags to determine ID format and required fields
+      const { data: sampleTags } = await supabase
+        .from("blog_tags")
+        .select("id, created_at")
+        .limit(1);
+
+      // Determine if ID is UUID or integer
+      const isUUID = sampleTags && sampleTags.length > 0 && typeof sampleTags[0]?.id === 'string' && sampleTags[0].id.includes('-');
+      
+      // Prepare tag data with all required fields
+      const tagData = { 
+        name: newTagName.trim(), 
+        slug,
+        created_at: new Date().toISOString() // Always include created_at
+      };
+
+      // If table requires ID and it's UUID, generate one
+      if (isUUID) {
+        // Generate UUID v4
+        tagData.id = crypto.randomUUID ? crypto.randomUUID() : 
+          'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+      }
+
+      const { data, error } = await supabase
+        .from("blog_tags")
+        .insert([tagData])
+        .select()
+        .single();
+
+      if (error) {
+        console.error("Supabase error details:", error);
+        console.error("Tag data being inserted:", tagData);
+        
+        // If error is about ID and we didn't include one, try with UUID
+        if (error.code === '23502' && error.message.includes('id') && !tagData.id) {
+          console.log("Retrying with generated UUID...");
+          tagData.id = crypto.randomUUID ? crypto.randomUUID() : 
+            'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+              const r = Math.random() * 16 | 0;
+              const v = c === 'x' ? r : (r & 0x3 | 0x8);
+              return v.toString(16);
+            });
+          
+          // Ensure created_at is set
+          if (!tagData.created_at) {
+            tagData.created_at = new Date().toISOString();
+          }
+          
+          const { data: retryData, error: retryError } = await supabase
+            .from("blog_tags")
+            .insert([tagData])
+            .select()
+            .single();
+          
+          if (retryError) {
+            throw retryError;
+          }
+          
+          toast.success("Tag added successfully");
+          await handleTagAdded(retryData);
+          setShowAddTag(false);
+          setNewTagName("");
+          return;
+        }
+        
+        throw error;
+      }
+
+      if (!data || !data.id) {
+        throw new Error("Tag was created but no ID was returned");
+      }
+
+      toast.success("Tag added successfully");
+      await handleTagAdded(data);
+      setShowAddTag(false);
+      setNewTagName("");
+    } catch (error) {
+      console.error("Error adding tag:", error);
+      const errorMessage = error.message || error.details || error.hint || "Failed to add tag";
+      toast.error(errorMessage);
+    } finally {
+      setModalLoading(false);
+    }
+  }, [newTagName, handleTagAdded]);
 
   // Quick actions toolbar
   const QuickActions = memo(() => (
@@ -655,8 +849,8 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
               title="SEO Analysis"
               description="Detailed SEO optimization insights"
               icon="heroicons:chart-bar"
-              isCollapsed={true}
-              onToggle={() => {}}
+              isCollapsed={isSEOAnalysisCollapsed}
+              onToggle={() => setIsSEOAnalysisCollapsed(!isSEOAnalysisCollapsed)}
               mode={mode}
             >
               <SEOAccordion
@@ -860,6 +1054,138 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
             folder="/Blog"
           />
         </React.Suspense>
+
+        {/* Add Category Modal */}
+        <ItemActionModal
+          isOpen={showAddCategory}
+          onClose={() => {
+            setShowAddCategory(false);
+            setNewCategoryName("");
+          }}
+          title="Add New Category"
+          mode={mode}
+        >
+          <form
+            onSubmit={handleAddCategory}
+            className="space-y-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div>
+              <label
+                className={`block text-sm font-medium mb-2 ${
+                  mode === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Category Name *
+              </label>
+              <input
+                type="text"
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+                className={`w-full px-4 py-2 rounded-xl border ${
+                  mode === "dark"
+                    ? "bg-gray-800 border-gray-700 text-gray-100"
+                    : "bg-white border-gray-300 text-gray-900"
+                } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                placeholder="Enter category name"
+                required
+                autoFocus
+              />
+            </div>
+
+            <div className="flex justify-end gap-4">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowAddCategory(false);
+                  setNewCategoryName("");
+                }}
+                className={`px-6 py-3 rounded-xl ${
+                  mode === "dark"
+                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                    : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                }`}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={modalLoading}
+                className={`px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {modalLoading ? "Adding..." : "Add Category"}
+              </button>
+            </div>
+          </form>
+        </ItemActionModal>
+
+        {/* Add Tag Modal */}
+        <ItemActionModal
+          isOpen={showAddTag}
+          onClose={() => {
+            setShowAddTag(false);
+            setNewTagName("");
+          }}
+          title="Add New Tag"
+          mode={mode}
+        >
+          <form
+            onSubmit={handleAddTag}
+            className="space-y-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div>
+              <label
+                className={`block text-sm font-medium mb-2 ${
+                  mode === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Tag Name *
+              </label>
+              <input
+                type="text"
+                value={newTagName}
+                onChange={(e) => setNewTagName(e.target.value)}
+                className={`w-full px-4 py-2 rounded-xl border ${
+                  mode === "dark"
+                    ? "bg-gray-800 border-gray-700 text-gray-100"
+                    : "bg-white border-gray-300 text-gray-900"
+                } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                placeholder="Enter tag name"
+                required
+                autoFocus
+              />
+            </div>
+
+            <div className="flex justify-end gap-4">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowAddTag(false);
+                  setNewTagName("");
+                }}
+                className={`px-6 py-3 rounded-xl ${
+                  mode === "dark"
+                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                    : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                }`}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={modalLoading}
+                className={`px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {modalLoading ? "Adding..." : "Add Tag"}
+              </button>
+            </div>
+          </form>
+        </ItemActionModal>
       </>
     );
   }
@@ -916,6 +1242,138 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
           folder="/Blog"
         />
       </React.Suspense>
+
+      {/* Add Category Modal */}
+      <ItemActionModal
+        isOpen={showAddCategory}
+        onClose={() => {
+          setShowAddCategory(false);
+          setNewCategoryName("");
+        }}
+        title="Add New Category"
+        mode={mode}
+      >
+        <form
+          onSubmit={handleAddCategory}
+          className="space-y-6"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div>
+            <label
+              className={`block text-sm font-medium mb-2 ${
+                mode === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Category Name *
+            </label>
+            <input
+              type="text"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+              className={`w-full px-4 py-2 rounded-xl border ${
+                mode === "dark"
+                  ? "bg-gray-800 border-gray-700 text-gray-100"
+                  : "bg-white border-gray-300 text-gray-900"
+              } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              placeholder="Enter category name"
+              required
+              autoFocus
+            />
+          </div>
+
+          <div className="flex justify-end gap-4">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowAddCategory(false);
+                setNewCategoryName("");
+              }}
+              className={`px-6 py-3 rounded-xl ${
+                mode === "dark"
+                  ? "bg-gray-800 text-white hover:bg-gray-700"
+                  : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+              }`}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={modalLoading}
+              className={`px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              {modalLoading ? "Adding..." : "Add Category"}
+            </button>
+          </div>
+        </form>
+      </ItemActionModal>
+
+      {/* Add Tag Modal */}
+      <ItemActionModal
+        isOpen={showAddTag}
+        onClose={() => {
+          setShowAddTag(false);
+          setNewTagName("");
+        }}
+        title="Add New Tag"
+        mode={mode}
+      >
+        <form
+          onSubmit={handleAddTag}
+          className="space-y-6"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div>
+            <label
+              className={`block text-sm font-medium mb-2 ${
+                mode === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Tag Name *
+            </label>
+            <input
+              type="text"
+              value={newTagName}
+              onChange={(e) => setNewTagName(e.target.value)}
+              className={`w-full px-4 py-2 rounded-xl border ${
+                mode === "dark"
+                  ? "bg-gray-800 border-gray-700 text-gray-100"
+                  : "bg-white border-gray-300 text-gray-900"
+              } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              placeholder="Enter tag name"
+              required
+              autoFocus
+            />
+          </div>
+
+          <div className="flex justify-end gap-4">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowAddTag(false);
+                setNewTagName("");
+              }}
+              className={`px-6 py-3 rounded-xl ${
+                mode === "dark"
+                  ? "bg-gray-800 text-white hover:bg-gray-700"
+                  : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+              }`}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={modalLoading}
+              className={`px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              {modalLoading ? "Adding..." : "Add Tag"}
+            </button>
+          </div>
+        </form>
+      </ItemActionModal>
     </>
   );
 });
@@ -923,3 +1381,5 @@ const BlogFormOptimized = memo(function BlogFormOptimized({
 BlogFormOptimized.displayName = 'BlogFormOptimized';
 
 export default BlogFormOptimized;
+
+

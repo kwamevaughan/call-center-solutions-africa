@@ -2,12 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/blogService";
+import { memo } from "react";
 
-const BlogCardProfessional = ({ post, variant = "default" }) => {
-  console.log('BlogCardProfessional received post:', post);
-  
+const BlogCardProfessional = memo(({ post, variant = "default" }) => {
   if (!post) {
-    console.error('BlogCardProfessional: No post data provided');
     return null;
   }
 
@@ -48,12 +46,15 @@ const BlogCardProfessional = ({ post, variant = "default" }) => {
     <article className={styles.container}>
       <Link href={`/blog/${post.slug}`} className="block">
         {/* Image */}
-        <div className={`relative ${styles.imageHeight} overflow-hidden`}>
+        <div className={`relative ${styles.imageHeight} overflow-hidden bg-gray-100`}>
           <Image
             src={imageSrc}
             alt={imageAlt}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-contain group-hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading={variant === "featured" ? "eager" : "lazy"}
+            priority={variant === "featured"}
           />
           {post.category && (
             <div className="absolute top-3 left-3">
@@ -111,6 +112,8 @@ const BlogCardProfessional = ({ post, variant = "default" }) => {
       </Link>
     </article>
   );
-};
+});
+
+BlogCardProfessional.displayName = 'BlogCardProfessional';
 
 export default BlogCardProfessional;

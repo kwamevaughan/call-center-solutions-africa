@@ -363,15 +363,25 @@ const BlogFormFieldsOptimized = memo(function BlogFormFieldsOptimized({
           Tags
         </label>
         <div className="flex gap-2">
-          <OptimizedSelect
+          <select
             name="tag_select"
             value=""
             onChange={handleTagSelectOptimized}
-            options={tags?.filter(tag => !selectedTags.includes(tag.name)) || []}
-            placeholder="Select tags"
-            mode={mode}
-            className="flex-1"
-          />
+            className={`w-full px-4 py-2.5 rounded-xl border transition-colors flex-1 ${
+              mode === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-100"
+                : "bg-white border-gray-300 text-gray-900"
+            } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+          >
+            <option value="" disabled>
+              Select tags
+            </option>
+            {tags?.filter(tag => !selectedTags.includes(tag.name)).map((tag) => (
+              <option key={tag.id} value={tag.name}>
+                {tag.name}
+              </option>
+            ))}
+          </select>
           <button
             type="button"
             onClick={onAddTag}
@@ -424,7 +434,8 @@ const BlogFormFieldsOptimized = memo(function BlogFormFieldsOptimized({
           mode === "dark" ? "border-gray-700" : "border-gray-300"
         }`}>
           <EditorComponent
-            content={editorContent}
+            key={`editor-${formData?.id || 'new'}-${editorContent?.length || 0}`}
+            initialValue={editorContent || ""}
             onChange={handleEditorChange}
             mode={mode}
           />

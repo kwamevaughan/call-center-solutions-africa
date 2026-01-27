@@ -10,6 +10,7 @@ import { useBlog } from "@/hooks/useBlog";
 import BlogFormOptimized from "@/components/blog/BlogFormOptimized";
 import { getAdminBlogProps } from "utils/getPropsUtils";
 import SEO from "@/components/SEO";
+import { supabase } from "@/lib/supabase";
 
 export default function EditBlog({
   mode = "light",
@@ -46,15 +47,115 @@ export default function EditBlog({
     handleSubmit,
     handleEdit,
     fetchBlogs,
+    setEditorContent,
   } = useBlog(id);
+
+  const [isLoadingBlog, setIsLoadingBlog] = useState(true);
 
   // Load blog data when component mounts or id changes
   useEffect(() => {
-    if (id) {
-      // The useBlog hook should handle loading the blog data
-      // But we can trigger it explicitly if needed
-    }
-  }, [id]);
+    const fetchBlogData = async () => {
+      if (!id) return;
+      
+      try {
+        setIsLoadingBlog(true);
+        console.log("Fetching blog data for ID:", id);
+        
+        const { data, error } = await supabase
+          .from("blogs")
+          .select(
+            `
+            *,
+            tags:blog_post_tags(
+              tag:blog_tags(
+                id,
+                name,
+                slug
+              )
+            ),
+            category:blog_categories(
+              id,
+              name,
+              slug
+            ),
+            author_details:admin_users(
+              name,
+              username
+            )
+          `
+          )
+          .eq("id", id)
+          .single();
+
+        if (error) {
+          console.error("Supabase error:", error);
+          throw error;
+        }
+
+        console.log("Fetched blog data:", data);
+
+        if (data) {
+          // Transform the blog data to match the form structure
+          const tagIds = data.tags?.map(t => t.tag?.id).filter(Boolean) || [];
+          console.log("Extracted tag IDs:", tagIds);
+          
+          const transformedData = {
+            id: data.id,
+            article_name: data.article_name || "",
+            article_body: data.article_body || "",
+            category_id: data.category_id || null,
+            tag_ids: tagIds,
+            article_image: data.article_image || "",
+            meta_title: data.meta_title || "",
+            meta_description: data.meta_description || "",
+            meta_keywords: data.meta_keywords || "",
+            canonical_url: data.canonical_url || "",
+            og_title: data.og_title || "",
+            og_description: data.og_description || "",
+            twitter_card: data.twitter_card || "summary_large_image",
+            slug: data.slug || "",
+            is_published: data.is_published || false,
+            is_draft: data.is_draft !== false,
+            publish_date: data.publish_date || null,
+            author: data.author_details?.name || data.author_details?.username || "CCSA Admin",
+            title: data.article_name || "",
+            description: data.meta_description || "",
+            keywords: data.meta_keywords ? data.meta_keywords.split(",").map(k => k.trim()).filter(Boolean) : [],
+            featured_image_url: data.article_image || "",
+            featured_image_upload: null,
+            featured_image_library: data.article_image || null,
+            content: data.article_body || "",
+            publish_option: data.is_published ? "publish" : (data.publish_date ? "schedule" : "draft"),
+            scheduled_date: data.publish_date || null,
+            focus_keyword: data.focus_keyword || "",
+          };
+
+          console.log("Transformed data:", transformedData);
+          console.log("Article body length:", data.article_body?.length || 0);
+          console.log("Article image:", data.article_image);
+          
+          // Set form data first
+          setFormData(transformedData);
+          
+          // Then set editor content with a small delay to ensure formData is set
+          setTimeout(() => {
+            setEditorContent(data.article_body || "");
+            console.log("Editor content set to:", data.article_body?.substring(0, 50) + "...");
+          }, 100);
+          
+          console.log("Form data and editor content set");
+        }
+      } catch (error) {
+        console.error("Error fetching blog data:", error);
+        toast.error(`Failed to load blog post: ${error.message}`);
+        // Don't redirect immediately, let user see the error
+      } finally {
+        setIsLoadingBlog(false);
+      }
+    };
+
+    fetchBlogData();
+  }, [id, setFormData, setEditorContent]);
 
   const handleFormSubmit = async (e, updatedFormData) => {
     e.preventDefault();
@@ -123,22 +224,33 @@ export default function EditBlog({
             }}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-              <BlogFormOptimized
-                showForm={true}
-                mode={mode}
-                blogId={id}
-                formData={formData}
-                handleInputChange={handleInputChange}
-                handleSubmit={handleFormSubmit}
-                handleCancel={handleCancel}
-                loading={loading}
-                isEditing={true}
-                categories={categories}
-                tags={tags}
-                adminUser={adminUser}
-                fetchBlogs={fetchBlogs}
-                standalone={true}
-              />
+              {isLoadingBlog ? (
+                <div className="flex items-center justify-center min-h-[400px]">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                    <p className={`text-sm ${mode === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+                      Loading blog post...
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <BlogFormOptimized
+                  showForm={true}
+                  mode={mode}
+                  blogId={id}
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                  handleSubmit={handleFormSubmit}
+                  handleCancel={handleCancel}
+                  loading={loading}
+                  isEditing={true}
+                  categories={categories}
+                  tags={tags}
+                  adminUser={adminUser}
+                  fetchBlogs={fetchBlogs}
+                  standalone={true}
+                />
+              )}
             </div>
           </div>
         </div>

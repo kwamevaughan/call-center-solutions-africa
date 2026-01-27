@@ -45,13 +45,14 @@ const BlogCard = memo(function BlogCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container */}
-      <div className="relative aspect-video">
+      <div className="relative aspect-video bg-gray-100">
         {blog.article_image ? (
           <Image
             src={blog.article_image}
             alt={blog.article_name}
             fill
-            className="object-cover"
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div

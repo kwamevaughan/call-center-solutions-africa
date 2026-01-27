@@ -40,12 +40,13 @@ const BlogCard = ({ post, variant = "default" }) => {
   return (
     <article className={styles.container}>
       {variant !== "compact" && (
-        <div className={`relative ${styles.imageHeight} overflow-hidden`}>
+        <div className={`relative ${styles.imageHeight} overflow-hidden bg-gray-100`}>
           <Image
             src={imageSrc}
             alt={imageAlt}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-contain group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className={`absolute top-4 left-4`}>

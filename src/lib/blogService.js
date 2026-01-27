@@ -45,7 +45,7 @@ export const blogService = {
       `)
       .eq('is_published', true)
       .eq('is_draft', false)
-      .order('publish_date', { ascending: false })
+      .order('created_at', { ascending: false })
 
     // Apply category filter
     if (category && category !== 'all') {
@@ -125,7 +125,7 @@ export const blogService = {
       `)
       .eq('is_published', true)
       .eq('is_draft', false)
-      .order('publish_date', { ascending: false })
+      .order('created_at', { ascending: false })
       .limit(limit)
 
     if (error) {

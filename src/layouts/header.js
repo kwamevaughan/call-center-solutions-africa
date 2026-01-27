@@ -23,19 +23,33 @@ const Header = () => {
     };
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   return (
     <nav className="sticky top-0 left-0 right-0 w-full z-50 bg-ccsa-dark-blue shadow-lg">
-      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="w-full py-3 sm:py-4 flex items-center justify-between">
+      <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="w-full py-2 sm:py-3 md:py-4 flex items-center justify-between gap-2">
           {/* Logo - Mobile First */}
-          <div className="flex-shrink-0">
-            <Link href="/" passHref>
+          <div className="flex-shrink-0 min-w-0">
+            <Link href="/" passHref className="block">
               <Image
                 src="https://ik.imagekit.io/nkmvdjnna/CCSA/primary-logo.svg"
                 alt="Logo"
                 width={120}
                 height={42}
-                className="sm:w-[150px] sm:h-[52px] md:w-[180px] md:h-[63px] lg:w-[200px] lg:h-[70px] rounded-xl transition-all duration-300"
+                className="w-[100px] h-auto sm:w-[130px] md:w-[160px] lg:w-[180px] xl:w-[200px] rounded-xl transition-all duration-300"
+                priority
+                loading="eager"
               />
             </Link>
           </div>
@@ -46,7 +60,7 @@ const Header = () => {
               setIsMenuOpen(!isMenuOpen);
               if (isMenuOpen) setIsSolutionsOpen(false);
             }}
-            className="md:hidden p-2 rounded-md focus:outline-none z-60"
+            className="md:hidden p-2 rounded-md focus:outline-none z-[60] flex-shrink-0"
             aria-label="Toggle menu"
           >
             <svg
@@ -74,7 +88,7 @@ const Header = () => {
           </button>
 
           {/* Desktop Menu (hidden on mobile, shown on md+) */}
-          <div className="hidden md:flex items-center gap-2 lg:gap-3 relative flex-1 justify-center">
+          <div className="hidden md:flex items-center gap-1 lg:gap-2 xl:gap-3 relative flex-1 justify-center min-w-0">
             {menuItems.map((item) => {
               const isActive = router.pathname === item.href || router.asPath === item.href;
               const activeClasses = isActive 
@@ -106,26 +120,26 @@ const Header = () => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <div className={`${activeClasses} px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-sm lg:text-base flex items-center gap-1`}>
-                      <Link href={item.href} className="hover:text-inherit">
+                    <div className={`${activeClasses} px-2 md:px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-xs md:text-sm lg:text-base flex items-center gap-1`}>
+                      <Link href={item.href} className="hover:text-inherit whitespace-nowrap">
                         {item.label}
                       </Link>
                       <button
                         onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
-                        className="flex items-center justify-center"
+                        className="flex items-center justify-center flex-shrink-0"
                         aria-label="Toggle solutions menu"
                       >
                         <Icon 
                           icon={isSolutionsOpen ? "mdi:minus" : "mdi:plus"} 
-                          width={18} 
-                          height={18} 
-                          className="transition-transform duration-300"
+                          width={16} 
+                          height={16} 
+                          className="md:w-[18px] md:h-[18px] transition-transform duration-300"
                         />
                       </button>
                     </div>
                     {isSolutionsOpen && (
                       <div 
-                        className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-xl py-2 min-w-[380px] z-50 border border-gray-200"
+                        className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-xl py-2 min-w-[280px] md:min-w-[320px] lg:min-w-[380px] max-w-[90vw] z-50 border border-gray-200"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                       >
@@ -133,7 +147,7 @@ const Header = () => {
                           <Link
                             key={subItem.href}
                             href={subItem.href}
-                            className="block px-4 py-2 text-gray-800 hover:text-ccsa-orange hover:bg-gray-50 transition-all duration-300 text-sm whitespace-nowrap"
+                            className="block px-3 md:px-4 py-2 text-gray-800 hover:text-ccsa-orange hover:bg-gray-50 transition-all duration-300 text-xs md:text-sm break-words"
                           >
                             {subItem.label}
                           </Link>
@@ -150,7 +164,7 @@ const Header = () => {
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleScroll(e, item.href, true)}
-                  className={`${activeClasses} px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-sm lg:text-base`}
+                  className={`${activeClasses} px-2 md:px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-xs md:text-sm lg:text-base whitespace-nowrap`}
                 >
                   {item.label}
                 </a>
@@ -158,7 +172,7 @@ const Header = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`${activeClasses} px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-sm lg:text-base`}
+                  className={`${activeClasses} px-2 md:px-3 lg:px-4 py-2 rounded-full transition-all duration-300 cursor-pointer text-xs md:text-sm lg:text-base whitespace-nowrap`}
                 >
                   {item.label}
                 </Link>
@@ -169,7 +183,7 @@ const Header = () => {
           {/* Desktop CTA Button (hidden on mobile, shown on md+) */}
           <Link
             href="/contact-us"
-            className="hidden md:flex text-white px-4 py-2 rounded-full font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap items-center gap-2 hover:opacity-90 text-sm flex-shrink-0"
+            className="hidden md:flex text-white px-3 md:px-4 py-2 rounded-full font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap items-center gap-1 md:gap-2 hover:opacity-90 text-xs md:text-sm flex-shrink-0"
             style={{
               background: "var(--ccsa-gradient)"
             }}
@@ -184,10 +198,12 @@ const Header = () => {
 
       {/* Mobile Menu (shown when hamburger is clicked) */}
       <div
-        className={`md:hidden ${isMenuOpen ? "block" : "hidden"} w-full bg-ccsa-dark-blue border-t border-white/10`}
+        className={`md:hidden fixed inset-x-0 top-[73px] sm:top-[77px] bottom-0 bg-ccsa-dark-blue border-t border-white/10 overflow-y-auto transition-all duration-300 ease-in-out ${
+          isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible pointer-events-none"
+        }`}
         style={{ zIndex: 50 }}
       >
-        <div className="px-3 py-3 space-y-2">
+        <div className="px-3 sm:px-4 py-4 space-y-2 max-h-full">
           {menuItems.map((item) => {
             const isActive = router.pathname === item.href || router.asPath === item.href;
             const activeClasses = isActive 
@@ -197,20 +213,20 @@ const Header = () => {
             // Solutions dropdown for mobile
             if (item.hasDropdown && item.submenu) {
               return (
-                <div key={item.href}>
+                <div key={item.href} className="w-full">
                   <div 
-                    className={`${activeClasses} flex items-center justify-between px-4 py-2.5 rounded-full transition-all duration-300 cursor-pointer text-base`}
+                    className={`${activeClasses} flex items-center justify-between px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 cursor-pointer text-sm sm:text-base w-full`}
                     onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
                   >
-                    <Link href={item.href} onClick={(e) => e.stopPropagation()}>
-                      {item.label}
+                    <Link href={item.href} onClick={(e) => e.stopPropagation()} className="flex-1 min-w-0">
+                      <span className="truncate block">{item.label}</span>
                     </Link>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setIsSolutionsOpen(!isSolutionsOpen);
                       }}
-                      className="flex items-center justify-center"
+                      className="flex items-center justify-center flex-shrink-0 ml-2"
                       aria-label="Toggle solutions menu"
                     >
                       <Icon 
@@ -222,7 +238,7 @@ const Header = () => {
                     </button>
                   </div>
                   {isSolutionsOpen && (
-                    <div className="ml-4 mt-2 space-y-1 border-l-2 border-ccsa-orange/30 pl-4 bg-white rounded-lg py-2">
+                    <div className="ml-2 sm:ml-4 mt-2 space-y-1 border-l-2 border-ccsa-orange/30 pl-3 sm:pl-4 bg-white/10 backdrop-blur-sm rounded-lg py-2">
                       {item.submenu.map((subItem) => (
                         <Link
                           key={subItem.href}
@@ -231,7 +247,7 @@ const Header = () => {
                             setIsMenuOpen(false);
                             setIsSolutionsOpen(false);
                           }}
-                          className="block px-4 py-2 text-gray-800 hover:text-ccsa-orange hover:bg-gray-50 rounded-full transition-all duration-300 text-sm whitespace-nowrap"
+                          className="block px-3 sm:px-4 py-2 text-white hover:text-ccsa-orange hover:bg-white/10 rounded-lg transition-all duration-300 text-xs sm:text-sm break-words"
                         >
                           {subItem.label}
                         </Link>
@@ -251,7 +267,7 @@ const Header = () => {
                   handleScroll(e, item.href, true);
                   setIsMenuOpen(false);
                 }}
-                className={`${activeClasses} block px-4 py-2.5 rounded-full transition-all duration-300 cursor-pointer text-base`}
+                className={`${activeClasses} block px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 cursor-pointer text-sm sm:text-base w-full`}
               >
                 {item.label}
               </a>
@@ -260,7 +276,7 @@ const Header = () => {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`${activeClasses} block px-4 py-2.5 rounded-full transition-all duration-300 cursor-pointer text-base`}
+                className={`${activeClasses} block px-3 sm:px-4 py-2.5 rounded-lg transition-all duration-300 cursor-pointer text-sm sm:text-base w-full`}
               >
                 {item.label}
               </Link>
@@ -269,7 +285,7 @@ const Header = () => {
           <Link
             href="/contact-us"
             onClick={() => setIsMenuOpen(false)}
-            className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 cursor-pointer block text-center flex items-center justify-center gap-2 hover:opacity-90 mt-2"
+            className="text-white px-4 sm:px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 cursor-pointer block text-center flex items-center justify-center gap-2 hover:opacity-90 mt-4 text-sm sm:text-base"
             style={{
               background: "var(--ccsa-gradient)"
             }}

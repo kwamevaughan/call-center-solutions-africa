@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      {/* Google Analytics Global Site Tag */}
+      {/* Google Analytics Global Site Tag - Suppress errors in development */}
       <Script
         strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=AW-11088484153"
@@ -59,7 +59,24 @@ function MyApp({ Component, pageProps }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-11088484153');
+            gtag('config', 'AW-11088484153', {
+              send_page_view: true,
+              anonymize_ip: true
+            });
+            // Suppress Google Analytics fetch errors in console (especially in development)
+            if (typeof window !== 'undefined' && window.fetch) {
+              const originalFetch = window.fetch;
+              window.fetch = function(...args) {
+                const url = args[0];
+                if (typeof url === 'string' && (url.includes('google-analytics.com') || url.includes('googletagmanager.com') || url.includes('google.com/ccm'))) {
+                  return originalFetch.apply(this, args).catch(() => {
+                    // Silently handle GA fetch errors - don't log to console
+                    return Promise.resolve(new Response(null, { status: 200 }));
+                  });
+                }
+                return originalFetch.apply(this, args);
+              };
+            }
           `,
         }}
       />
