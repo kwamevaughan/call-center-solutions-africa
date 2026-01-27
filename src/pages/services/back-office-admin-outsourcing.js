@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const BackOfficeAdminOutsourcingPage = () => {
   const sectionRefs = {
@@ -54,12 +55,34 @@ const BackOfficeAdminOutsourcingPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const serviceUrl = `${baseUrl}/services/back-office-admin-outsourcing`;
+    
+    const serviceSchema = getServiceSchema({
+      name: 'Back-Office & Administrative Outsourcing',
+      description: 'Reliable operations behind the scenes. Data processing, billing, content moderation, and reporting—so core teams can focus on growth. Accuracy at scale with 99%+ accuracy and business continuity from Africa.',
+      serviceType: 'Back-Office Operations',
+      url: serviceUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: `${baseUrl}/services` },
+      { name: 'Back-Office & Administrative Outsourcing', url: serviceUrl }
+    ]);
+
+    return [serviceSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Back-Office & Administrative Outsourcing | Call Center Solutions Africa"
         description="Reliable operations behind the scenes. Data processing, billing, content moderation, and reporting—so core teams can focus on growth. Accuracy at scale with 99%+ accuracy and business continuity from Africa."
         keywords="back-office outsourcing, administrative outsourcing, data processing, billing services, content moderation, document processing, data entry, ticket tagging, catalog operations, billing reconciliation, compliance checks, administrative support, business process outsourcing, back-office operations, data management, reporting services"
+        schema={seoSchemas}
       />
       <Header />
 

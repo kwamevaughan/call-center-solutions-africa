@@ -4,8 +4,27 @@ import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
 import { Icon } from "@iconify/react";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const SecurityAndCompliance = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const securityUrl = `${baseUrl}/security-and-compliance`;
+    return [
+      getWebPageSchema({
+        name: 'Security & Compliance',
+        description: 'Enterprise-grade security with ISO 27001, GDPR, HIPAA, PCI DSS compliance. Secure BPO services with end-to-end encryption and 24/7 monitoring from Africa.',
+        url: securityUrl
+      }),
+      getBreadcrumbSchema([
+        { name: 'Home', url: baseUrl },
+        { name: 'Security & Compliance', url: securityUrl }
+      ])
+    ];
+  }, []);
+
   const certifications = [
     {
       title: "ISO 27001",
@@ -111,6 +130,7 @@ const SecurityAndCompliance = () => {
         title="Security & Compliance | ISO 27001, GDPR, HIPAA | Call Center Solutions Africa"
         description="Enterprise-grade security with ISO 27001, GDPR, HIPAA, PCI DSS compliance. Secure BPO services with end-to-end encryption and 24/7 monitoring from Africa."
         keywords="security compliance BPO, ISO 27001 certified, GDPR compliant call center, HIPAA compliant, PCI DSS secure, SOC 2 compliance, data security Africa"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

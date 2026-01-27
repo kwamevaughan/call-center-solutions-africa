@@ -3,14 +3,36 @@ import Link from "next/link";
 import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const ResponsibleDisclosure = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const disclosureUrl = `${baseUrl}/responsible-disclosure`;
+    
+    const webPageSchema = getWebPageSchema({
+      name: 'Responsible Disclosure Policy',
+      description: 'Learn about our Responsible Disclosure Policy. Report security vulnerabilities responsibly and help us keep our systems secure.',
+      url: disclosureUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Responsible Disclosure Policy', url: disclosureUrl }
+    ]);
+
+    return [webPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Responsible Disclosure Policy | Call Center Solutions Africa"
         description="Learn about our Responsible Disclosure Policy. Report security vulnerabilities responsibly and help us keep our systems secure."
         keywords="Call Center Solutions Africa, responsible disclosure, security vulnerability, bug bounty, security policy"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

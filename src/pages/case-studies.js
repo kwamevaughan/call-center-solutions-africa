@@ -4,14 +4,36 @@ import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
 import { Icon } from "@iconify/react";
+import { useMemo } from "react";
+import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const CaseStudies = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const caseStudiesUrl = `${baseUrl}/case-studies`;
+    
+    const collectionPageSchema = getCollectionPageSchema({
+      name: 'Customer Success Stories & Case Studies',
+      description: 'Read real case studies showing how businesses improved CSAT, reduced costs, and scaled operations with our BPO services. ISO 27001 certified results from Africa.',
+      url: caseStudiesUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Case Studies', url: caseStudiesUrl }
+    ]);
+
+    return [collectionPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Customer Success Stories & Case Studies | Call Center Solutions Africa"
         description="Read real case studies showing how businesses improved CSAT, reduced costs, and scaled operations with our BPO services. ISO 27001 certified results from Africa."
         keywords="case studies BPO, customer success stories, call center case studies Africa, customer service ROI, BPO success metrics, customer experience case studies"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

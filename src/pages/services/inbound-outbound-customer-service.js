@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const InboundOutboundCustomerServicePage = () => {
   const sectionRefs = {
@@ -53,12 +54,34 @@ const InboundOutboundCustomerServicePage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const serviceUrl = `${baseUrl}/services/inbound-outbound-customer-service`;
+    
+    const serviceSchema = getServiceSchema({
+      name: 'Inbound & Outbound Customer Service',
+      description: 'Phone, WhatsApp, email, chat, and social DMs with a unified tone of voice, clear SLAs, and multilingual coverage from Africa. 24/7 customer service with 90%+ CSAT and GDPR-aligned operations.',
+      serviceType: 'Customer Service',
+      url: serviceUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: `${baseUrl}/services` },
+      { name: 'Inbound & Outbound Customer Service', url: serviceUrl }
+    ]);
+
+    return [serviceSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Inbound & Outbound Customer Service | Call Center Solutions Africa"
         description="Phone, WhatsApp, email, chat, and social DMs with a unified tone of voice, clear SLAs, and multilingual coverage from Africa. 24/7 customer service with 90%+ CSAT and GDPR-aligned operations."
         keywords="inbound customer service, outbound customer service, call center services Africa, customer support outsourcing, phone support, WhatsApp customer service, email support, chat support, social media customer service, multilingual customer service, 24/7 customer support, CSAT improvement, first contact resolution, customer service Africa, BPO customer service, contact center operations, customer experience management, SLA management, customer retention services"
+        schema={seoSchemas}
       />
       <Header />
 

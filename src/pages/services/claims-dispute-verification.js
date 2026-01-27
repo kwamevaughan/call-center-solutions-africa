@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const ClaimsDisputeVerificationPage = () => {
   const sectionRefs = {
@@ -54,12 +55,34 @@ const ClaimsDisputeVerificationPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const serviceUrl = `${baseUrl}/services/claims-dispute-verification`;
+    
+    const serviceSchema = getServiceSchema({
+      name: 'Claims, Dispute & Verification Processes',
+      description: 'Fast, compliant case handling for insurance, fintech, and e-commerce. Processed with accuracy, transparency, and complete audit trails. Regulatory adherence with 99%+ accuracy and zero compliance breaches.',
+      serviceType: 'Claims Processing',
+      url: serviceUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: `${baseUrl}/services` },
+      { name: 'Claims, Dispute & Verification Processes', url: serviceUrl }
+    ]);
+
+    return [serviceSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Claims, Dispute & Verification Processes | Call Center Solutions Africa"
         description="Fast, compliant case handling for insurance, fintech, and e-commerce. Processed with accuracy, transparency, and complete audit trails. Regulatory adherence with 99%+ accuracy and zero compliance breaches."
         keywords="claims processing, dispute handling, verification services, KYC checks, KYB checks, AML screening, insurance claims, fintech verification, e-commerce disputes, identity verification, document verification, sanctions screening, regulatory compliance, audit trails, case management, claims accuracy, dispute resolution"
+        schema={seoSchemas}
       />
       <Header />
 

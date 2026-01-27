@@ -4,14 +4,34 @@ import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
 import { Icon } from "@iconify/react";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const GlobalCompliancePlaybook = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const playbookUrl = `${baseUrl}/global-compliance-playbook`;
+    return [
+      getWebPageSchema({
+        name: 'Global Compliance Playbook',
+        description: 'Access our Global Compliance Playbook to understand how Call Center Solutions Africa ensures compliance with international data protection and regulatory requirements.',
+        url: playbookUrl
+      }),
+      getBreadcrumbSchema([
+        { name: 'Home', url: baseUrl },
+        { name: 'Global Compliance Playbook', url: playbookUrl }
+      ])
+    ];
+  }, []);
+
   return (
     <>
       <SEO
         title="Global Compliance Playbook | Call Center Solutions Africa"
         description="Access our Global Compliance Playbook to understand how Call Center Solutions Africa ensures compliance with international data protection and regulatory requirements."
         keywords="Call Center Solutions Africa, compliance playbook, GDPR compliance, data protection, regulatory compliance, global standards"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

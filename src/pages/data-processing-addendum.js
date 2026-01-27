@@ -3,14 +3,36 @@ import Link from "next/link";
 import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const DataProcessingAddendum = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const addendumUrl = `${baseUrl}/data-processing-addendum`;
+    
+    const webPageSchema = getWebPageSchema({
+      name: 'Data Processing Addendum',
+      description: 'Read the Data Processing Addendum for Call Center Solutions Africa. Understand how we process personal data in compliance with data protection regulations.',
+      url: addendumUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Data Processing Addendum', url: addendumUrl }
+    ]);
+
+    return [webPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Data Processing Addendum | Call Center Solutions Africa"
         description="Read the Data Processing Addendum for Call Center Solutions Africa. Understand how we process personal data in compliance with data protection regulations."
         keywords="Call Center Solutions Africa, data processing addendum, GDPR, data protection, privacy compliance"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

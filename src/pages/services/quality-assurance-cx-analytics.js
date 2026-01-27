@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const QualityAssuranceCXAnalyticsPage = () => {
   const sectionRefs = {
@@ -54,12 +55,34 @@ const QualityAssuranceCXAnalyticsPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const serviceUrl = `${baseUrl}/services/quality-assurance-cx-analytics`;
+    
+    const serviceSchema = getServiceSchema({
+      name: 'Quality Assurance & CX Analytics',
+      description: 'AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations. Real-time coaching, macro tuning, and root-cause analysis from Africa.',
+      serviceType: 'Quality Assurance',
+      url: serviceUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: `${baseUrl}/services` },
+      { name: 'Quality Assurance & CX Analytics', url: serviceUrl }
+    ]);
+
+    return [serviceSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Quality Assurance & CX Analytics | Call Center Solutions Africa"
         description="AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations. Real-time coaching, macro tuning, and root-cause analysis from Africa."
         keywords="quality assurance, CX analytics, customer experience analytics, QA scoring, conversation analytics, VOC dashboards, sentiment tracking, playbook optimization, customer service quality, contact center QA, quality monitoring, customer satisfaction analytics, NPS tracking, CSAT improvement, service quality management"
+        schema={seoSchemas}
       />
       <Header />
 

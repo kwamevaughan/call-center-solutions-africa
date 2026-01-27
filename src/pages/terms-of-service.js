@@ -3,14 +3,36 @@ import Link from "next/link";
 import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const TermsOfService = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const termsUrl = `${baseUrl}/terms-of-service`;
+    
+    const webPageSchema = getWebPageSchema({
+      name: 'Terms of Service',
+      description: 'Review our terms of service for BPO and call center services. Understand usage policies, liability, and legal agreements for secure outsourcing in Africa.',
+      url: termsUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Terms of Service', url: termsUrl }
+    ]);
+
+    return [webPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Terms of Service | Legal Agreement | Call Center Solutions Africa"
         description="Review our terms of service for BPO and call center services. Understand usage policies, liability, and legal agreements for secure outsourcing in Africa."
         keywords="terms of service Call Center Solutions Africa, legal agreement BPO, service terms Africa, call center contract terms"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

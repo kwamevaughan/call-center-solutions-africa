@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -12,6 +12,7 @@ import SEO from "@/components/SEO";
 import LogoMarquee from "@/components/LogoMarquee";
 import { Icon } from "@iconify/react";
 import ContactForm from "@/components/ContactForm";
+import { getContactPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -27,6 +28,25 @@ export default function ContactPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const contactUrl = `${baseUrl}/contact-us`;
+    
+    const contactPageSchema = getContactPageSchema({
+      name: 'Contact Us',
+      description: 'Ready to outsource your customer service? Contact our Nairobi-based team for a free consultation and custom BPO proposal. ISO 27001 certified, multilingual support.',
+      url: contactUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Contact Us', url: contactUrl }
+    ]);
+
+    return [contactPageSchema, breadcrumbSchema];
+  }, []);
 
   const handleRecaptcha = (token) => {
     setRecaptchaToken(token);
@@ -138,6 +158,7 @@ export default function ContactPage() {
         title="Contact Us | Get a Custom Proposal | Call Center Solutions Africa"
         description="Ready to outsource your customer service? Contact our Nairobi-based team for a free consultation and custom BPO proposal. ISO 27001 certified, multilingual support."
         keywords="contact Call Center Solutions Africa, BPO proposal, Nairobi contact center, customer service outsourcing Africa, ISO 27001 certified contact center, multilingual BPO services"
+        schema={seoSchemas}
       />
 
       <Header />

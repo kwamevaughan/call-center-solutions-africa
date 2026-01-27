@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import BlogCardProfessional from "@/components/BlogCardProfessional";
 import { blogService, formatBlogData, formatDate } from "@/lib/blogService";
+import { getArticleSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 // Memoized share buttons component
 const ShareButtons = memo(({ blog }) => {
@@ -290,10 +291,39 @@ const BlogPost = () => {
         description: "Loading blog post...",
       };
     }
+
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const blogUrl = `${baseUrl}/blog/${blog.slug}`;
+    
+    // Calculate word count for article schema
+    const wordCount = blog.content ? blog.content.split(/\s+/).length : 0;
+    
+    // Generate Article schema
+    const articleSchema = getArticleSchema({
+      title: blog.metaTitle || blog.title,
+      description: blog.metaDescription || blog.excerpt,
+      image: blog.image || `${baseUrl}/favicon.svg`,
+      author: blog.author || 'Call Center Solutions Africa',
+      datePublished: blog.date,
+      dateModified: blog.date,
+      url: blogUrl,
+      category: blog.category,
+      wordCount: wordCount
+    });
+
+    // Generate Breadcrumb schema
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Blog', url: `${baseUrl}/blog` },
+      { name: blog.title, url: blogUrl }
+    ]);
+
     return {
       title: blog.metaTitle || blog.title,
       description: blog.metaDescription || blog.excerpt,
       keywords: blog.metaKeywords,
+      image: blog.image,
+      schema: [articleSchema, breadcrumbSchema].filter(Boolean)
     };
   }, [blog]);
 

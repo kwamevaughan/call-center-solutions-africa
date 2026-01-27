@@ -6,10 +6,11 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../utils/scrollUtils";
 import IndustriesTab from "@/components/IndustriesTab";
 import GoogleReviewsTestimonials from "@/components/GoogleReviewsTestimonials";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const HomePage = () => {
   const sectionRefs = {
@@ -56,12 +57,26 @@ const HomePage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    
+    const webPageSchema = getWebPageSchema({
+      name: 'Home - Call Center Solutions Africa',
+      description: 'CCSA delivers world-class, secure, and multilingual customer service outsourcing from Africa. Offering 45–60% cost savings, ISO 27001 compliance, and 24/7 CX delivery.',
+      url: baseUrl
+    });
+
+    return [webPageSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Excellence in Customer Service Outsourcing from Africa | CCSA"
         description="CCSA delivers world-class, secure, and multilingual customer service outsourcing from Africa. Offering 45–60% cost savings, ISO 27001 compliance, and 24/7 CX delivery."
         keywords="call center solutions, BPO services, contact center technology, business solutions, cloud call center, customer experience, Nairobi call center services, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support, claims processing, telehealth support, digital payments support, omnichannel contact center, 24/7 customer service, ISO 27001 call center, PCI-DSS compliant, customer retention, back-office outsourcing"
+        schema={seoSchemas}
       />
       <Header />
 

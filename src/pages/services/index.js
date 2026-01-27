@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const ServicesPage = () => {
   const sectionRefs = {
@@ -46,6 +47,25 @@ const ServicesPage = () => {
         }
       });
     };
+  }, []);
+
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const servicesUrl = `${baseUrl}/services`;
+    
+    const collectionPageSchema = getCollectionPageSchema({
+      name: 'BPO Services & Customer Experience Solutions',
+      description: 'Discover our full range of BPO services: inbound/outbound customer service, omnichannel operations, sales enablement, technical support, claims processing, and more. ISO 27001 certified.',
+      url: servicesUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: servicesUrl }
+    ]);
+
+    return [collectionPageSchema, breadcrumbSchema];
   }, []);
 
   const services = [
@@ -113,6 +133,7 @@ const ServicesPage = () => {
         title="BPO Services & Customer Experience Solutions | Call Center Solutions Africa"
         description="Discover our full range of BPO services: inbound/outbound customer service, omnichannel operations, sales enablement, technical support, claims processing, and more. ISO 27001 certified."
         keywords="BPO services Africa, customer experience solutions, call center outsourcing, omnichannel support, technical support Africa, sales enablement, customer retention management, claims processing BPO"
+        schema={seoSchemas}
       />
       <Header />
 

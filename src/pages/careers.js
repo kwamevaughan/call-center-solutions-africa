@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import SEO from "@/components/SEO";
 import Header from "@/layouts/header";
 import Footer from "@/layouts/footer";
@@ -14,6 +14,7 @@ import QuickNavigationMenu from "@/components/careers/QuickNavigationMenu";
 import SalesExecutivePosition from "@/components/careers/SalesExecutivePosition";
 import ClosedPositionsSection from "@/components/careers/ClosedPositionsSection";
 import ApplicationForm from "@/components/careers/ApplicationForm";
+import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const CareersPage = () => {
   const [filter, setFilter] = useState("all"); // "all", "open", "closed"
@@ -61,12 +62,31 @@ const CareersPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const careersUrl = `${baseUrl}/careers`;
+    
+    const collectionPageSchema = getCollectionPageSchema({
+      name: 'Careers',
+      description: 'Join our team at Call Center Solutions Africa. We\'re hiring talented Customer Service Agents to deliver exceptional customer service. Apply now and grow your career with us.',
+      url: careersUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Careers', url: careersUrl }
+    ]);
+
+    return [collectionPageSchema, breadcrumbSchema];
+  }, []);
 
   return (
     <>
       <SEO
         title="Careers | Call Center Solutions Africa"
         description="Join our team at Call Center Solutions Africa. We're hiring talented Customer Service Agents to deliver exceptional customer service. Apply now and grow your career with us."
+        schema={seoSchemas}
         keywords="careers, jobs, call center jobs Africa, customer service jobs, BPO careers, call center agent jobs, Nairobi jobs, customer support careers"
       />
       <Header />

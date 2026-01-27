@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const TechnicalSupportHelpDeskPage = () => {
   const sectionRefs = {
@@ -54,12 +55,34 @@ const TechnicalSupportHelpDeskPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const serviceUrl = `${baseUrl}/services/technical-support-help-desk`;
+    
+    const serviceSchema = getServiceSchema({
+      name: 'Technical Support & Help Desk',
+      description: '24/7 technical support and help desk services from Africa.',
+      serviceType: 'Technical Support',
+      url: serviceUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: `${baseUrl}/services` },
+      { name: 'Technical Support & Help Desk', url: serviceUrl }
+    ]);
+
+    return [serviceSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
-        title="Customer Retention & Loyalty Management | Call Center Solutions Africa"
-        description="Reduce churn and boost LTV with behavioral analytics, personalized outreach, and loyalty program management. GDPR-compliant retention strategies from Africa."
-        keywords="customer retention management, loyalty program management, churn reduction, customer loyalty Africa, behavioral analytics, personalized outreach, LTV optimization, customer retention strategies, loyalty operations, churn prevention, customer lifecycle management"
+        title="Technical Support & Help Desk | Call Center Solutions Africa"
+        description="24/7 technical support and help desk services from Africa."
+        keywords="technical support, help desk, IT support, technical support outsourcing, help desk services, IT help desk, technical support Africa, 24/7 technical support"
+        schema={seoSchemas}
       />
       <Header />
 

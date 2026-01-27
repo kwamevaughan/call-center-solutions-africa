@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../../utils/scrollUtils";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const OmnichannelContactCenterOperationsPage = () => {
   const sectionRefs = {
@@ -54,12 +55,34 @@ const OmnichannelContactCenterOperationsPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const serviceUrl = `${baseUrl}/services/omnichannel-contact-center-operations`;
+    
+    const serviceSchema = getServiceSchema({
+      name: 'Omnichannel Contact Center Operations',
+      description: 'Unified routing, knowledge, and analytics into one operating model. Faster customer responses, lower cost per contact, and consistent voice across all channels. Smart routing and WFM coverage from Africa.',
+      serviceType: 'Contact Center Operations',
+      url: serviceUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Services', url: `${baseUrl}/services` },
+      { name: 'Omnichannel Contact Center Operations', url: serviceUrl }
+    ]);
+
+    return [serviceSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Omnichannel Contact Center Operations | Call Center Solutions Africa"
         description="Unified routing, knowledge, and analytics into one operating model. Faster customer responses, lower cost per contact, and consistent voice across all channels. Smart routing and WFM coverage from Africa."
         keywords="omnichannel contact center, unified customer service, contact center routing, customer service analytics, multi-channel customer support, unified playbook, customer service knowledge base, contact center WFM, smart routing, customer service automation, unified CRM, contact center efficiency, cost per contact reduction, SLA management, customer service integration, contact center operations, unified customer view, customer service technology"
+        schema={seoSchemas}
       />
       <Header />
 

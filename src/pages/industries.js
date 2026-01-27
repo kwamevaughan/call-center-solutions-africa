@@ -7,7 +7,8 @@ import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import IndustriesTab from "@/components/IndustriesTab";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const IndustriesPage = () => {
   const sectionRefs = {
@@ -50,12 +51,32 @@ const IndustriesPage = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const industriesUrl = `${baseUrl}/industries`;
+    
+    const collectionPageSchema = getCollectionPageSchema({
+      name: 'Industries We Serve',
+      description: 'Industry-specific customer experience solutions for Healthcare, Fintech, SaaS, Insurance, Travel, and Telecoms. HIPAA, GDPR, and PCI-DSS compliant BPO services from Africa.',
+      url: industriesUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Industries', url: industriesUrl }
+    ]);
+
+    return [collectionPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Industries We Serve | Call Center Solutions Africa"
         description="Industry-specific customer experience solutions for Healthcare, Fintech, SaaS, Insurance, Travel, and Telecoms. HIPAA, GDPR, and PCI-DSS compliant BPO services from Africa."
         keywords="healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support Africa, claims processing, telehealth support, digital payments support"
+        schema={seoSchemas}
       />
       <Header />
 

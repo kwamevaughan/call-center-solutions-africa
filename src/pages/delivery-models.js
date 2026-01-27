@@ -5,8 +5,27 @@ import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const DeliveryModels = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const deliveryUrl = `${baseUrl}/delivery-models`;
+    return [
+      getWebPageSchema({
+        name: 'Delivery Models',
+        description: 'Explore our flexible delivery models including dedicated teams, shared resources, hybrid models, and project-based engagements. Choose the model that best fits your business needs.',
+        url: deliveryUrl
+      }),
+      getBreadcrumbSchema([
+        { name: 'Home', url: baseUrl },
+        { name: 'Delivery Models', url: deliveryUrl }
+      ])
+    ];
+  }, []);
+
   const deliveryModels = [
     {
       title: "Dedicated Teams",
@@ -85,6 +104,7 @@ const DeliveryModels = () => {
         title="Delivery Models | Call Center Solutions Africa"
         description="Explore our flexible delivery models including dedicated teams, shared resources, hybrid models, and project-based engagements. Choose the model that best fits your business needs."
         keywords="delivery models, BPO delivery, dedicated teams, shared resources, hybrid model, call center delivery, customer service delivery"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

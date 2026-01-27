@@ -3,14 +3,36 @@ import Link from "next/link";
 import Header from "../layouts/header";
 import Footer from "../layouts/footer";
 import SEO from "@/components/SEO";
+import { useMemo } from "react";
+import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const PrivacyPolicy = () => {
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const privacyUrl = `${baseUrl}/privacy-policy`;
+    
+    const webPageSchema = getWebPageSchema({
+      name: 'Privacy Policy',
+      description: 'Learn how we protect your data with ISO 27001 & GDPR compliance. Read our comprehensive privacy policy for secure BPO services in Africa.',
+      url: privacyUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Privacy Policy', url: privacyUrl }
+    ]);
+
+    return [webPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="Privacy Policy | Data Protection & GDPR Compliance | Call Center Solutions Africa"
         description="Learn how we protect your data with ISO 27001 & GDPR compliance. Read our comprehensive privacy policy for secure BPO services in Africa."
         keywords="privacy policy Call Center Solutions Africa, data protection, GDPR compliance, ISO 27001, secure BPO services, data privacy Africa"
+        schema={seoSchemas}
       />
       <main className="min-h-screen flex flex-col">
         <Header />

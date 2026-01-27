@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../utils/scrollUtils";
+import { getAboutPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 const About = () => {
   const sectionRefs = {
@@ -54,12 +55,32 @@ const About = () => {
     };
   }, []);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const aboutUrl = `${baseUrl}/about-us`;
+    
+    const aboutPageSchema = getAboutPageSchema({
+      name: 'About Us',
+      description: 'Learn about Call Center Solutions Africa - your trusted partner for world-class customer experience outsourcing from Africa. Discover our mission, values, and commitment to excellence.',
+      url: aboutUrl
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'About Us', url: aboutUrl }
+    ]);
+
+    return [aboutPageSchema, breadcrumbSchema];
+  }, []);
+
   return (
     <>
       <SEO
         title="About Us | Call Center Solutions Africa"
         description="Learn about Call Center Solutions Africa - your trusted partner for world-class customer experience outsourcing from Africa. Discover our mission, values, and commitment to excellence."
         keywords="about Call Center Solutions Africa, CCSA company, African BPO provider, customer experience outsourcing, Nairobi contact center, ISO 27001 certified, GDPR compliant BPO, multilingual customer service Africa"
+        schema={seoSchemas}
       />
       <Header />
 

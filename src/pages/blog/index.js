@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import BlogCardProfessional from "@/components/BlogCardProfessional";
 import { blogService, formatBlogData, formatDate } from "@/lib/blogService";
+import { getBreadcrumbSchema, getCollectionPageSchema } from "@/lib/schemas";
 
 const BlogPage = () => {
   const router = useRouter();
@@ -115,12 +116,32 @@ const BlogPage = () => {
       : categories.find(c => c.slug === selectedCategory)?.name || "All Articles";
   }, [selectedCategory, categories]);
 
+  // Generate SEO schemas
+  const seoSchemas = useMemo(() => {
+    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const blogUrl = `${baseUrl}/blog`;
+    
+    const breadcrumbSchema = getBreadcrumbSchema([
+      { name: 'Home', url: baseUrl },
+      { name: 'Blog', url: blogUrl }
+    ]);
+
+    const collectionPageSchema = getCollectionPageSchema({
+      name: 'Blog Articles',
+      description: "Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips from Africa's leading contact center provider.",
+      url: blogUrl
+    });
+
+    return [breadcrumbSchema, collectionPageSchema].filter(Boolean);
+  }, []);
+
   return (
     <>
       <SEO
         title="Blog | Customer Service Insights & BPO Strategies | Call Center Solutions Africa"
         description="Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips from Africa's leading contact center provider."
         keywords="call center blog, customer service tips, BPO insights, contact center strategies, customer experience Africa, business process outsourcing blog"
+        schema={seoSchemas}
       />
       <Header />
       

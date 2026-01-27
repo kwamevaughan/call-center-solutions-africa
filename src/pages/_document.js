@@ -1,11 +1,26 @@
 // pages/_document.js
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { getOrganizationSchema, getWebsiteSchema, schemaToJsonLd } from "@/lib/schemas";
 
 class MyDocument extends Document {
   render() {
+    // Generate global schemas
+    const organizationSchema = getOrganizationSchema();
+    const websiteSchema = getWebsiteSchema();
+
     return (
       <Html lang="en">
         <Head>
+          {/* Global JSON-LD Structured Data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={schemaToJsonLd(organizationSchema)}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={schemaToJsonLd(websiteSchema)}
+          />
+
           {/* Google Analytics Script */}
           <script
             async
