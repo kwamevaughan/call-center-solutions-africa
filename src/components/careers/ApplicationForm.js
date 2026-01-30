@@ -130,6 +130,7 @@ const ApplicationForm = () => {
                 >
                   <option value="">Select a position</option>
                   <option value="Sales Executive – Telesales & Omnichannel Growth">Sales Executive – Telesales & Omnichannel Growth</option>
+                  <option value="Customer Service Executive (Danish Speaking)">Customer Service Executive (Danish Speaking)</option>
                   <option value="Customer Service Agents" disabled>Customer Service Agents (Closed)</option>
                   <option value="Customer Service Team Lead" disabled>Customer Service Team Lead (Closed)</option>
                 </select>

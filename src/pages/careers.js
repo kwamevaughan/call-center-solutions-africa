@@ -12,6 +12,7 @@ import { useFixedHeader } from "../../utils/scrollUtils";
 import PositionFilterTabs from "@/components/careers/PositionFilterTabs";
 import QuickNavigationMenu from "@/components/careers/QuickNavigationMenu";
 import SalesExecutivePosition from "@/components/careers/SalesExecutivePosition";
+import DanishCustomerServiceExecutive from "@/components/careers/DanishCustomerServiceExecutive";
 import ClosedPositionsSection from "@/components/careers/ClosedPositionsSection";
 import ApplicationForm from "@/components/careers/ApplicationForm";
 import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
@@ -190,6 +191,11 @@ const CareersPage = () => {
               {/* Sales Executive Position */}
               {(filter === "all" || filter === "open") && (
                 <SalesExecutivePosition />
+              )}
+
+              {/* Danish Customer Service Executive Position */}
+              {(filter === "all" || filter === "open") && (
+                <DanishCustomerServiceExecutive />
               )}
 
               {/* Closed Positions Section */}
