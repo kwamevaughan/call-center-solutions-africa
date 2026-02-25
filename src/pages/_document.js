@@ -1,15 +1,32 @@
 // pages/_document.js
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { getOrganizationSchema, getWebsiteSchema, schemaToJsonLd } from "@/lib/schemas";
+import { getHtmlLang } from "@/utils/internationalSEO";
 
 class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    
+    // Get the path from the request
+    const path = ctx.req?.url || ctx.pathname || '/';
+    const htmlLang = getHtmlLang(path);
+    
+    return {
+      ...initialProps,
+      htmlLang,
+    };
+  }
+
   render() {
     // Generate global schemas
     const organizationSchema = getOrganizationSchema();
     const websiteSchema = getWebsiteSchema();
+    
+    // Get HTML lang attribute (default to 'en' if not set)
+    const htmlLang = this.props.htmlLang || 'en';
 
     return (
-      <Html lang="en">
+      <Html lang={htmlLang}>
         <Head>
           {/* Global JSON-LD Structured Data */}
           <script

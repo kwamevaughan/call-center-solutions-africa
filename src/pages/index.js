@@ -765,13 +765,14 @@ const HomePage = () => {
               {/* All logos in 4-column grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {[
-                  { name: "HoduSoft", logo: "/assets/images/partners/hodusoft.svg" },
+                  { name: "Squaretalk", logo: "/assets/images/partners/sq-logo-text.png" },
                   { name: "Google Cloud", logo: "/assets/images/partners/google-cloud.svg" },
                   { name: "Acronis", logo: "/assets/images/partners/acronis.svg" },
                   { name: "Iristel", logo: "/assets/images/partners/iristel.svg" },
                   { name: "AWS", logo: "/assets/images/partners/aws.svg" },
                   { name: "Backblaze", logo: "/assets/images/partners/backblaze.svg" },
                   { name: "ConnexAI", logo: "/assets/images/partners/connexai.svg" },
+                  { name: "HoduSoft", logo: "/assets/images/partners/hodusoft.svg" },
                 ].map((partner, index) => (
                   <div
                     key={index}
