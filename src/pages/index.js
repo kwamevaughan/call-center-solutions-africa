@@ -2,6 +2,7 @@
 import SEO from "@/components/SEO";
 import Header from "@/layouts/header";
 import Image from "next/image";
+import Script from "next/script";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
@@ -10,7 +11,12 @@ import { useEffect, useRef, useMemo } from "react";
 import { useFixedHeader, handleScroll } from "../../utils/scrollUtils";
 import IndustriesTab from "@/components/IndustriesTab";
 import GoogleReviewsTestimonials from "@/components/GoogleReviewsTestimonials";
+import SectionBridgeVideo from "@/components/SectionBridgeVideo";
+import OurSolutionsSlider from "@/components/OurSolutionsSlider";
 import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
+
+/** MP4/WebM URL for the bridge video between Who we are and Our solutions (set in .env as NEXT_PUBLIC_HOME_SECTION_VIDEO_SRC). */
+const HOME_SECTION_VIDEO_SRC = "/assets/videos/ccsa-company-video.mp4";
 
 const HomePage = () => {
   const sectionRefs = {
@@ -78,17 +84,41 @@ const HomePage = () => {
         keywords="call center solutions, BPO services, contact center technology, business solutions, cloud call center, customer experience, Nairobi call center services, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support, claims processing, telehealth support, digital payments support, omnichannel contact center, 24/7 customer service, ISO 27001 call center, PCI-DSS compliant, customer retention, back-office outsourcing"
         schema={seoSchemas}
       />
+      <Script src="https://player.vimeo.com/api/player.js" strategy="lazyOnload" />
       <Header />
 
       <main className="relative overflow-x-hidden">
         <div
-          className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-center overflow-hidden"
+          className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-start md:items-center overflow-hidden pt-24 pb-10"
           id="home"
           ref={sectionRefs.home}
         >
+          {/* Background Video */}
+          <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+              <iframe
+                src="https://player.vimeo.com/video/1179132354?badge=0&autopause=0&player_id=0&app_id=58479&background=1&muted=1&autoplay=1&loop=1"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
+                title="hero"
+              />
+            </div>
+          </div>
+
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60 z-10 pointer-events-none" />
+
           {/* Radial Ellipse at Left Bottom */}
           <div 
-            className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl z-10"
             style={{
               background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
               transform: 'translate(-30%, 30%)'
@@ -96,43 +126,61 @@ const HomePage = () => {
           />
           {/* Radial Ellipse at Top Right */}
           <div 
-            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+            className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl z-10"
             style={{
               background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
               transform: 'translate(30%, -30%)'
             }}
           />
-          <div className="max-w-7xl mx-auto w-full relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Left Side: Title, Description, and CTA Buttons */}
-              <div className="flex flex-col gap-5 sm:gap-6 text-white">
-                <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-                Accelerate Revenue Through Expert Sales Conversion From<br/>{" "}
+          <div className="max-w-7xl mx-auto w-full relative z-20 px-2 sm:px-4">
+            <div className="flex flex-col items-center text-center gap-4 sm:gap-6 text-white">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+                Accelerate Revenue Through Expert Sales<br/>{" "} Conversion From{" "}
                   <span className="text-ccsa-orange">Africa to the World</span>
-                </h1>
-                <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
-                  We help global enterprises and African organizations build world-class, cost-efficient, 
-                  and secure customer service operations - powered by Africa's skilled, multilingual workforce.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                      <Link
-                        href="/contact-us"
-                    className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
-                    style={{
-                      background: "var(--ccsa-gradient)"
-                    }}
+              </h1>
+              <p className="max-w-2xl text-sm sm:text-base md:text-lg leading-relaxed text-white/90 px-2 sm:px-0">
+                We help global enterprises and African organizations build world-class, cost-efficient, 
+                and secure customer service operations powered by Africa's skilled, multilingual workforce.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/contact-us"
+                  className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
+                  style={{
+                    background: "var(--ccsa-gradient)"
+                  }}
+                >
+                  <Icon icon="mdi:phone" width={18} height={18} />
+                  Talk to Us
+                </Link>
+                <button
+                  onClick={() => window.location.href = "/about-us"}
+                  className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
+                >
+                  Start a Pilot
+                </button>
+              </div>
+                {/* Certification Badges */}
+              <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
+                {[
+                  "ISO 27001",
+                  "GDPR",
+                  "PCI-DSS",
+                  "HIPAA-ready",
+                  "24/7 Multilingual"
+                ].map((badge) => (
+                  <div
+                    key={badge}
+                    className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
                   >
-                    <Icon icon="mdi:phone" width={18} height={18} />
-                    Talk to Us
-                  </Link>
-                  <button
-                    onClick={() => window.location.href = "/about-us"}
-                    className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
-                  >
-                    Start a Pilot
-                      </button>
-                    </div>
-                <div className="mt-3 sm:mt-4 p-3 sm:p-5 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                    <Icon icon="mdi:shield-check" width={20} height={20} className="text-ccsa-orange flex-shrink-0" />
+                    <span>{badge}</span>
+                  </div>
+                ))}
+              </div>
+              {/* Global BPO Market Outlook */}
+              <div className="mt-5 sm:mt-6 w-full flex justify-start">
+                <div className="p-3 sm:p-5 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 max-w-xl w-full text-left">
                   <div className="flex items-start gap-3">
                     <Icon 
                       icon="mdi:format-quote-open" 
@@ -145,44 +193,12 @@ const HomePage = () => {
                         <span className="font-semibold not-italic text-white">Global BPO Market Outlook, 2025:</span>{" "}
                         Africa is the fastest-growing customer service outsourcing frontier — offering up to 60% cost efficiency and best-in-class talent trained for multilingual, digital-first CX
                       </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-              {/* Right Side: Hero Image */}
-              <div className="flex items-center justify-center lg:justify-end">
-                <div className="relative w-full max-w-md">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/hero.webp"
-                    alt="Call Center Solutions Africa"
-                    width={350}
-                    height={350}
-                    className="rounded-2xl shadow-2xl object-cover w-full h-auto"
-                    priority
-                  />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            {/* Certification Badges */}
-            <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-20">
-              {[
-                "ISO 27001",
-                "GDPR",
-                "PCI-DSS",
-                "HIPAA-ready",
-                "24/7 Multilingual"
-              ].map((badge) => (
-                <div
-                  key={badge}
-                  className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
-                >
-                  <Icon icon="mdi:shield-check" width={20} height={20} className="text-ccsa-orange flex-shrink-0" />
-                  <span>{badge}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -197,7 +213,7 @@ const HomePage = () => {
             }}
           />
           <section className="w-full px-4 relative z-10">
-            <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
+            <div className="relative z-10 mx-auto max-w-7xl pt-12 sm:pt-20 pb-24 sm:pb-32 lg:pb-40">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
                 <div className="flex flex-col h-full">                  
                   <div className="relative w-full h-full rounded-md overflow-hidden max-w-sm mx-auto lg:mx-0">
@@ -213,9 +229,9 @@ const HomePage = () => {
                 <div className="flex flex-col gap-6 sm:gap-8 h-full">
                   <div className="flex items-center gap-3">
                     <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-                    <p className="text-lg sm:text-xl font-semibold text-white">Who We Are</p>
+                    <p className="text-lg sm:text-xl uppercase text-white">Who We Are</p>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-light text-white leading-tight">
+                  <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight">
                     Building the Future of Customer Experience from Africa
                   </h2>
                   <div className="flex flex-col gap-4">
@@ -229,14 +245,13 @@ const HomePage = () => {
                     </p>
                   </div>
                   <Link
-                    href="/contact-us"
+                    href="/about-us"
                     className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm w-fit"
                     style={{
                       background: "var(--ccsa-gradient)"
                     }}
                   >
-                    <Icon icon="mdi:phone" width={18} height={18} />
-                    Partner With Us
+                    Read More
                   </Link>
                 </div>
               </div>
@@ -250,9 +265,11 @@ const HomePage = () => {
               transform: 'translate(30%, 30%)'
             }}
           />
+        </div>
 
-          {/* Our solutions */}
-          <section className="bg-white w-full px-4 relative overflow-hidden">
+         {/* Our solutions */}
+        <div className="relative z-20">
+          <section className="bg-white w-full px-4 relative overflow-visible">
             {/* Radial Ellipse at Top Left */}
             <div 
               className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
@@ -277,6 +294,19 @@ const HomePage = () => {
                 transform: 'translate(-50%, 30%)'
               }}
             />
+            {/* Native video on section edge: ~1/4 over Who we are (dark), ~3/4 on this section (white) */}
+            <div
+              className="relative z-30 mx-auto w-full max-w-4xl -translate-y-[25%] pointer-events-auto"
+              style={{
+                marginBottom:
+                  "calc(-0.25 * min(100vw - 2rem, 56rem) * 9 / 16)",
+              }}
+            >
+              <SectionBridgeVideo
+                src={HOME_SECTION_VIDEO_SRC}
+                poster="https://ik.imagekit.io/nkmvdjnna/CCSA/who-we-are.webp"
+              />
+            </div>
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-16">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-8 sm:mb-12">
                 <div className="flex flex-col gap-4">
@@ -293,144 +323,7 @@ const HomePage = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/chat-bubble.png"
-                      width={80}
-                      height={80}
-                      alt="Inbound & Outbound Customer Service"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                    Inbound & Outbound Customer Service
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    24/7 multilingual coverage: inquiries, renewals, feedback - improving satisfaction and first-call resolution.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                    <Image
-                      src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/headset.svg"
-                      width={80}
-                      height={80}
-                      alt="Back-office & Business Process Outsourcing"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                    Omnichannel Contact Center Operations
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    Unified voice/chat/email/social. Integrated CRM & analytics for faster responses and reduced costs.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/online-support.svg"
-                      width={80}
-                      height={80}
-                      alt="Technical Support & Help Desk"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                    Sales & Revenue<br/> Enablement
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                      Lead generation, qualification, upselling, renewals — increasing efficiency and reducing CPA.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/feedback.svg"
-                      width={80}
-                      height={80}
-                      alt="Technical Support & Help Desk"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                  Customer Retention & Loyalty Management
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    Behavioral analytics + personalized outreach to reduce churn and boost loyalty participation.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/question-mark.svg"
-                      width={80}
-                      height={80}
-                      alt="Technical Support & Help Desk"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                   Technical Support & Product Helpdesk
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    Tiered support for SaaS, telecoms, and connected products; clearer comms and higher uptime.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/smilling-face.svg"
-                      width={80}
-                      height={80}
-                      alt="Technical Support & Help Desk"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                    Claims, Dispute & Verification Processes
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    Fast, compliant handling for insurance, fintech, and e-commerce with full auditability.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/woman.svg"
-                      width={80}
-                      height={80}
-                      alt="Technical Support & Help Desk"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                  Quality Assurance & CX Analytics
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    AI-assisted QA and CX intelligence that track accuracy, empathy, and performance in real time.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-4 bg-ccsa-dark-blue rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-2 flex-shrink-0">
-                  <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/icons/online-support.svg"
-                      width={80}
-                      height={80}
-                      alt="Technical Support & Help Desk"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-tr from-ccsa-yellow to-ccsa-orange bg-clip-text text-transparent">
-                  Back-Office & Administrative Outsourcing
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Data processing, billing, content moderation, and reporting — cut costs and ensure continuity.
-                  </p>
-                </div>
-              </div>
+              <OurSolutionsSlider />
             </div>
           </section>
         </div>

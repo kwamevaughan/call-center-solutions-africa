@@ -11,6 +11,7 @@ import { handleScroll } from "../../utils/scrollUtils";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
   const dropdownTimeoutRef = useRef(null);
   const router = useRouter();
 
@@ -35,8 +36,27 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
+  // Track scroll to toggle transparent vs solid background
+  useEffect(() => {
+    const handleScrollTop = () => {
+      if (window.scrollY <= 10) {
+        setIsAtTop(true);
+      } else {
+        setIsAtTop(false);
+      }
+    };
+
+    handleScrollTop();
+    window.addEventListener("scroll", handleScrollTop);
+    return () => window.removeEventListener("scroll", handleScrollTop);
+  }, []);
+
+  const navClasses = isAtTop
+    ? "fixed top-0 left-0 right-0 w-full z-50 bg-transparent"
+    : "fixed top-0 left-0 right-0 w-full z-50 bg-ccsa-dark-blue shadow-lg";
+
   return (
-    <nav className="sticky top-0 left-0 right-0 w-full z-50 bg-ccsa-dark-blue shadow-lg">
+    <nav className={navClasses}>
       <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8">
         <div className="w-full py-2 sm:py-3 md:py-4 flex items-center justify-between gap-2">
           {/* Logo - Mobile First */}
