@@ -156,7 +156,7 @@ const About = () => {
                 </div>
                 <div className="w-full mt-2 sm:mt-4">
                   <Image
-                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/about/about-hero.webp"
+                    src="https://ik.imagekit.io/nkmvdjnna/CCSA/about/about-ccsa.webp"
                     width={1200}
                     height={600}
                     alt="About CCSA"
