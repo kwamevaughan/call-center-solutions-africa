@@ -12,6 +12,7 @@ import IndustriesTab from "@/components/IndustriesTab";
 import GoogleReviewsTestimonials from "@/components/GoogleReviewsTestimonials";
 import SectionBridgeVideo from "@/components/SectionBridgeVideo";
 import OurSolutionsSlider from "@/components/OurSolutionsSlider";
+import DeliveryModels from "@/components/DeliveryModels";
 import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 /** MP4/WebM URL for the bridge video between Who we are and Our solutions (set in .env as NEXT_PUBLIC_HOME_SECTION_VIDEO_SRC). */
@@ -324,8 +325,8 @@ const HomePage = () => {
         </div>
 
         {/* Delivery Models */}
-
-          {/* Why Africa */}
+        <DeliveryModels />
+        {/* Why Africa */}
         <div
           className="relative bg-ccsa-dark-blue px-4 py-12 sm:py-20 overflow-hidden"
           id="why-africa"
