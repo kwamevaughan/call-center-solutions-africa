@@ -17,6 +17,8 @@ import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 /** MP4/WebM URL for the bridge video between Who we are and Our solutions (set in .env as NEXT_PUBLIC_HOME_SECTION_VIDEO_SRC). */
 const HOME_SECTION_VIDEO_SRC = "/assets/videos/ccsa-company-video.mp4";
+const HOME_YOUTUBE_EMBED_URL =
+  "https://www.youtube.com/embed/h9g2ZZjUYV0?autoplay=1&mute=1&loop=1&playlist=h9g2ZZjUYV0&rel=0";
 
 const HomePage = () => {
   const sectionRefs = {
@@ -729,6 +731,30 @@ const HomePage = () => {
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 Resources
               </h2>
+            </div>
+
+            <div className="mt-8 sm:mt-10">
+              <div className="bg-white rounded-lg p-4 sm:p-6">
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-ccsa-dark-blue">
+                    Featured Video
+                  </h3>
+                  <p className="text-sm sm:text-base text-ccsa-dark-blue/80">
+                    Learn more about modern customer experience delivery and outsourcing strategy.
+                  </p>
+                </div>
+                <div className="relative mt-4 w-full overflow-hidden rounded-lg" style={{ paddingTop: "56.25%" }}>
+                  <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={HOME_YOUTUBE_EMBED_URL}
+                    title="Featured YouTube Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Insights Grid */}
