@@ -2,7 +2,6 @@
 import SEO from "@/components/SEO";
 import Header from "@/layouts/header";
 import Image from "next/image";
-import Script from "next/script";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
@@ -17,6 +16,7 @@ import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
 
 /** MP4/WebM URL for the bridge video between Who we are and Our solutions (set in .env as NEXT_PUBLIC_HOME_SECTION_VIDEO_SRC). */
 const HOME_SECTION_VIDEO_SRC = "/assets/videos/ccsa-company-video.mp4";
+const HERO_VIDEO_SRC = "/assets/videos/ccsa-hero.mp4";
 const HOME_YOUTUBE_EMBED_URL =
   "https://www.youtube.com/embed/h9g2ZZjUYV0?autoplay=1&mute=1&loop=1&playlist=h9g2ZZjUYV0&rel=0";
 
@@ -86,7 +86,6 @@ const HomePage = () => {
         keywords="call center solutions, BPO services, contact center technology, business solutions, cloud call center, customer experience, Nairobi call center services, healthcare customer support, fintech customer service, SaaS support, insurance contact center, travel customer care, telecoms helpdesk, HIPAA compliant call center, GDPR compliant BPO, multilingual customer service, patient engagement, fraud prevention, KYC support, technical support, claims processing, telehealth support, digital payments support, omnichannel contact center, 24/7 customer service, ISO 27001 call center, PCI-DSS compliant, customer retention, back-office outsourcing"
         schema={seoSchemas}
       />
-      <Script src="https://player.vimeo.com/api/player.js" strategy="lazyOnload" />
       <Header />
 
       <main className="relative overflow-x-hidden">
@@ -97,22 +96,17 @@ const HomePage = () => {
         >
           {/* Background Video */}
           <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-            <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-              <iframe
-                src="https://player.vimeo.com/video/1179132354?badge=0&autopause=0&player_id=0&app_id=58479&background=1&muted=1&autoplay=1&loop=1"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                }}
-                title="hero"
-              />
-            </div>
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-label="hero"
+            >
+              <source src={HERO_VIDEO_SRC} type="video/mp4" />
+            </video>
           </div>
 
           {/* Dark overlay for readability */}
@@ -306,7 +300,6 @@ const HomePage = () => {
             >
               <SectionBridgeVideo
                 src={HOME_SECTION_VIDEO_SRC}
-                poster="https://ik.imagekit.io/nkmvdjnna/CCSA/who-we-are.webp"
               />
             </div>
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-16">
@@ -329,6 +322,8 @@ const HomePage = () => {
             </div>
           </section>
         </div>
+
+        {/* Delivery Models */}
 
           {/* Why Africa */}
         <div
@@ -374,35 +369,35 @@ const HomePage = () => {
                 <div className="flex flex-col gap-4">
                     <ol className="text-white list-none flex flex-col gap-3">
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">Proven sales closing teams that handle high-touch engagement</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">Omnichannel outreach (calls, WhatsApp, social, email, chat)</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">KPI-driven execution with transparent reporting</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">30-60 day pilot options with scale-up pathways</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">Global reach & expertise</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">24/7/365 Availability across all global time zones</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">Integrated technology for CRM and omnichannel CX</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-ccsa-orange flex-shrink-0 mt-0.5" />
+                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">English & French speaking teams</span>
                       </li>
                     </ol>
@@ -449,7 +444,7 @@ const HomePage = () => {
         <GoogleReviewsTestimonials />
 
           
-          {/* Industries we serve in */}
+        {/* Industries we serve in */}
         
         <div
           className="bg-white relative px-4 pb-20 overflow-hidden"

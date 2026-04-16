@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import Image from "next/image";
+import Link from "next/link";
 import { Icon } from "@iconify/react";
 
 const solutions = [
@@ -9,6 +10,7 @@ const solutions = [
     title: "Inbound & Outbound Customer Service",
     description:
       "24/7 multilingual coverage: inquiries, renewals, feedback - improving satisfaction and first-call resolution.",
+    href: "/services/inbound-outbound-customer-service",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/headset.svg",
@@ -16,6 +18,7 @@ const solutions = [
     title: "Omnichannel Contact Center Operations",
     description:
       "Unified voice/chat/email/social. Integrated CRM & analytics for faster responses and reduced costs.",
+    href: "/services/omnichannel-contact-center-operations",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/online-support.svg",
@@ -24,6 +27,7 @@ const solutions = [
     titleLine2: "Enablement",
     description:
       "Lead generation, qualification, upselling, renewals — increasing efficiency and reducing CPA.",
+    href: "/services/sales-revenue-enablement",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/feedback.svg",
@@ -31,6 +35,7 @@ const solutions = [
     title: "Customer Retention & Loyalty Management",
     description:
       "Behavioral analytics + personalized outreach to reduce churn and boost loyalty participation.",
+    href: "/services/customer-retention-loyalty",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/question-mark.svg",
@@ -38,6 +43,7 @@ const solutions = [
     title: "Technical Support & Product Helpdesk",
     description:
       "Tiered support for SaaS, telecoms, and connected products; clearer comms and higher uptime.",
+    href: "/services/technical-support-help-desk",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/smilling-face.svg",
@@ -45,6 +51,7 @@ const solutions = [
     title: "Claims, Dispute & Verification Processes",
     description:
       "Fast, compliant handling for insurance, fintech, and e-commerce with full auditability.",
+    href: "/services/claims-dispute-verification",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/woman.svg",
@@ -52,6 +59,7 @@ const solutions = [
     title: "Quality Assurance & CX Analytics",
     description:
       "AI-assisted QA and CX intelligence that track accuracy, empathy, and performance in real time.",
+    href: "/services/quality-assurance-cx-analytics",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/online-support.svg",
@@ -59,6 +67,7 @@ const solutions = [
     title: "Back-Office & Administrative Outsourcing",
     description:
       "Data processing, billing, content moderation, and reporting — cut costs and ensure continuity.",
+    href: "/services/back-office-admin-outsourcing",
   },
 ];
 
@@ -109,7 +118,7 @@ const PrevArrow = ({ className, style, onClick }) => (
 function SolutionCard({ item }) {
   return (
     <div className="px-2 pb-1 pt-0 sm:px-3">
-      <div className="flex h-full min-h-[280px] flex-col gap-4 rounded-lg bg-ccsa-dark-blue p-6 transition-transform duration-300 hover:-translate-y-1 sm:min-h-[300px] sm:p-8">
+      <div className="flex h-full min-h-[280px] flex-col gap-4 rounded-lg bg-ccsa-dark-blue p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-gradient-to-tr hover:from-[#0088D2] hover:to-[#F45B00] sm:min-h-[300px] sm:p-8">
         <div className="relative mb-2 h-16 w-16 shrink-0 sm:h-20 sm:w-20">
           <Image
             src={item.icon}
@@ -135,6 +144,15 @@ function SolutionCard({ item }) {
         <p className="text-sm leading-relaxed text-white/90 sm:text-base">
           {item.description}
         </p>
+        <div className="mt-auto pt-2">
+          <Link
+            href={item.href}
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-ccsa-orange"
+          >
+            Read more
+            <Icon icon="material-symbols:arrow-forward-rounded" width={18} height={18} />
+          </Link>
+        </div>
       </div>
     </div>
   );
