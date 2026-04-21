@@ -16,7 +16,7 @@ const deliveryModels = [
     tags: ["Flex + control", "Multi-function", "Continuity", "Mixed Workflows"],
   },
   {
-    image: "https://ik.imagekit.io/nkmvdjnna/CCSA/delivery-model-3.webp",
+    image: "https://ik.imagekit.io/nkmvdjnna/CCSA/CCSA-delivery-model-4.webp",
     imageAlt: "On-site managed operations team",
     title: "Fully On-Site at CCSA Nairobi Delivery Center",
     description:
@@ -24,7 +24,7 @@ const deliveryModels = [
     tags: ["Stronger Supervision", "Structured Delivery", "Engagement Teams", "Scale in Africa"],
   },
   {
-    image: "https://ik.imagekit.io/nkmvdjnna/CCSA/delivery-model-4.webp",
+    image: "https://ik.imagekit.io/nkmvdjnna/CCSA/CCSA-delivery-model-3.webp",
     imageAlt: "Blended multi-site CX operations",
     title: "Fully On-Site at Your Dedicated Nairobi Site (Managed by CCSA Africa)",
     description:
