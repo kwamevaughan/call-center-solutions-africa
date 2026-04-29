@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Footer from "@/layouts/footer";
 import FloatingCTA from "@/components/FloatingCTA";
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import { useFixedHeader, handleScroll } from "../../utils/scrollUtils";
 import IndustriesTab from "@/components/IndustriesTab";
 import GoogleReviewsTestimonials from "@/components/GoogleReviewsTestimonials";
@@ -21,8 +21,48 @@ const HERO_VIDEO_SRC = "/assets/videos/ccsa-hero.mp4";
 /** YouTube embed for the bridge between Who we are and Our solutions (was Featured Video). */
 const HOME_YOUTUBE_EMBED_URL =
   "https://www.youtube.com/embed/h9g2ZZjUYV0?autoplay=1&mute=1&loop=1&playlist=h9g2ZZjUYV0&rel=0";
+const TEAM_STORIES_VIDEOS = [
+  {
+    title: "CCSA agent story",
+    description: "Meet the people behind high-performance CX delivery.",
+    url: "https://www.youtube.com/embed/J4ihMo5r9Z0?si=e3Z-Xiw1_SyCQ-c_",
+  },
+  {
+    title: "Inside CCSA operations",
+    description: "A snapshot of our client-first execution in action.",
+    url: "https://www.youtube.com/embed/0BtlnCYm7KA?autoplay=1&mute=1&rel=0",
+  },
+  {
+    title: "why CCSA exists",
+    description: "How our teams collaborate to deliver outcomes daily.",
+    url: "https://www.youtube.com/embed/oYv5VWtIDYA?autoplay=1&mute=1&rel=0&si=ySsq3H7ydUDn_PQ2",
+  },
+];
+
+const getYoutubeVideoId = (embedUrl) => {
+  try {
+    const url = new URL(embedUrl);
+    const parts = url.pathname.split("/");
+    return parts[parts.length - 1] || "";
+  } catch {
+    return "";
+  }
+};
+
+const getAutoplayEmbedUrl = (embedUrl) => {
+  try {
+    const url = new URL(embedUrl);
+    url.searchParams.set("autoplay", "1");
+    url.searchParams.set("mute", "1");
+    url.searchParams.set("rel", "0");
+    return url.toString();
+  } catch {
+    return embedUrl;
+  }
+};
 
 const HomePage = () => {
+  const [activeStoryVideo, setActiveStoryVideo] = useState(null);
   const sectionRefs = {
     home: useRef(null),
     "about-us": useRef(null),
@@ -66,6 +106,24 @@ const HomePage = () => {
       });
     };
   }, []);
+
+  useEffect(() => {
+    if (!activeStoryVideo) return;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setActiveStoryVideo(null);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [activeStoryVideo]);
 
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
@@ -332,6 +390,91 @@ const HomePage = () => {
             </div>
           </section>
         </div>
+
+        {/* Stories from our team */}
+        <section className="bg-gradient-to-b from-white to-slate-50/60 w-full px-4 pb-12 sm:pb-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
+              <p className="text-lg sm:text-xl font-semibold text-ccsa-dark-blue uppercase">
+                Stories from our team
+              </p>
+            </div>
+            <p className="text-sm sm:text-base text-ccsa-dark-blue/80 mb-6 sm:mb-8 max-w-2xl">
+              Hear directly from our people about the culture, commitment, and delivery standards that power every client engagement.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {TEAM_STORIES_VIDEOS.map((video, index) => (
+                <div
+                  key={video.title}
+                  className="group rounded-2xl border border-slate-200/70 bg-white p-3 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="h-1.5 w-16 rounded-full bg-gradient-to-r from-ccsa-yellow to-ccsa-orange mb-3" />
+                  <button
+                    type="button"
+                    onClick={() => setActiveStoryVideo(video)}
+                    className="relative aspect-video w-full overflow-hidden rounded-xl bg-black ring-1 ring-black/10 text-left"
+                    aria-label={`Open ${video.title} in modal`}
+                  >
+                    <img
+                      src={`https://img.youtube.com/vi/${getYoutubeVideoId(video.url)}/hqdefault.jpg`}
+                      alt={`${video.title} thumbnail`}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-black/35 transition-colors duration-300 group-hover:bg-black/25" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-ccsa-dark-blue shadow-md">
+                        <Icon icon="mdi:play-circle" width={20} height={20} />
+                        Play video
+                      </span>
+                    </div>
+                  </button>
+                  <div className="pt-4 px-1">
+                    <h3 className="text-base sm:text-lg font-semibold text-ccsa-dark-blue">
+                      {video.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-ccsa-dark-blue/75 leading-relaxed">
+                      {video.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {activeStoryVideo && (
+          <div
+            className="fixed inset-0 z-[120] bg-black/75 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center"
+            onClick={() => setActiveStoryVideo(null)}
+          >
+            <div
+              className="relative w-full max-w-4xl rounded-2xl bg-ccsa-dark-blue p-3 sm:p-4 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setActiveStoryVideo(null)}
+                className="absolute -top-3 -right-3 sm:top-3 sm:right-3 inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-ccsa-dark-blue shadow-lg"
+                aria-label="Close video modal"
+              >
+                <Icon icon="mdi:close" width={18} height={18} />
+              </button>
+              <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+                <iframe
+                  className="absolute inset-0 h-full w-full"
+                  src={getAutoplayEmbedUrl(activeStoryVideo.url)}
+                  title={activeStoryVideo.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Delivery Models */}
         <DeliveryModels />
