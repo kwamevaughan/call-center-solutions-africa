@@ -33,7 +33,7 @@ const TEAM_STORIES_VIDEOS = [
     url: "https://www.youtube.com/embed/0BtlnCYm7KA?autoplay=1&mute=1&rel=0",
   },
   {
-    title: "why CCSA exists",
+    title: "Why CCSA exists",
     description: "How our teams collaborate to deliver outcomes daily.",
     url: "https://www.youtube.com/embed/oYv5VWtIDYA?autoplay=1&mute=1&rel=0&si=ySsq3H7ydUDn_PQ2",
   },
