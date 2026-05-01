@@ -292,10 +292,10 @@ const HomePage = () => {
                   </h2>
                   <div className="flex flex-col gap-4">
                     <p className="leading-relaxed text-white/90">
-                      Instead of just generating leads, we help you convert them consistently and profitably through our managed sales teams from Africa.
+                      CCSA helps growth-focused companies convert more leads, book more qualified conversations, close more telesales revenue, and reactivate dormant customers through managed sales teams from Africa.
                     </p>
                     <p className="leading-relaxed text-white/90">
-                    We blend technology, talent, and trust to deliver service excellence from Africa to global markets.
+                      We combine high-performing agents, data-driven engagement playbooks, and omnichannel execution across phone, WhatsApp, social, and email to help you close more deals and reactivate dormant revenue.  
                     </p>
                   </div>
                   <Link
