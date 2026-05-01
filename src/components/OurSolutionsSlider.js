@@ -5,12 +5,13 @@ import { Icon } from "@iconify/react";
 
 const solutions = [
   {
-    icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/chat-bubble.png",
-    alt: "Inbound & Outbound Customer Service",
-    title: "Inbound & Outbound Customer Service",
+    icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/online-support.svg",
+    alt: "Sales & Revenue Enablement",
+    title: "Sales & Revenue",
+    titleLine2: "Enablement",
     description:
-      "24/7 multilingual coverage: inquiries, renewals, feedback - improving satisfaction and first-call resolution.",
-    href: "/services/inbound-outbound-customer-service",
+      "Lead generation, qualification, upselling, renewals — increasing efficiency and reducing CPA.",
+    href: "/services/sales-revenue-enablement",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/headset.svg",
@@ -21,13 +22,12 @@ const solutions = [
     href: "/services/omnichannel-contact-center-operations",
   },
   {
-    icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/online-support.svg",
-    alt: "Sales & Revenue Enablement",
-    title: "Sales & Revenue",
-    titleLine2: "Enablement",
+    icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/chat-bubble.png",
+    alt: "Inbound & Outbound Customer Service",
+    title: "Inbound & Outbound Customer Service",
     description:
-      "Lead generation, qualification, upselling, renewals — increasing efficiency and reducing CPA.",
-    href: "/services/sales-revenue-enablement",
+      "24/7 multilingual coverage: inquiries, renewals, feedback - improving satisfaction and first-call resolution.",
+    href: "/services/inbound-outbound-customer-service",
   },
   {
     icon: "https://ik.imagekit.io/nkmvdjnna/CCSA/icons/feedback.svg",

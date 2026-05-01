@@ -51,6 +51,12 @@ const ApplicationForm = () => {
       const result = await response.json();
 
       if (response.ok) {
+        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+          window.trackEvent("careers_application_submit_success", {
+            form_name: "careers_application_form",
+            position: formData.position || "unknown",
+          });
+        }
         toast.success("Application submitted successfully!", { id: toastId });
         setSubmitted(true);
         setFormData({
@@ -62,10 +68,22 @@ const ApplicationForm = () => {
           position: "",
         });
       } else {
+        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+          window.trackEvent("careers_application_submit_error", {
+            form_name: "careers_application_form",
+            error_message: result.error || "Something went wrong. Please try again.",
+          });
+        }
         toast.error(result.error || "Something went wrong. Please try again.", { id: toastId });
         setError(result.error || "Something went wrong. Please try again.");
       }
     } catch (err) {
+      if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+        window.trackEvent("careers_application_submit_error", {
+          form_name: "careers_application_form",
+          error_message: "Failed to submit application. Please try again.",
+        });
+      }
       toast.error("Failed to submit application. Please try again.", { id: toastId });
       setError("Failed to submit application. Please try again.");
     } finally {
@@ -114,7 +132,13 @@ const ApplicationForm = () => {
           </div>
         ) : (
           <div className="bg-white rounded-lg p-6 sm:p-8 md:p-12 border border-gray-200 shadow-sm">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              id="careers-application-form"
+              name="careers_application_form"
+              data-track-event="careers_application_submit_attempt"
+              className="space-y-6"
+            >
               {/* Position Selection */}
               <div className="space-y-2">
                 <label htmlFor="position" className="block text-sm font-semibold text-ccsa-dark-blue">

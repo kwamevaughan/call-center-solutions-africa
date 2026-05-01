@@ -8,9 +8,9 @@ export const menuItems = [
     isAnchor: false,
     hasDropdown: true,
     submenu: [
+      { href: "/services/sales-revenue-enablement", label: "Sales & Revenue Enablement" },
       { href: "/services/inbound-outbound-customer-service", label: "Inbound & Outbound Customer Service" },
       { href: "/services/omnichannel-contact-center-operations", label: "Omnichannel Contact Center Operations" },
-      { href: "/services/sales-revenue-enablement", label: "Sales & Revenue Enablement" },
       { href: "/services/customer-retention-loyalty", label: "Customer retention & loyalty" },
       { href: "/services/technical-support-help-desk", label: "Technical Support & Help Desk" },
       { href: "/services/claims-dispute-verification", label: "Claims, Dispute & Verification Processes" },

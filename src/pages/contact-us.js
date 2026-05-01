@@ -62,6 +62,12 @@ export default function ContactPage() {
   const handleBookCall = () => {
     // Open calendar booking link or scroll to form
     const calendarLink = 'https://calendly.com/callcentersolutionsafrica'; // Update with actual calendar link
+    if (typeof window !== "undefined" && window.trackEvent) {
+      window.trackEvent("book_call_click", {
+        source: "contact_us_page",
+        destination: calendarLink,
+      });
+    }
     window.open(calendarLink, '_blank');
   };
 
@@ -69,6 +75,12 @@ export default function ContactPage() {
     const phoneNumber = '254701850850'; // WhatsApp number without + sign
     const message = encodeURIComponent('Hello! I would like to learn more about your services.');
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    if (typeof window !== "undefined" && window.trackEvent) {
+      window.trackEvent("whatsapp_click", {
+        source: "contact_us_page",
+        destination: whatsappUrl,
+      });
+    }
     window.open(whatsappUrl, '_blank');
   };
 
@@ -107,7 +119,15 @@ export default function ContactPage() {
 
       if (response.ok) {
         // Call gtag_report_conversion before redirecting
-        if (typeof window.gtag !== "undefined") {
+        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+          window.trackEvent("contact_form_submit_success", {
+            form_name: "contact_us_form",
+            lead_type: formData.howCanWeHelp || "unknown",
+            page_path: "/contact-us",
+          });
+        }
+
+        if (typeof window.gtag_report_conversion === "function") {
           window.gtag_report_conversion(); // Call without URL since we redirect manually
         }
         toast.success("Message sent successfully!", { id: toastId });
@@ -123,10 +143,24 @@ export default function ContactPage() {
         setRecaptchaToken(null);
         router.push("/thank-you");
       } else {
+        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+          window.trackEvent("contact_form_submit_error", {
+            form_name: "contact_us_form",
+            error_message: result.error || "Something went wrong",
+            page_path: "/contact-us",
+          });
+        }
         toast.error(result.error || "Something went wrong", { id: toastId });
         setError(result.error || "Something went wrong");
       }
     } catch (err) {
+      if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+        window.trackEvent("contact_form_submit_error", {
+          form_name: "contact_us_form",
+          error_message: "Failed to send message",
+          page_path: "/contact-us",
+        });
+      }
       toast.error("Failed to send message", { id: toastId });
       setError("Failed to send message");
     } finally {
@@ -139,7 +173,7 @@ export default function ContactPage() {
       {/* Add the conversion tracking script */}
       <Script id="gtag-conversion" strategy="afterInteractive">
         {`
-          function gtag_report_conversion(url) {
+          window.gtag_report_conversion = function gtag_report_conversion(url) {
             var callback = function () {
               if (typeof(url) != 'undefined') {
                 window.location = url;

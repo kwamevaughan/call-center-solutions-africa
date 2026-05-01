@@ -69,6 +69,11 @@ export default function ContactModal({ isOpen, onClose }) {
       const result = await response.json();
 
       if (response.ok) {
+        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+          window.trackEvent("contact_modal_submit_success", {
+            form_name: "contact_modal_form",
+          });
+        }
         toast.success("Message sent successfully!", { id: toastId });
 
         // Reset form
@@ -95,10 +100,22 @@ export default function ContactModal({ isOpen, onClose }) {
           onClose();
         }, 2000);
       } else {
+        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+          window.trackEvent("contact_modal_submit_error", {
+            form_name: "contact_modal_form",
+            error_message: result.error || "Something went wrong",
+          });
+        }
         toast.error(result.error || "Something went wrong", { id: toastId });
         setError(result.error || "Something went wrong");
       }
     } catch (err) {
+      if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+        window.trackEvent("contact_modal_submit_error", {
+          form_name: "contact_modal_form",
+          error_message: "Failed to send message",
+        });
+      }
       toast.error("Failed to send message", { id: toastId });
       setError("Failed to send message");
     } finally {
@@ -137,7 +154,13 @@ export default function ContactModal({ isOpen, onClose }) {
             ×
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          id="contact-modal-form"
+          name="contact_modal_form"
+          data-track-event="contact_modal_submit_attempt"
+          className="space-y-6"
+        >
           {/* Personal Information */}
           <div>
             <label

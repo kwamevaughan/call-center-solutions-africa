@@ -309,7 +309,7 @@ const Footer = () => {
 
             <div className="flex flex-col gap-4 sm:gap-6 items-center sm:items-start">
                 <p className="text-xs sm:text-sm text-center sm:text-left text-gray-200">
-                  © {currentYear} Call Center Solutions Africa. All rights reserved.
+                  © {currentYear} CCSA Africa. All rights reserved.
                 </p>
               </div>
 

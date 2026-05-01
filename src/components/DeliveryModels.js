@@ -6,6 +6,7 @@ const deliveryModels = [
     description:
       "Launch a cost-efficient team without the overhead of a physical site. We manage hiring, onboarding, training, WFM, QA, supervision, and reporting across support, sales, engagement, retention, and back office.",
     tags: ["Digital-first", "Fast scaling", "Outbound teams", "After-hours"],
+    buttonLabel: "Launch a remote team",
   },
   {
     image: "https://ik.imagekit.io/nkmvdjnna/CCSA/delivery-model-2.webp",
@@ -14,6 +15,7 @@ const deliveryModels = [
     description:
       "Flexible remote delivery with the structure of an office-based operation. Run high-touch roles on-site, while keeping lead gen, follow-ups, CRM support, or back office remote managed as one integrated program.",
     tags: ["Flex + control", "Multi-function", "Continuity", "Mixed Workflows"],
+    buttonLabel: "Start a hybrid team",
   },
   {
     image: "https://ik.imagekit.io/nkmvdjnna/CCSA/CCSA-delivery-model-4.webp",
@@ -22,6 +24,7 @@ const deliveryModels = [
     description:
       "Get an office-based team without the cost and complexity of building your own site. Operate from our Nairobi delivery center with infrastructure, supervision, QA, and reporting ideal for structured workflows and daily oversight.",
     tags: ["Stronger Supervision", "Structured Delivery", "Engagement Teams", "Scale in Africa"],
+    buttonLabel: "Set up on-site in Nairobi",
   },
   {
     image: "https://ik.imagekit.io/nkmvdjnna/CCSA/CCSA-delivery-model-3.webp",
@@ -30,6 +33,7 @@ const deliveryModels = [
     description:
       "Need a team at your Nairobi site, managed by an experienced outsourcing partner? We build and run the operation from your site maintaining CCSA standards, quality controls, and performance governance.",
     tags: ["Enterprise", "Regulated", "Brand-sensitive", "Dedicated-setup"],
+    buttonLabel: "Build my dedicated site team",
   },
 ];
 
@@ -108,12 +112,13 @@ export default function DeliveryModels() {
               </div>
               <button
                 type="button"
+                onClick={() => window.location.href = "/contact-us"}
                 className="w-full text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 text-sm mt-auto"
                 style={{
                   background: "var(--ccsa-gradient)",
                 }}
               >
-                Launch a remote team
+                {model.buttonLabel}
               </button>
             </div>
           ))}

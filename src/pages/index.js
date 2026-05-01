@@ -24,7 +24,7 @@ const HOME_YOUTUBE_EMBED_URL =
 const TEAM_STORIES_VIDEOS = [
   {
     title: "CCSA agent story",
-    description: "Meet the people behind high-performance CX delivery.",
+    description: "Meet the people behind sales engagement and high-performance CX delivery.",
     url: "https://www.youtube.com/embed/J4ihMo5r9Z0?si=e3Z-Xiw1_SyCQ-c_",
   },
   {
@@ -191,12 +191,12 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto w-full relative z-20 px-2 sm:px-4">
             <div className="flex flex-col items-center text-center gap-4 sm:gap-6 text-white">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
-                Accelerate Revenue Through Expert Sales<br/>{" "} Conversion From{" "}
-                  <span className="text-ccsa-orange">Africa to the World</span>
+                Accelerate Revenue Through Outsourced <br/>{" "}  Sales Conversion and {" "}
+                  <span className="text-ccsa-orange">Revenue Contact Center</span>
               </h1>
               <p className="max-w-2xl text-sm sm:text-base md:text-lg leading-relaxed text-white/90 px-2 sm:px-0">
-                We help global enterprises and African organizations build world-class, cost-efficient, 
-                and secure customer service operations powered by Africa's skilled, multilingual workforce.
+                We help business acrosss the globe build world-class, cost-efficient, 
+                and secure sales and customer service operations powered by Africa's skilled, multilingual workforce.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
@@ -210,7 +210,7 @@ const HomePage = () => {
                   Talk to Us
                 </Link>
                 <button
-                  onClick={() => window.location.href = "/about-us"}
+                  onClick={() => window.location.href = "/contact-us"}
                   className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
                 >
                   Start a Pilot
@@ -288,11 +288,11 @@ const HomePage = () => {
                     <p className="text-lg sm:text-xl uppercase text-white">Who We Are</p>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight">
-                    Building the Future of Customer Experience from Africa
+                    Building the Future of Sales Engagement and Customer Experience
                   </h2>
                   <div className="flex flex-col gap-4">
                     <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90">
-                        CCSA Africa is a sales conversion, cx and customer engagement partner that helps fast-growing organizations maximize the value of their lead pipelines. 
+                    CCSA helps growth-focused companies convert more leads, book more qualified conversations, close more telesales revenue, and reactivate dormant customers through managed sales teams from Africa. 
                         Instead of just generating leads, we help you convert them consistently and profitably. We combine high-performing agents, data-driven engagement playbooks, 
                         and omnichannel execution across phone, WhatsApp, social, and email to help you close more deals and reactivate dormant revenue. 
                     </p>
@@ -382,7 +382,7 @@ const HomePage = () => {
                   </h2>                  
                 </div>
                 <p className="text-base sm:text-lg md:text-xl leading-relaxed text-ccsa-dark-blue">
-                  Whether you're a startup, government agency, or global enterprise, we customize CX and back-office solutions that improve efficiency, enhance customer satisfaction, and reduce costs.
+                  Whether you're a startup, government agency, or global enterprise, we customize sales CX and back-office solutions that improve efficiency, enhance customer satisfaction, and reduce costs.
                 </p>
               </div>
 
