@@ -514,7 +514,6 @@ const HomePage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
               <div className="flex flex-col gap-6">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-light mb-4 sm:mb-6 leading-tight text-white">Why Global Brands Choose CCSA</h2>
                   <p className="text-base sm:text-lg leading-relaxed text-white/90">Global standards with the African advantage - secure, compliant, and cost-efficient CX.</p>
                 </div>
                 <div className="flex flex-col gap-4">
@@ -555,7 +554,6 @@ const HomePage = () => {
                   >
                     Book a discovery call
                   </Link>
-                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed">*understand how to convert more of your existing lead flow into predictable revenue.</p>
                 </div>
               </div>
               <div className="grid h-full gap-4 lg:grid-rows-2">
