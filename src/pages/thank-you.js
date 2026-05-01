@@ -32,25 +32,25 @@ const ThankYouPage = () => {
             </h1>
             <p className="text-gray-600 text-lg mb-6">
               Your proposal request has been successfully submitted. Our team
-              will review your details and get back to you within 24-48 hours
+              will review your details and get back to you within 2 hours
               with a tailored solution.
             </p>
             <div className="flex flex-col items-center gap-4 mb-8">
               <p className="text-gray-500 text-sm">
-                In the meantime, explore how we empower African businesses:
+                In the meantime, explore how we empower businesses globally:
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <div className="flex items-center text-gray-700">
                   <div className="w-2 h-2 bg-[#ffd100] rounded-full mr-2"></div>
-                  <span>Cloud-Based Solutions</span>
+                  <span>Multilingual teams</span>
                 </div>
                 <div className="flex items-center text-gray-700">
                   <div className="w-2 h-2 bg-[#e3e3e3] rounded-full mr-2"></div>
-                  <span>Expert Guidance</span>
+                  <span>24/7 Operations</span>
                 </div>
                 <div className="flex items-center text-gray-700">
                   <div className="w-2 h-2 bg-[#f45b01] rounded-full mr-2"></div>
-                  <span>Scalable Equipment</span>
+                  <span>ISO 27001 certified</span>
                 </div>
               </div>
             </div>
