@@ -4,6 +4,7 @@
  */
 
 import { SUPPORTED_LANGUAGES, getBasePath } from './internationalSEO';
+import { caseStudyDetails } from '../data/caseStudies';
 
 const BASE_URL = 'https://callcentersolutionsafrica.com';
 
@@ -28,6 +29,11 @@ export const SITEMAP_PAGES = [
   { path: '/careers', priority: 0.7, changefreq: 'weekly' },
   { path: '/contact-us', priority: 0.6, changefreq: 'yearly' },
   { path: '/case-studies', priority: 0.7, changefreq: 'monthly' },
+  ...caseStudyDetails.map((s) => ({
+    path: `/case-studies/${s.id}`,
+    priority: 0.65,
+    changefreq: 'monthly',
+  })),
   { path: '/delivery-models', priority: 0.6, changefreq: 'yearly' },
   { path: '/privacy-policy', priority: 0.3, changefreq: 'yearly' },
   { path: '/terms-of-service', priority: 0.3, changefreq: 'yearly' },

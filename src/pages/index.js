@@ -14,6 +14,7 @@ import SectionBridgeVideo from "@/components/SectionBridgeVideo";
 import OurSolutionsSlider from "@/components/OurSolutionsSlider";
 import DeliveryModels from "@/components/DeliveryModels";
 import { getWebPageSchema, getBreadcrumbSchema } from "@/lib/schemas";
+import { caseStudiesHero, featuredCaseStudies } from "@/data/caseStudies";
 
 /** MP4 for Featured Video in Resources (was the Who we are bridge). */
 const HOME_SECTION_VIDEO_SRC = "/assets/videos/ccsa-company-video.mp4";
@@ -439,6 +440,83 @@ const HomePage = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Featured case studies — first three only; title pattern matches other home sections */}
+        <section className="w-full border-t border-slate-100 bg-gradient-to-b from-white to-slate-50/60 px-4 pb-12 sm:pb-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
+              <p className="text-lg sm:text-xl font-semibold text-ccsa-dark-blue uppercase">
+                Featured case studies
+              </p>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue leading-tight max-w-3xl mb-4">
+              {caseStudiesHero.title}
+            </h2>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-8 mb-6 sm:mb-8">
+              <p className="text-sm sm:text-base text-ccsa-dark-blue/80 max-w-2xl leading-relaxed">
+                {caseStudiesHero.supporting}
+              </p>
+              <Link
+                href="/case-studies"
+                className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-ccsa-dark-blue transition hover:text-ccsa-orange sm:pt-1"
+              >
+                View all case studies
+                <Icon icon="mdi:arrow-right" width={18} height={18} aria-hidden />
+              </Link>
+            </div>
+
+            <ul className="grid list-none gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 p-0">
+              {featuredCaseStudies.slice(0, 3).map((item, i) => (
+                <li key={item.id} className="h-full">
+                  <Link
+                    href={`/case-studies/${item.id}`}
+                    className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-colors duration-200 hover:border-slate-300 hover:shadow-md"
+                  >
+                    <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
+                      <span className="font-mono text-xs font-semibold tabular-nums text-slate-400">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <Icon
+                        icon="mdi:file-document-outline"
+                        width={22}
+                        height={22}
+                        className="shrink-0 text-slate-300 transition-colors group-hover:text-ccsa-orange"
+                        aria-hidden
+                      />
+                    </div>
+                    <h3 className="mt-4 text-base font-semibold leading-snug text-ccsa-dark-blue sm:text-lg">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-500">
+                      <Icon
+                        icon="mdi:map-marker-outline"
+                        width={15}
+                        height={15}
+                        className="shrink-0 text-slate-400"
+                        aria-hidden
+                      />
+                      {item.region}
+                    </p>
+                    <p className="mt-3 flex-grow text-sm leading-relaxed text-slate-600">
+                      {item.description}
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ccsa-dark-blue transition-colors group-hover:text-ccsa-orange">
+                      Read case study
+                      <Icon
+                        icon="mdi:arrow-right"
+                        width={18}
+                        height={18}
+                        className="transition-transform group-hover:translate-x-0.5"
+                        aria-hidden
+                      />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
