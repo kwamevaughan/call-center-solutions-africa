@@ -291,13 +291,11 @@ const HomePage = () => {
                     Building the Future of Sales Engagement and Customer Experience
                   </h2>
                   <div className="flex flex-col gap-4">
-                    <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90">
-                    CCSA helps growth-focused companies convert more leads, book more qualified conversations, close more telesales revenue, and reactivate dormant customers through managed sales teams from Africa. 
-                        Instead of just generating leads, we help you convert them consistently and profitably. We combine high-performing agents, data-driven engagement playbooks, 
-                        and omnichannel execution across phone, WhatsApp, social, and email to help you close more deals and reactivate dormant revenue. 
+                    <p className="leading-relaxed text-white/90">
+                      Instead of just generating leads, we help you convert them consistently and profitably through our managed sales teams from Africa.
                     </p>
-                    <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90">
-                      We blend technology, talent, and trust to deliver service excellence from Africa to global markets.
+                    <p className="leading-relaxed text-white/90">
+                    We blend technology, talent, and trust to deliver service excellence from Africa to global markets.
                     </p>
                   </div>
                   <Link
@@ -510,7 +508,7 @@ const HomePage = () => {
           <section className="relative z-10 mx-auto max-w-7xl">
             <div className="flex items-center gap-3 mb-6 sm:mb-8">
               <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-              <p className="text-lg sm:text-xl font-semibold text-white uppercase">Why Africa?</p>
+              <p className="text-lg sm:text-xl font-semibold text-white uppercase">Why Global Brands Choose CCSA?</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
@@ -532,14 +530,6 @@ const HomePage = () => {
                       <li className="flex items-start gap-3">
                         <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
                         <span className="leading-relaxed">KPI-driven execution with transparent reporting</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
-                        <span className="leading-relaxed">30-60 day pilot options with scale-up pathways</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
-                        <span className="leading-relaxed">Global reach & expertise</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <Icon icon="mdi:shield-outline" width={20} height={20} className="text-white flex-shrink-0 mt-0.5" />
@@ -568,23 +558,23 @@ const HomePage = () => {
                   <p className="text-white/80 text-xs sm:text-sm leading-relaxed">*understand how to convert more of your existing lead flow into predictable revenue.</p>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 h-full">
-                <div className="relative w-full flex-1 rounded-lg overflow-hidden min-h-0">
+              <div className="grid h-full gap-4 lg:grid-rows-2">
+                <div className="relative w-full rounded-lg overflow-hidden min-h-[240px] lg:min-h-0">
                   <Image
                     src="https://ik.imagekit.io/nkmvdjnna/CCSA/why-africa-1.webp"
-                    width={500}
-                    height={300}
+                    fill
                     alt="Why Africa"
-                    className="object-cover rounded-lg"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-contain rounded-lg"
                   />
                 </div>
-                <div className="relative w-full flex-1 rounded-lg overflow-hidden min-h-0">
+                <div className="relative w-full rounded-lg overflow-hidden min-h-[240px] lg:min-h-0">
                   <Image
                     src="https://ik.imagekit.io/nkmvdjnna/CCSA/why-africa-2.webp"
-                    width={500}
-                    height={300}
+                    fill
                     alt="Why Africa"
-                    className="object-cover rounded-lg"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-contain rounded-lg"
                   />
                 </div>
               </div>
