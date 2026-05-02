@@ -18,7 +18,7 @@ export const menuItems = [
       { href: "/services/back-office-admin-outsourcing", label: "Back-office & Admin Outsourcing" },
     ]
   },
-  { href: "/industries", label: "Industries", isAnchor: false },
+  { href: "/case-studies", label: "Case Studies", isAnchor: false },
   { href: "/blog", label: " Insights", isAnchor: false },
   { href: "/careers", label: "Careers", isAnchor: false },
   { href: "/contact-us", label: "Contact Us", isAnchor: false },
