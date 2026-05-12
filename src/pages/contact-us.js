@@ -227,20 +227,13 @@ export default function ContactPage() {
             }}
           />
           
-          <div className="max-w-7xl mx-auto w-full relative z-10 py-12 sm:py-16 lg:py-20">
+          <div className="max-w-7xl mx-auto w-full relative z-10 pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 items-center">
-                <div className="flex flex-col items-start gap-6 sm:gap-8 text-left">
-                  <div className="flex items-center gap-3">
-                    <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-                    <p className="text-lg sm:text-xl font-light text-white tracking-wide">
-                        Response time: under 24h
-                    </p>
-                  </div>
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                <div className="flex flex-col items-start gap-6 sm:gap-8 text-left">                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
                       Let's talk about your CX
                   </h1>
-                  <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
-                  Sales, customer support, multilingual help desks, or a fully managed contact center—tell us what you need and we'll tailor a plan.
+                  <p className="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed">
+                  Sales, customer support, multilingual help desks, or a fully managed contact center, tell us what you need and we'll tailor a plan.
                   </p>
                   {/* Certification Badges */}
                   <div className="hidden md:flex items-center justify-start gap-2 mt-4 sm:mt-6">
