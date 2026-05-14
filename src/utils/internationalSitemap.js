@@ -5,14 +5,15 @@
 
 import { SUPPORTED_LANGUAGES, getBasePath } from './internationalSEO';
 import { caseStudyDetails } from '../data/caseStudies';
+import { fetchPublishedBlogSlugsForSitemap } from '../lib/blogSitemapQueries';
 
 const BASE_URL = 'https://callcentersolutionsafrica.com';
 
 /**
- * List of all pages that should be included in the sitemap
+ * Static routes only (no CMS / DB-driven paths). Keep in sync with `src/pages`.
  * Format: { path: string, priority: number, changefreq: string, lastmod?: string }
  */
-export const SITEMAP_PAGES = [
+export const STATIC_SITEMAP_PAGES = [
   { path: '/', priority: 1.0, changefreq: 'monthly' },
   { path: '/about-us', priority: 0.8, changefreq: 'monthly' },
   { path: '/services', priority: 0.9, changefreq: 'monthly' },
@@ -29,11 +30,6 @@ export const SITEMAP_PAGES = [
   { path: '/careers', priority: 0.7, changefreq: 'weekly' },
   { path: '/contact-us', priority: 0.6, changefreq: 'yearly' },
   { path: '/case-studies', priority: 0.7, changefreq: 'monthly' },
-  ...caseStudyDetails.map((s) => ({
-    path: `/case-studies/${s.id}`,
-    priority: 0.65,
-    changefreq: 'monthly',
-  })),
   { path: '/delivery-models', priority: 0.6, changefreq: 'yearly' },
   { path: '/privacy-policy', priority: 0.3, changefreq: 'yearly' },
   { path: '/terms-of-service', priority: 0.3, changefreq: 'yearly' },
@@ -41,7 +37,74 @@ export const SITEMAP_PAGES = [
   { path: '/global-compliance-playbook', priority: 0.5, changefreq: 'yearly' },
   { path: '/data-processing-addendum', priority: 0.3, changefreq: 'yearly' },
   { path: '/responsible-disclosure', priority: 0.3, changefreq: 'yearly' },
+  { path: '/thank-you', priority: 0.3, changefreq: 'yearly' },
 ];
+
+const caseStudySitemapEntries = () =>
+  caseStudyDetails.map((s) => ({
+    path: `/case-studies/${s.id}`,
+    priority: 0.65,
+    changefreq: 'monthly',
+  }));
+
+/** Sync subset: static + case studies (no Supabase blog URLs). */
+export const getSyncSitemapPages = () => [...STATIC_SITEMAP_PAGES, ...caseStudySitemapEntries()];
+
+/**
+ * Full list for sitemap: static + case studies + published blog posts from DB.
+ * On blog fetch failure, returns sync pages so the sitemap still serves.
+ */
+export const buildFullSitemapPages = async (supabaseServer) => {
+  const syncPages = getSyncSitemapPages();
+
+  try {
+    const rows = await fetchPublishedBlogSlugsForSitemap(supabaseServer);
+    const blogPages = rows
+      .filter((r) => r.slug && String(r.slug).trim())
+      .map((r) => {
+        const raw = String(r.slug).trim().replace(/^\/+/, '');
+        const iso =
+          r.updated_at || r.publish_date || r.created_at || null;
+        let lastmod;
+        if (iso) {
+          const d = new Date(iso);
+          if (!Number.isNaN(d.getTime())) {
+            lastmod = d.toISOString().split('T')[0];
+          }
+        }
+        return {
+          path: `/blog/${raw}`,
+          priority: 0.64,
+          changefreq: 'weekly',
+          ...(lastmod ? { lastmod } : {}),
+        };
+      });
+
+    const byPath = new Map(syncPages.map((p) => [p.path, p]));
+    blogPages.forEach((p) => {
+      if (!byPath.has(p.path)) {
+        byPath.set(p.path, p);
+      }
+    });
+    return Array.from(byPath.values());
+  } catch (e) {
+    console.error('Sitemap: could not load blog URLs', e);
+    return syncPages;
+  }
+};
+
+/**
+ * @deprecated Use `getSyncSitemapPages()` or `buildFullSitemapPages()` for DB-backed URLs.
+ * Kept for backward compatibility: static + case studies only.
+ */
+export const SITEMAP_PAGES = getSyncSitemapPages();
+
+const escapeXmlUrl = (url) =>
+  String(url)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 
 /**
  * Generate URL with language prefix
@@ -68,55 +131,61 @@ const generateLangUrl = (basePath, langCode, regionCode) => {
 
 /**
  * Generate sitemap XML with hreflang alternates
- * @param {Date} lastmod - Last modification date (defaults to current date)
+ * @param {Array<{path:string,priority:number,changefreq:string,lastmod?:string}>|Date} [pagesOrLastmod] - URL entries, or legacy: default lastmod date
+ * @param {Date} [lastmodArg] - Default lastmod when first argument is the pages array
  * @returns {string} XML sitemap content
  */
-export const generateInternationalSitemap = (lastmod = new Date()) => {
+export function generateInternationalSitemap(pagesOrLastmod, lastmodArg) {
+  let pages = SITEMAP_PAGES;
+  let lastmod = new Date();
+  if (Array.isArray(pagesOrLastmod)) {
+    pages = pagesOrLastmod;
+    lastmod = lastmodArg instanceof Date ? lastmodArg : new Date();
+  } else if (pagesOrLastmod instanceof Date) {
+    lastmod = pagesOrLastmod;
+  }
+
   const lastmodString = lastmod.toISOString().split('T')[0];
-  
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
-  
-  SITEMAP_PAGES.forEach((page) => {
+
+  pages.forEach((page) => {
     const basePath = getBasePath(page.path);
-    
-    // Generate URLs for all language/region combinations
+
     const urlEntries = [];
-    
+
     Object.values(SUPPORTED_LANGUAGES).forEach((lang) => {
       Object.keys(lang.regions).forEach((regionCode) => {
         const url = generateLangUrl(basePath, lang.code, regionCode);
         urlEntries.push({ url, hreflang: regionCode });
       });
     });
-    
-    // Add x-default
+
     const defaultUrl = generateLangUrl(basePath, 'en', 'en-US');
     urlEntries.push({ url: defaultUrl, hreflang: 'x-default' });
-    
-    // Generate XML for each URL entry
+
     urlEntries.forEach((entry) => {
       xml += `  <url>\n`;
-      xml += `    <loc>${entry.url}</loc>\n`;
+      xml += `    <loc>${escapeXmlUrl(entry.url)}</loc>\n`;
       xml += `    <lastmod>${page.lastmod || lastmodString}</lastmod>\n`;
       xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
       xml += `    <priority>${page.priority}</priority>\n`;
-      
-      // Add hreflang alternates
+
       urlEntries.forEach((alt) => {
         if (alt.url !== entry.url) {
-          xml += `    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${alt.url}" />\n`;
+          xml += `    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${escapeXmlUrl(alt.url)}" />\n`;
         }
       });
-      
+
       xml += `  </url>\n`;
     });
   });
-  
+
   xml += `</urlset>`;
-  
+
   return xml;
-};
+}
 
 /**
  * Generate sitemap index for multiple sitemaps (if needed for large sites)
@@ -142,6 +211,8 @@ export const generateSitemapIndex = (sitemapUrls) => {
 export default {
   generateInternationalSitemap,
   generateSitemapIndex,
+  buildFullSitemapPages,
+  getSyncSitemapPages,
   SITEMAP_PAGES,
 };
 

@@ -3,18 +3,21 @@
  * Generates an international sitemap with hreflang alternates
  */
 
-import { generateInternationalSitemap } from '@/utils/internationalSitemap';
+import { createSupabaseServerClient } from '@/lib/supabaseServer';
+import {
+  buildFullSitemapPages,
+  generateInternationalSitemap,
+} from '@/utils/internationalSitemap';
 
-export default function handler(req, res) {
-  // Set headers for XML content
+export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/xml');
   res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  
+
   try {
-    // Generate the international sitemap
-    const sitemap = generateInternationalSitemap();
-    
-    // Return the sitemap XML
+    const supabaseServer = createSupabaseServerClient(req, res);
+    const pages = await buildFullSitemapPages(supabaseServer);
+    const sitemap = generateInternationalSitemap(pages);
+
     res.status(200).send(sitemap);
   } catch (error) {
     console.error('Error generating international sitemap:', error);
