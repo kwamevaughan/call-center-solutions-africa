@@ -192,8 +192,8 @@ const HomePage = () => {
           <div className="max-w-7xl mx-auto w-full relative z-20 px-2 sm:px-4">
             <div className="flex flex-col items-center text-center gap-4 sm:gap-6 text-white">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
-                Accelerate Revenue Through Outsourced <br/>{" "}  Sales Conversion and {" "}
-                  <span className="text-ccsa-orange">Revenue Contact Center</span>
+                Accelerate Revenue Through Outsourced <br/>{" "}  Outreach and {" "}
+                  <span className="text-ccsa-orange">Sales Conversion</span>
               </h1>
               <p className="max-w-2xl text-sm sm:text-base md:text-lg leading-relaxed text-white/90 px-2 sm:px-0">
                 We help business acrosss the globe build world-class, cost-efficient, 
