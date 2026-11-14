@@ -8,58 +8,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import BlogCardProfessional from "@/components/BlogCardProfessional";
-import { blogService, formatBlogData, formatDate } from "@/lib/blogService";
+import { blogService, formatDate } from "@/lib/blogService";
 import { getBreadcrumbSchema, getCollectionPageSchema } from "@/lib/schemas";
 
-const BlogPage = () => {
+const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = false, initialCategories = [] }) => {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState(initialBlogs);
+  const [categories, setCategories] = useState(initialCategories);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
-  const [hasMore, setHasMore] = useState(false);
+  const [totalCount, setTotalCount] = useState(initialTotalCount);
+  const [hasMore, setHasMore] = useState(initialHasMore);
 
   useEffect(() => {
     if (router.isReady) {
       const { category, search } = router.query;
-      if (category) {
-        setSelectedCategory(category);
-      }
-      if (search) {
-        setSearchTerm(search);
-      }
+      if (category) setSelectedCategory(category);
+      if (search) setSearchTerm(search);
     }
   }, [router.isReady, router.query]);
 
   const fetchData = useCallback(async () => {
+    // Skip initial fetch — data comes from getStaticProps
+    if (currentPage === 1 && selectedCategory === 'all' && !searchTerm) return;
     try {
       setLoading(true);
-      
-      // Fetch categories
-      const categoriesData = await blogService.getCategories();
-      setCategories(categoriesData);
-
-      // Fetch blogs with filters
-      const blogsData = await blogService.getBlogs(
-        currentPage,
-        12,
-        null, // Temporarily remove category filter to test
-        null  // Temporarily remove search filter to test
-      );
-
+      const blogsData = await blogService.getBlogs(currentPage, 12, selectedCategory, searchTerm);
       if (currentPage === 1) {
-        setBlogs(blogsData.blogs.map(formatBlogData));
+        setBlogs(blogsData.blogs);
       } else {
-        setBlogs(prev => [...prev, ...blogsData.blogs.map(formatBlogData)]);
+        setBlogs(prev => [...prev, ...blogsData.blogs]);
       }
-
       setTotalCount(blogsData.totalCount);
       setHasMore(blogsData.hasMore);
-    } catch (error) {
-      // Error handled silently - could add error toast here if needed
+    } catch {
+      // silent
     } finally {
       setLoading(false);
     }
@@ -396,3 +381,32 @@ const BlogPage = () => {
 };
 
 export default BlogPage;
+
+export async function getStaticProps() {
+  try {
+    const [blogsResult, categoriesData] = await Promise.all([
+      blogService.getBlogs(1, 12),
+      blogService.getCategories(),
+    ])
+
+    return {
+      props: {
+        initialBlogs: blogsResult.blogs,
+        initialTotalCount: blogsResult.totalCount,
+        initialHasMore: blogsResult.hasMore,
+        initialCategories: categoriesData,
+      },
+      revalidate: 60,
+    }
+  } catch {
+    return {
+      props: {
+        initialBlogs: [],
+        initialTotalCount: 0,
+        initialHasMore: false,
+        initialCategories: [],
+      },
+      revalidate: 60,
+    }
+  }
+}

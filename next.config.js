@@ -16,7 +16,7 @@ const baseConfig = {
   reactStrictMode: true,
 
   // API optimization
-  serverExternalPackages: ['@supabase/supabase-js'],
+  serverExternalPackages: ['@supabase/supabase-js', '@sanity/client'],
 
   // Compression and optimization
   compress: true,
@@ -59,6 +59,11 @@ const baseConfig = {
       {
         protocol: "https",
         hostname: "ik.imagekit.io",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
         pathname: "/**",
       },
     ],

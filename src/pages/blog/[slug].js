@@ -6,9 +6,11 @@ import Footer from "@/layouts/footer";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { PortableText } from '@portabletext/react';
 import BlogCardProfessional from "@/components/BlogCardProfessional";
-import { blogService, formatBlogData, formatDate } from "@/lib/blogService";
+import { blogService, formatDate } from "@/lib/blogService";
 import { getArticleSchema, getBreadcrumbSchema } from "@/lib/schemas";
+import { urlForImage } from '../../../sanity/lib/image';
 
 // Memoized share buttons component
 const ShareButtons = memo(({ blog }) => {
@@ -154,110 +156,83 @@ const TableOfContents = memo(({ headings, activeId }) => {
 
 TableOfContents.displayName = 'TableOfContents';
 
-const BlogPost = () => {
+// Portable Text components for rendering Sanity rich text
+const portableTextComponents = {
+  types: {
+    image: ({ value }) => {
+      const src = value.asset?.url || urlForImage(value)?.url()
+      if (!src) return null
+      return (
+        <figure className="my-8">
+          <div className="relative w-full rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
+            <Image src={src} alt={value.alt || ''} fill className="object-cover" />
+          </div>
+          {value.caption && (
+            <figcaption className="text-center text-sm text-gray-500 mt-2">{value.caption}</figcaption>
+          )}
+        </figure>
+      )
+    },
+    callout: ({ value }) => {
+      const styles = {
+        info: 'bg-blue-50 border-blue-400 text-blue-800',
+        warning: 'bg-yellow-50 border-yellow-400 text-yellow-800',
+        success: 'bg-green-50 border-green-400 text-green-800',
+        error: 'bg-red-50 border-red-400 text-red-800',
+      }
+      return (
+        <div className={`border-l-4 p-4 my-6 rounded-r-lg ${styles[value.type] || styles.info}`}>
+          <p className="font-medium">{value.text}</p>
+        </div>
+      )
+    },
+  },
+  marks: {
+    link: ({ children, value }) => (
+      <a
+        href={value.href}
+        target={value.blank ? '_blank' : '_self'}
+        rel={value.blank ? 'noopener noreferrer' : undefined}
+        className="text-ccsa-blue hover:underline"
+      >
+        {children}
+      </a>
+    ),
+  },
+  block: {
+    h2: ({ children }) => <h2 className="text-2xl font-bold text-ccsa-dark-blue mt-10 mb-4">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-xl font-bold text-ccsa-dark-blue mt-8 mb-3">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-lg font-semibold text-ccsa-dark-blue mt-6 mb-2">{children}</h4>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-ccsa-blue pl-4 italic text-gray-600 my-6">{children}</blockquote>
+    ),
+    normal: ({ children }) => <p className="mb-4 leading-relaxed text-gray-700">{children}</p>,
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700">{children}</ol>,
+  },
+}
+
+const BlogPost = ({ blog, relatedBlogs = [] }) => {
   const router = useRouter();
-  const { slug } = router.query;
-  const [blog, setBlog] = useState(null);
-  const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [headings, setHeadings] = useState([]);
   const [activeHeadingId, setActiveHeadingId] = useState('');
   const contentRef = useRef(null);
 
-  const fetchBlogData = useCallback(async () => {
-    if (!slug) return;
-    
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Fetch the main blog post
-      const blogData = await blogService.getBlogBySlug(slug);
-      const formattedBlog = formatBlogData(blogData);
-      setBlog(formattedBlog);
-
-      // Extract headings from content and add IDs
-      if (formattedBlog.content) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(formattedBlog.content, 'text/html');
-        const headingElements = doc.querySelectorAll('h2, h3, h4');
-        const extractedHeadings = [];
-        
-        headingElements.forEach((heading, index) => {
-          const text = heading.textContent.trim();
-          const id = `heading-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-          heading.id = id;
-          extractedHeadings.push({
-            id,
-            text,
-            level: parseInt(heading.tagName.charAt(1))
-          });
-        });
-
-        // Update content with IDs
-        formattedBlog.content = doc.body.innerHTML;
-        setHeadings(extractedHeadings);
-      }
-
-      // Fetch related blogs
-      if (formattedBlog.category) {
-        const relatedData = await blogService.getRelatedBlogs(
-          formattedBlog.id,
-          formattedBlog.category,
-          3
-        );
-        setRelatedBlogs(relatedData.map(formatBlogData));
-      }
-    } catch (err) {
-      setError('Blog post not found');
-    } finally {
-      setLoading(false);
-    }
-  }, [slug]);
-
+  // Extract headings from Portable Text body blocks for Table of Contents
   useEffect(() => {
-    if (slug) {
-      fetchBlogData();
-    }
-  }, [slug, fetchBlogData]);
+    if (!blog?.content || !Array.isArray(blog.content)) return;
 
-  // Extract headings from content and add IDs after blog is loaded
-  useEffect(() => {
-    if (!blog?.content) return;
+    const extracted = blog.content
+      .filter((block) => block._type === 'block' && ['h2', 'h3', 'h4'].includes(block.style))
+      .map((block, index) => {
+        const text = block.children?.map((c) => c.text || '').join('') || '';
+        const id = `heading-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+        return { id, text, level: parseInt(block.style.charAt(1)) };
+      });
 
-    const extractHeadings = () => {
-      try {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(blog.content, 'text/html');
-        const headingElements = doc.querySelectorAll('h2, h3, h4');
-        const extractedHeadings = [];
-        
-        headingElements.forEach((heading, index) => {
-          const text = heading.textContent.trim();
-          if (!text) return;
-          
-          const id = `heading-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
-          heading.id = id;
-          extractedHeadings.push({
-            id,
-            text,
-            level: parseInt(heading.tagName.charAt(1))
-          });
-        });
-
-        // Update content with IDs if headings were found
-        if (extractedHeadings.length > 0) {
-          const updatedContent = doc.body.innerHTML;
-          setBlog(prev => ({ ...prev, content: updatedContent }));
-          setHeadings(extractedHeadings);
-        }
-      } catch (error) {
-        console.error('Error extracting headings:', error);
-      }
-    };
-
-    extractHeadings();
+    setHeadings(extracted);
   }, [blog?.content]);
 
   // Handle scroll to update active heading
@@ -295,8 +270,14 @@ const BlogPost = () => {
     const baseUrl = 'https://callcentersolutionsafrica.com';
     const blogUrl = `${baseUrl}/blog/${blog.slug}`;
     
-    // Calculate word count for article schema
-    const wordCount = blog.content ? blog.content.split(/\s+/).length : 0;
+    // Calculate word count from Portable Text
+    const wordCount = Array.isArray(blog.content)
+      ? blog.content
+          .filter((b) => b._type === 'block')
+          .map((b) => b.children?.map((c) => c.text || '').join(' ') || '')
+          .join(' ')
+          .split(/\s+/).filter(Boolean).length
+      : 0;
     
     // Generate Article schema
     const articleSchema = getArticleSchema({
@@ -327,93 +308,7 @@ const BlogPost = () => {
     };
   }, [blog]);
 
-  if (loading) {
-    return (
-      <>
-        <SEO {...seoProps} />
-        <Header />
-        <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="flex flex-col items-center justify-center min-h-[70vh]">
-              {/* Hero Section Skeleton */}
-              <div className="w-full mb-12 animate-pulse">
-                <div className="bg-gradient-to-br from-ccsa-dark-blue via-ccsa-dark-blue to-[#1a1f3a] rounded-lg p-8 sm:p-12 lg:p-16">
-                  <div className="max-w-4xl mx-auto text-center">
-                    <div className="h-6 w-32 bg-white/20 rounded-full mx-auto mb-6"></div>
-                    <div className="h-10 sm:h-12 lg:h-14 bg-white/20 rounded-lg w-full max-w-3xl mx-auto mb-4"></div>
-                    <div className="h-6 bg-white/20 rounded w-full max-w-2xl mx-auto mb-2"></div>
-                    <div className="h-6 bg-white/20 rounded w-3/4 max-w-xl mx-auto"></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Content Area */}
-              <div className="w-full max-w-4xl">
-                <div className="flex flex-col items-center justify-center mb-12">
-                  {/* Animated Spinner */}
-                  <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-                    <div className="absolute inset-0 border-4 border-ccsa-blue/20 rounded-full"></div>
-                    <div className="absolute inset-0 border-4 border-transparent border-t-ccsa-blue rounded-full animate-spin"></div>
-                    <div className="absolute inset-3 border-4 border-ccsa-orange/20 rounded-full"></div>
-                    <div 
-                      className="absolute inset-3 border-4 border-transparent border-t-ccsa-orange rounded-full animate-spin" 
-                      style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}
-                    ></div>
-                    <div className="relative z-10 flex items-center justify-center">
-                      <Icon icon="mdi:book-open-variant" className="w-8 h-8 text-ccsa-dark-blue" />
-                    </div>
-                  </div>
-                  
-                  {/* Loading Text */}
-                  <div className="text-center">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-3">
-                      Loading Article
-                    </h2>
-                    <p className="text-gray-600 text-sm sm:text-base mb-6">
-                      Please wait...
-                    </p>
-                    
-                    {/* Animated Dots */}
-                    <div className="flex items-center justify-center gap-2">
-                      <div 
-                        className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
-                        style={{ animationDelay: '0s' }}
-                      ></div>
-                      <div 
-                        className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
-                        style={{ animationDelay: '0.2s' }}
-                      ></div>
-                      <div 
-                        className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
-                        style={{ animationDelay: '0.4s' }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content Skeleton Preview */}
-                <div className="w-full animate-pulse">
-                  <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 sm:p-8">
-                    <div className="h-64 sm:h-80 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-lg mb-8"></div>
-                    <div className="space-y-4">
-                      <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-full"></div>
-                      <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-5/6"></div>
-                      <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-4/6"></div>
-                      <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-full mt-6"></div>
-                      <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-3/4"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </>
-    );
-  }
-
-  if (error || !blog) {
+  if (!blog) {
     return (
       <>
         <SEO 
@@ -517,14 +412,15 @@ const BlogPost = () => {
                 )}
 
                 {/* Main Content */}
-                <article 
+                <article
                   ref={contentRef}
                   className="prose prose-lg max-w-none prose-headings:text-ccsa-dark-blue prose-headings:font-bold prose-a:text-ccsa-blue prose-a:no-underline hover:prose-a:underline prose-strong:text-ccsa-dark-blue prose-code:text-ccsa-dark-blue"
                 >
-                  <div 
-                    className="text-gray-700 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: blog.content }}
-                  />
+                  {Array.isArray(blog.content) ? (
+                    <PortableText value={blog.content} components={portableTextComponents} />
+                  ) : (
+                    <div className="text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: blog.content || '' }} />
+                  )}
                 </article>
 
                 {/* Social Sharing */}
@@ -608,3 +504,33 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
+
+export async function getStaticPaths() {
+  const slugs = await blogService.getAllSlugs()
+  return {
+    paths: slugs.map((slug) => ({ params: { slug } })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  try {
+    const blog = await blogService.getBlogBySlug(params.slug)
+    if (!blog) return { notFound: true }
+
+    const relatedBlogs = blog.categoryData?.length
+      ? await blogService.getRelatedBlogs(
+          blog.id,
+          blog.categoryData.map((c) => c._id || c.id),
+          3
+        )
+      : []
+
+    return {
+      props: { blog, relatedBlogs },
+      revalidate: 60,
+    }
+  } catch {
+    return { notFound: true }
+  }
+}
