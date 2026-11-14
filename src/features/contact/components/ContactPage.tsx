@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState, useMemo } from "react";
@@ -21,7 +20,7 @@ export default function ContactPage() {
     goals: "",
     privacyAgreement: false,
   });
-  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -45,7 +44,7 @@ export default function ContactPage() {
     return [contactPageSchema, breadcrumbSchema];
   }, []);
 
-  const handleRecaptcha = (token) => {
+  const handleRecaptcha = (token: string | null) => {
     setRecaptchaToken(token);
   };
 
@@ -81,7 +80,7 @@ export default function ContactPage() {
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);

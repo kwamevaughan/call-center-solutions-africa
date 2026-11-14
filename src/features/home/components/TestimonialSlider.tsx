@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 
@@ -29,7 +28,7 @@ const TestimonialSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const intervalRef = useRef(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Calculate how many slides to display per view (3 for this slider)
   const slidesPerView = 1;

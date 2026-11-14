@@ -1,32 +1,40 @@
-// @ts-nocheck
 "use client";
 import { useState, useEffect, useCallback, useMemo, memo } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import BlogCardProfessional from "@/features/blog/components/BlogCardProfessional";
 import { blogService, formatDate } from "@/shared/lib/blogService";
 import { getBreadcrumbSchema, getCollectionPageSchema } from "@/shared/lib/schemas";
+import type { FormattedPost, SanityCategory } from "@sanity/lib/types";
 
-const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = false, initialCategories = [] }) => {
+interface BlogPageProps {
+  initialBlogs?: FormattedPost[];
+  initialTotalCount?: number;
+  initialHasMore?: boolean;
+  initialCategories?: SanityCategory[];
+}
+
+const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = false, initialCategories = [] }: BlogPageProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [blogs, setBlogs] = useState(initialBlogs);
-  const [categories, setCategories] = useState(initialCategories);
+  const [blogs, setBlogs] = useState<FormattedPost[]>(initialBlogs);
+  const [categories, setCategories] = useState<SanityCategory[]>(initialCategories);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(initialTotalCount);
   const [hasMore, setHasMore] = useState(initialHasMore);
 
   useEffect(() => {
-    if (router.isReady) {
-      const { category, search } = router.query;
-      if (category) setSelectedCategory(category);
-      if (search) setSearchTerm(search);
-    }
-  }, [router.isReady, router.query]);
+    const category = searchParams.get("category");
+    const search = searchParams.get("search");
+    if (category) setSelectedCategory(category);
+    if (search) setSearchTerm(search);
+  }, [searchParams]);
 
   const fetchData = useCallback(async () => {
     // Skip initial fetch — data comes from getStaticProps
@@ -52,35 +60,31 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
     fetchData();
   }, [fetchData]);
 
-  const handleCategoryChange = useCallback((category) => {
+  const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
     setBlogs([]);
-    
-    // Update URL
-    const query = { ...router.query };
+    const params = new URLSearchParams(searchParams.toString());
     if (category === "all") {
-      delete query.category;
+      params.delete("category");
     } else {
-      query.category = category;
+      params.set("category", category);
     }
-    router.push({ pathname: '/blog', query }, undefined, { shallow: true });
-  }, [router]);
+    router.push(`${pathname}?${params.toString()}`);
+  }, [router, pathname, searchParams]);
 
-  const handleSearch = useCallback((term) => {
+  const handleSearch = useCallback((term: string) => {
     setSearchTerm(term);
     setCurrentPage(1);
     setBlogs([]);
-    
-    // Update URL
-    const query = { ...router.query };
+    const params = new URLSearchParams(searchParams.toString());
     if (term) {
-      query.search = term;
+      params.set("search", term);
     } else {
-      delete query.search;
+      params.delete("search");
     }
-    router.push({ pathname: '/blog', query }, undefined, { shallow: true });
-  }, [router]);
+    router.push(`${pathname}?${params.toString()}`);
+  }, [router, pathname, searchParams]);
 
   const loadMore = useCallback(() => {
     setCurrentPage(prev => prev + 1);
@@ -96,7 +100,7 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
   const categoryName = useMemo(() => {
     return selectedCategory === "all" 
       ? "All Articles" 
-      : categories.find(c => c.slug === selectedCategory)?.name || "All Articles";
+      : categories.find(c => (typeof c.slug === 'string' ? c.slug : c.slug?.current) === selectedCategory)?.name || "All Articles";
   }, [selectedCategory, categories]);
 
   // Generate SEO schemas
@@ -193,19 +197,22 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                 >
                   All Articles
                 </button>
-                {categories.map((category) => (
+                {categories.map((category) => {
+                  const slugStr = category.slug?.current ?? '';
+                  return (
                   <button
-                    key={category.id}
-                    onClick={() => handleCategoryChange(category.slug)}
+                    key={category._id}
+                    onClick={() => handleCategoryChange(slugStr)}
                     className={`px-6 py-3 rounded-full font-medium transition-all ${
-                      selectedCategory === category.slug
+                      selectedCategory === slugStr
                         ? "bg-white text-ccsa-dark-blue shadow-lg"
                         : "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
                     }`}
                   >
                     {category.name}
                   </button>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>

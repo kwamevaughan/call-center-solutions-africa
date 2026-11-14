@@ -1,20 +1,19 @@
-// @ts-nocheck
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
-import { googleReviews, placeInfo as staticPlaceInfo } from "@/shared/data/googleReviews";
+import { googleReviews, placeInfo as staticPlaceInfo, type GoogleReview, type PlaceInfo } from "@/shared/data/googleReviews";
 
 const GoogleReviewsTestimonials = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<GoogleReview[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [placeInfo, setPlaceInfo] = useState(null);
-  const [slidesPerView, setSlidesPerView] = useState(1);
-  const [windowWidth, setWindowWidth] = useState(0);
-  const intervalRef = useRef(null);
+  const [placeInfo, setPlaceInfo] = useState<PlaceInfo | null>(null);
+  const [slidesPerView, setSlidesPerView] = useState<number>(1);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     // Use static reviews data (no API calls needed)
@@ -112,7 +111,7 @@ const GoogleReviewsTestimonials = () => {
     return () => stopAutoplay();
   }, [isPaused, reviews.length]);
 
-  const renderStars = (rating, size = 18) => {
+  const renderStars = (rating: number, size = 18) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;

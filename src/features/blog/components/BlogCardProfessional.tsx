@@ -1,11 +1,18 @@
-// @ts-nocheck
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/shared/lib/blogService";
 import { memo } from "react";
+import type { FormattedPost } from "@sanity/lib/types";
 
-const BlogCardProfessional = memo(({ post, variant = "default" }) => {
+type Variant = "default" | "compact" | "featured";
+
+interface BlogCardProfessionalProps {
+  post: FormattedPost;
+  variant?: Variant;
+}
+
+const BlogCardProfessional = memo(({ post, variant = "default" }: BlogCardProfessionalProps) => {
   if (!post) {
     return null;
   }

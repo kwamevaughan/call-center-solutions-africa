@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 // pages/services/index.js
 import Image from "next/image";
@@ -10,18 +9,18 @@ import SEO from "@/shared/components/SEO";
 
 const ServicesPage = () => {
   const sectionRefs = {
-    hero: useRef(null),
-    services: useRef(null),
+    hero: useRef<HTMLDivElement>(null),
+    services: useRef<HTMLDivElement>(null),
   };
 
   useEffect(() => {
-    const observerOptions = {
+    const observerOptions: IntersectionObserverInit = {
       root: null,
       rootMargin: "0px",
       threshold: 0.1,
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("section-visible");

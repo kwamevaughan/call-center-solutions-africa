@@ -1,10 +1,8 @@
-// @ts-nocheck
 "use client";
-// pages/index.js
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import { useEffect, useRef, useMemo, useState } from "react";
 import IndustriesTab from "@/features/home/components/IndustriesTab";
 import GoogleReviewsTestimonials from "@/features/home/components/GoogleReviewsTestimonials";
 import SectionBridgeVideo from "@/features/home/components/SectionBridgeVideo";
@@ -13,6 +11,8 @@ import DeliveryModels from "@/features/home/components/DeliveryModels";
 import { getWebPageSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
 import SEO from "@/shared/components/SEO";
 import { caseStudiesHero, featuredCaseStudies } from "@/shared/data/caseStudies";
+
+interface StoryVideo { title: string; description: string; url: string; }
 
 /** MP4 for Featured Video in Resources (was the Who we are bridge). */
 const HOME_SECTION_VIDEO_SRC = "/assets/videos/ccsa-company-video.mp4";
@@ -38,7 +38,7 @@ const TEAM_STORIES_VIDEOS = [
   },
 ];
 
-const getYoutubeVideoId = (embedUrl) => {
+const getYoutubeVideoId = (embedUrl: string): string => {
   try {
     const url = new URL(embedUrl);
     const parts = url.pathname.split("/");
@@ -48,7 +48,7 @@ const getYoutubeVideoId = (embedUrl) => {
   }
 };
 
-const getAutoplayEmbedUrl = (embedUrl) => {
+const getAutoplayEmbedUrl = (embedUrl: string): string => {
   try {
     const url = new URL(embedUrl);
     url.searchParams.set("autoplay", "1");
@@ -61,21 +61,21 @@ const getAutoplayEmbedUrl = (embedUrl) => {
 };
 
 const HomePage = () => {
-  const [activeStoryVideo, setActiveStoryVideo] = useState(null);
-  const sectionRefs = {
-    home: useRef(null),
-    "about-us": useRef(null),
-    industries: useRef(null),
+  const [activeStoryVideo, setActiveStoryVideo] = useState<StoryVideo | null>(null);
+  const sectionRefs: Record<string, React.RefObject<HTMLDivElement | null>> = {
+    home: useRef<HTMLDivElement>(null),
+    "about-us": useRef<HTMLDivElement>(null),
+    industries: useRef<HTMLDivElement>(null),
   };
 
   useEffect(() => {
-    const observerOptions = {
+    const observerOptions: IntersectionObserverInit = {
       root: null,
       rootMargin: "0px",
       threshold: 0.1,
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("section-visible");
@@ -106,7 +106,7 @@ const HomePage = () => {
   useEffect(() => {
     if (!activeStoryVideo) return;
 
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setActiveStoryVideo(null);
       }

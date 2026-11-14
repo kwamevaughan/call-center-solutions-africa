@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Slider from "react-slick";
 import Image from "next/image";
 import Link from "next/link";
@@ -72,7 +71,13 @@ const solutions = [
   },
 ];
 
-const NextArrow = ({ className, style, onClick }) => (
+interface ArrowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+const NextArrow = ({ className, style, onClick }: ArrowProps) => (
   <button
     type="button"
     aria-label="Next slide"
@@ -94,7 +99,7 @@ const NextArrow = ({ className, style, onClick }) => (
   </button>
 );
 
-const PrevArrow = ({ className, style, onClick }) => (
+const PrevArrow = ({ className, style, onClick }: ArrowProps) => (
   <button
     type="button"
     aria-label="Previous slide"
@@ -116,7 +121,9 @@ const PrevArrow = ({ className, style, onClick }) => (
   </button>
 );
 
-function SolutionCard({ item }) {
+interface Solution { icon: string; alt: string; title: string; titleLine2?: string; description: string; href: string; }
+
+function SolutionCard({ item }: { item: Solution }) {
   return (
     <div className="px-2 pb-1 pt-0 sm:px-3">
       <div className="flex h-full min-h-[280px] flex-col gap-4 rounded-lg bg-ccsa-dark-blue p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-gradient-to-tr hover:from-[#0088D2] hover:to-[#F45B00] sm:min-h-[300px] sm:p-8">

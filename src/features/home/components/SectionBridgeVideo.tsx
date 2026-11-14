@@ -1,19 +1,24 @@
-// @ts-nocheck
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Icon } from "@iconify/react";
 
-function formatTime(seconds) {
+function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export default function SectionBridgeVideo({ src, poster, className = "" }) {
-  const containerRef = useRef(null);
-  const videoRef = useRef(null);
-  const progressBarRef = useRef(null);
-  const hideControlsTimer = useRef(null);
+interface SectionBridgeVideoProps {
+  src: string;
+  poster?: string;
+  className?: string;
+}
+
+export default function SectionBridgeVideo({ src, poster, className = "" }: SectionBridgeVideoProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const hideControlsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
@@ -83,7 +88,7 @@ export default function SectionBridgeVideo({ src, poster, className = "" }) {
   }, []);
 
   const onSeek = useCallback(
-    (e) => {
+    (e: React.MouseEvent<HTMLDivElement>) => {
       const el = videoRef.current;
       const bar = progressBarRef.current;
       if (!el || !bar || !duration) return;

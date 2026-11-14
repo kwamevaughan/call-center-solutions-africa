@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
@@ -6,29 +5,32 @@ import { useRouter } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
 
+interface ContactModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-export default function ContactModal({ isOpen, onClose }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    phone: "",
-    industry: "",
-    teamSize: "",
-    services: [],
-    currentChallenges: "",
-    timeline: "",
-    budget: "",
-    additionalInfo: "",
+export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const [formData, setFormData] = useState<{
+    name: string; email: string; company: string; phone: string;
+    industry: string; teamSize: string; services: string[];
+    currentChallenges: string; timeline: string; budget: string;
+    additionalInfo: string; customBudget: string;
+  }>({
+    name: "", email: "", company: "", phone: "",
+    industry: "", teamSize: "", services: [],
+    currentChallenges: "", timeline: "", budget: "",
+    additionalInfo: "", customBudget: "",
   });
-  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isCustomBudget, setIsCustomBudget] = useState(false); // State to track if 'Custom' is selected
   const router = useRouter();
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
     if (type === "checkbox") {
       setFormData((prev) => ({
         ...prev,
@@ -41,11 +43,11 @@ export default function ContactModal({ isOpen, onClose }) {
     }
   };
 
-  const handleRecaptcha = (token) => {
+  const handleRecaptcha = (token: string | null) => {
     setRecaptchaToken(token);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -127,7 +129,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
 
   // Close the modal if click outside of it
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose(); // Close the modal
     }
@@ -401,7 +403,7 @@ export default function ContactModal({ isOpen, onClose }) {
           {/* reCAPTCHA */}
           <div>
             <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
               onChange={handleRecaptcha}
             />
           </div>

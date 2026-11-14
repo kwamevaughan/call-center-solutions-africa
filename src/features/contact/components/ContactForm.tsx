@@ -1,13 +1,29 @@
-// @ts-nocheck
 "use client";
 
 import { Icon } from "@iconify/react";
 import dynamic from "next/dynamic";
 
-// Dynamically import ReCAPTCHA with SSR disabled
-const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
-  ssr: false, // This ensures the component only loads on the client
-});
+const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+
+interface ContactFormData {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  howCanWeHelp: string;
+  goals: string;
+  privacyAgreement: boolean;
+  [key: string]: string | boolean | File | null;
+}
+
+interface ContactFormProps {
+  formData: ContactFormData;
+  setFormData: React.Dispatch<React.SetStateAction<ContactFormData>>;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  error: string;
+  loading: boolean;
+  handleRecaptcha: (token: string | null) => void;
+}
 
 export default function ContactForm({
   formData,
@@ -16,13 +32,15 @@ export default function ContactForm({
   error,
   loading,
   handleRecaptcha,
-}) {
-  const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+}: ContactFormProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    const files = (e.target as HTMLInputElement).files;
     if (type === "checkbox") {
       setFormData((prev) => ({ ...prev, [name]: checked }));
     } else if (type === "file") {
-      setFormData((prev) => ({ ...prev, [name]: files[0] || null }));
+      setFormData((prev) => ({ ...prev, [name]: files?.[0] || null }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -207,7 +225,7 @@ export default function ContactForm({
       <div className="space-y-6 pt-6 border-t border-white/30">
         <div className="flex justify-center">
           <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
             onChange={handleRecaptcha}
             theme="light"
           />

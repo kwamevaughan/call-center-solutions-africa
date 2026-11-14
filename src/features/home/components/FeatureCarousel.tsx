@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import Slider from "react-slick";
 import Image from "next/image";
@@ -45,8 +44,14 @@ const features = [
   },
 ];
 
+interface ArrowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler;
+}
+
 // Custom arrow components using Iconify
-const NextArrow = (props) => {
+const NextArrow = (props: ArrowProps) => {
   const { className, style, onClick } = props;
   return (
     <div
@@ -66,7 +71,7 @@ const NextArrow = (props) => {
   );
 };
 
-const PrevArrow = (props) => {
+const PrevArrow = (props: ArrowProps) => {
   const { className, style, onClick } = props;
   return (
     <div
@@ -86,7 +91,13 @@ const PrevArrow = (props) => {
   );
 };
 
-const FeatureCard = ({ feature }) => (
+interface Feature {
+  title: string;
+  image: string;
+  bullets: string[];
+}
+
+const FeatureCard = ({ feature }: { feature: Feature }) => (
   <div className="px-3 sm:px-6">
     <div className="bg-white rounded-lg hover:shadow-lg transition-all duration-300 ease-in-out hover:translate-y-[-5px] overflow-hidden">
       <div className="relative h-48 sm:h-72">

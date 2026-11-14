@@ -1,5 +1,3 @@
-// @ts-nocheck
-// IndustriesTab.js
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 // pages/index.js
 import Image from "next/image";
@@ -10,19 +9,19 @@ import SEO from "@/shared/components/SEO";
 
 const TechnicalSupportHelpDeskPage = () => {
   const sectionRefs = {
-    home: useRef(null),
-    "about-us": useRef(null),
-    industries: useRef(null),
+    home: useRef<HTMLDivElement>(null),
+    "about-us": useRef<HTMLDivElement>(null),
+    industries: useRef<HTMLDivElement>(null),
   };
 
   useEffect(() => {
-    const observerOptions = {
+    const observerOptions: IntersectionObserverInit = {
       root: null,
       rootMargin: "0px",
       threshold: 0.1,
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("section-visible");

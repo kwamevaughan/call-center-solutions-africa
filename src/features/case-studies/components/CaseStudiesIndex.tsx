@@ -1,6 +1,4 @@
-// @ts-nocheck
 "use client";
-// pages/case-studies.js — case study library index
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useMemo } from "react";

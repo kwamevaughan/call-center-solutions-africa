@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 import { useState, useEffect, useCallback, useMemo, memo, useRef } from 'react';
 import Image from "next/image";
@@ -9,9 +8,9 @@ import BlogCardProfessional from "@/features/blog/components/BlogCardProfessiona
 import { blogService, formatDate } from "@/shared/lib/blogService";
 import { getArticleSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
 import { urlForImage } from '@sanity/lib/image';
+import type { FormattedPost } from "@sanity/lib/types";
 
-// Memoized share buttons component
-const ShareButtons = memo(({ blog }) => {
+const ShareButtons = memo(({ blog }: { blog: FormattedPost }) => {
   const shareUrl = useMemo(() => {
     if (typeof window === 'undefined') return '';
     return window.location.href;
@@ -90,11 +89,12 @@ const ShareButtons = memo(({ blog }) => {
 
 ShareButtons.displayName = 'ShareButtons';
 
-// Table of Contents Component
-const TableOfContents = memo(({ headings, activeId }) => {
-  const tocRef = useRef(null);
+interface Heading { id: string; text: string; level: number; }
 
-  const scrollToHeading = useCallback((id) => {
+const TableOfContents = memo(({ headings, activeId }: { headings: Heading[]; activeId: string }) => {
+  const tocRef = useRef<HTMLDivElement>(null);
+
+  const scrollToHeading = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
       const offset = 100; // Offset for sticky header
@@ -157,7 +157,7 @@ TableOfContents.displayName = 'TableOfContents';
 // Portable Text components for rendering Sanity rich text
 const portableTextComponents = {
   types: {
-    image: ({ value }) => {
+    image: ({ value }: { value: any }) => {
       const src = value.asset?.url || urlForImage(value)?.url()
       if (!src) return null
       return (
@@ -171,7 +171,7 @@ const portableTextComponents = {
         </figure>
       )
     },
-    callout: ({ value }) => {
+    callout: ({ value }: { value: any }) => {
       const styles = {
         info: 'bg-blue-50 border-blue-400 text-blue-800',
         warning: 'bg-yellow-50 border-yellow-400 text-yellow-800',
@@ -179,18 +179,18 @@ const portableTextComponents = {
         error: 'bg-red-50 border-red-400 text-red-800',
       }
       return (
-        <div className={`border-l-4 p-4 my-6 rounded-r-lg ${styles[value.type] || styles.info}`}>
+        <div className={`border-l-4 p-4 my-6 rounded-r-lg ${(styles as Record<string, string>)[value.type] ?? styles.info}`}>
           <p className="font-medium">{value.text}</p>
         </div>
       )
     },
   },
   marks: {
-    link: ({ children, value }) => (
+    link: ({ children, value }: { children: React.ReactNode; value?: { href?: string; blank?: boolean } }) => (
       <a
-        href={value.href}
-        target={value.blank ? '_blank' : '_self'}
-        rel={value.blank ? 'noopener noreferrer' : undefined}
+        href={value?.href}
+        target={value?.blank ? '_blank' : '_self'}
+        rel={value?.blank ? 'noopener noreferrer' : undefined}
         className="text-ccsa-blue hover:underline"
       >
         {children}
@@ -198,35 +198,40 @@ const portableTextComponents = {
     ),
   },
   block: {
-    h2: ({ children }) => <h2 className="text-2xl font-bold text-ccsa-dark-blue mt-10 mb-4">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-xl font-bold text-ccsa-dark-blue mt-8 mb-3">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-lg font-semibold text-ccsa-dark-blue mt-6 mb-2">{children}</h4>,
-    blockquote: ({ children }) => (
+    h2: ({ children }: { children: React.ReactNode }) => <h2 className="text-2xl font-bold text-ccsa-dark-blue mt-10 mb-4">{children}</h2>,
+    h3: ({ children }: { children: React.ReactNode }) => <h3 className="text-xl font-bold text-ccsa-dark-blue mt-8 mb-3">{children}</h3>,
+    h4: ({ children }: { children: React.ReactNode }) => <h4 className="text-lg font-semibold text-ccsa-dark-blue mt-6 mb-2">{children}</h4>,
+    blockquote: ({ children }: { children: React.ReactNode }) => (
       <blockquote className="border-l-4 border-ccsa-blue pl-4 italic text-gray-600 my-6">{children}</blockquote>
     ),
-    normal: ({ children }) => <p className="mb-4 leading-relaxed text-gray-700">{children}</p>,
+    normal: ({ children }: { children: React.ReactNode }) => <p className="mb-4 leading-relaxed text-gray-700">{children}</p>,
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700">{children}</ol>,
+    bullet: ({ children }: { children: React.ReactNode }) => <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700">{children}</ul>,
+    number: ({ children }: { children: React.ReactNode }) => <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700">{children}</ol>,
   },
+} as any
+
+interface BlogPostProps {
+  blog: FormattedPost;
+  relatedBlogs?: FormattedPost[];
 }
 
-const BlogPost = ({ blog, relatedBlogs = [] }) => {
-  const [headings, setHeadings] = useState([]);
+const BlogPost = ({ blog, relatedBlogs = [] }: BlogPostProps) => {
+  const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeHeadingId, setActiveHeadingId] = useState('');
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   // Extract headings from Portable Text body blocks for Table of Contents
   useEffect(() => {
     if (!blog?.content || !Array.isArray(blog.content)) return;
 
     const extracted = blog.content
-      .filter((block) => block._type === 'block' && ['h2', 'h3', 'h4'].includes(block.style))
+      .filter((block): block is typeof block & { style: string } => block._type === 'block' && !!block.style && ['h2', 'h3', 'h4'].includes(block.style))
       .map((block, index) => {
-        const text = block.children?.map((c) => c.text || '').join('') || '';
+        const text = block.children?.map((c: any) => c.text || '').join('') || '';
         const id = `heading-${index}-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
-        return { id, text, level: parseInt(block.style.charAt(1)) };
+        return { id, text, level: parseInt((block.style as string).charAt(1)) };
       });
 
     setHeadings(extracted);
@@ -285,7 +290,7 @@ const BlogPost = ({ blog, relatedBlogs = [] }) => {
       datePublished: blog.date,
       dateModified: blog.date,
       url: blogUrl,
-      category: blog.category,
+      category: blog.category ?? undefined,
       wordCount: wordCount
     });
 

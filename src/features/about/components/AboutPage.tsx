@@ -1,27 +1,26 @@
-// @ts-nocheck
 "use client";
-// pages/index.js
+import React, { useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import { useEffect, useRef, useMemo } from "react";
 import { getAboutPageSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
 
 const About = () => {
-  const sectionRefs = {
-    home: useRef(null),
-    "about-us": useRef(null),
-    industries: useRef(null),
+  const sectionRefs: Record<string, React.RefObject<HTMLDivElement | null>> = {
+    home: useRef<HTMLDivElement>(null),
+    "about-us": useRef<HTMLDivElement>(null),
+    industries: useRef<HTMLDivElement>(null),
+    "why-our-programs-perform": useRef<HTMLDivElement>(null),
   };
 
   useEffect(() => {
-    const observerOptions = {
+    const observerOptions: IntersectionObserverInit = {
       root: null,
       rootMargin: "0px",
       threshold: 0.1,
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("section-visible");

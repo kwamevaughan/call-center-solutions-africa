@@ -1,6 +1,4 @@
-// @ts-nocheck
 "use client";
-// pages/industries.js
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
@@ -10,18 +8,18 @@ import { getCollectionPageSchema, getBreadcrumbSchema } from "@/shared/lib/schem
 
 const IndustriesPage = () => {
   const sectionRefs = {
-    hero: useRef(null),
-    industries: useRef(null),
+    hero: useRef<HTMLDivElement>(null),
+    industries: useRef<HTMLDivElement>(null),
   };
 
   useEffect(() => {
-    const observerOptions = {
+    const observerOptions: IntersectionObserverInit = {
       root: null,
       rootMargin: "0px",
       threshold: 0.1,
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("section-visible");

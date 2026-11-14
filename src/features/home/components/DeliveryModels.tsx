@@ -1,5 +1,13 @@
-// @ts-nocheck
-const deliveryModels = [
+interface DeliveryModel {
+  image: string;
+  imageAlt: string;
+  title: string;
+  description: string;
+  tags: string[];
+  buttonLabel: string;
+}
+
+const deliveryModels: DeliveryModel[] = [
   {
     image: "https://ik.imagekit.io/nkmvdjnna/CCSA/delivery-model-1.webp",
     imageAlt: "Fully remote delivery team",

@@ -1,6 +1,5 @@
-// @ts-nocheck
 "use client";
-// pages/case-studies/[slug].js
+import React from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useMemo } from "react";
@@ -12,6 +11,7 @@ import {
   getCaseStudyMetaDescription,
   caseStudyDetails,
   caseStudiesCta,
+  type CaseStudyDetail,
 } from "@/shared/data/caseStudies";
 
 const BASE_URL = "https://callcentersolutionsafrica.com";
@@ -23,7 +23,7 @@ const sectionIcon = {
   impact: "mdi:chart-areaspline",
 };
 
-function SectionBlock({ icon, title, children, className = "" }) {
+function SectionBlock({ icon, title, children, className = "" }: { icon: string; title: string; children: React.ReactNode; className?: string }) {
   return (
     <div className={`scroll-mt-28 ${className}`}>
       <div className="flex items-start gap-4">
@@ -43,7 +43,14 @@ function SectionBlock({ icon, title, children, className = "" }) {
   );
 }
 
-export default function CaseStudyPage({ study, prev, next, index }) {
+interface CaseStudyPageProps {
+  study: CaseStudyDetail;
+  prev: CaseStudyDetail | null;
+  next: CaseStudyDetail | null;
+  index: number;
+}
+
+export default function CaseStudyPage({ study, prev, next, index }: CaseStudyPageProps) {
   const region = getCaseStudyRegion(study.id);
   const pageUrl = `${BASE_URL}/case-studies/${study.id}`;
   const metaDescription = getCaseStudyMetaDescription(study);

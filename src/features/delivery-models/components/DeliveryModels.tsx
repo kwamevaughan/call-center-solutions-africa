@@ -1,6 +1,4 @@
-// @ts-nocheck
 "use client";
-// pages/delivery-models.js
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
