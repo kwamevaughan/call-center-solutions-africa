@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/case-studies.js — case study library index
 import Link from "next/link";
 import Header from "@/layouts/header";

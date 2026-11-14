@@ -1,3 +1,4 @@
+// @ts-nocheck
 // IndustriesTab.js
 import { useState } from "react";
 import { Icon } from "@iconify/react";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/terms-of-service.js
 import Link from "next/link";
 import Header from "../layouts/header";

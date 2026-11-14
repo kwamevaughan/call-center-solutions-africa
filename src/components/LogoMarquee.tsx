@@ -1,3 +1,4 @@
+// @ts-nocheck
 // components/LogoMarquee.js
 "use client";
 

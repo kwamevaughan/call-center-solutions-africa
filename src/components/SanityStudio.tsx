@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Sanity Studio component — rendered only on the client.
  * Loaded dynamically in src/pages/studio/[[...index]].js

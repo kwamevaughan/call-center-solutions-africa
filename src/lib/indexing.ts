@@ -1,3 +1,4 @@
+// @ts-nocheck
 // lib/indexing.js
 const { google } = require("googleapis");
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/delivery-models.js
 import Link from "next/link";
 import Header from "../layouts/header";

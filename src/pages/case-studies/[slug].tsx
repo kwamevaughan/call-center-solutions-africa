@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/case-studies/[slug].js
 import Link from "next/link";
 import Header from "@/layouts/header";

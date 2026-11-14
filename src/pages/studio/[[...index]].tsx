@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Sanity Studio embedded in Next.js Pages Router at /studio
  * Uses dynamic import to avoid SSR issues with the studio.

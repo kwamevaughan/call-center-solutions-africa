@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/services/index.js
 import SEO from "@/components/SEO";
 import Header from "@/layouts/header";

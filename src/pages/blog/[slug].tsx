@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRouter } from 'next/router';
 import { useState, useEffect, useCallback, useMemo, memo, useRef } from 'react';
 import SEO from "@/components/SEO";

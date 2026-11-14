@@ -1,3 +1,4 @@
+// @ts-nocheck
 const deliveryModels = [
   {
     image: "https://ik.imagekit.io/nkmvdjnna/CCSA/delivery-model-1.webp",

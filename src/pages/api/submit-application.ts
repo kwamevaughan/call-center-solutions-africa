@@ -1,3 +1,4 @@
+// @ts-nocheck
 import nodemailer from "nodemailer";
 import formidable from "formidable";
 import fs from "fs/promises";

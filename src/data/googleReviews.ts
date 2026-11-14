@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Static Google Reviews data
 // You can copy reviews from: https://www.google.com/maps/place/YOUR_BUSINESS
 

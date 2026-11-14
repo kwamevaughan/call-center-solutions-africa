@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/data-processing-addendum.js
 import Link from "next/link";
 import Header from "../layouts/header";

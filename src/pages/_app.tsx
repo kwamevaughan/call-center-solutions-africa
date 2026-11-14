@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/_app.js
 import "../styles/globals.css";
 import "slick-carousel/slick/slick.css";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/_document.js
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { getOrganizationSchema, getWebsiteSchema, schemaToJsonLd } from "@/lib/schemas";

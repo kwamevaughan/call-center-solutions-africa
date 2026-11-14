@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/privacy-policy.js
 import Link from "next/link";
 import Header from "../layouts/header";

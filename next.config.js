@@ -16,7 +16,7 @@ const baseConfig = {
   reactStrictMode: true,
 
   // API optimization
-  serverExternalPackages: ['@supabase/supabase-js', '@sanity/client'],
+  serverExternalPackages: ['@sanity/client'],
 
   // Compression and optimization
   compress: true,
@@ -85,20 +85,11 @@ const baseConfig = {
             name: 'vendors',
             chunks: 'all',
           },
-          supabase: {
-            test: /[\\/]node_modules[\\/]@supabase[\\/]/,
-            name: 'supabase',
-            chunks: 'all',
-            priority: 10,
-          },
         },
       };
     }
     return config;
   },
-
-  // Turbopack config (empty to silence error - using webpack instead)
-  turbopack: {},
 };
 
 // Combine all plugins with base config

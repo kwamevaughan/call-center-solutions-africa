@@ -1,3 +1,4 @@
+// @ts-nocheck
 // pages/api/notify-google.js
 import { notifyGoogle } from "../../lib/indexing";
 

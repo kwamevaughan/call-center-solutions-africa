@@ -21,8 +21,6 @@ html {
   --ccsa-gradient: linear-gradient(135deg, #FFD100 0%, #0088D2 100%);
 }
 
-/* Custom variant for dark mode (optional) */
-@custom-variant dark (&:is(.dark *));
 
 /* For smooth transitions when changing images */
 .slider-transition {

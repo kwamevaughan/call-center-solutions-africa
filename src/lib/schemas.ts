@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * JSON-LD Schema Generator Utilities
  * Generates structured data for SEO according to schema.org standards

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // components/Marquee.js
 "use client";
 

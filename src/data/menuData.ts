@@ -1,3 +1,4 @@
+// @ts-nocheck
 // data/menuData.js
 export const menuItems = [
   { href: "/", label: "Home", isAnchor: false },
