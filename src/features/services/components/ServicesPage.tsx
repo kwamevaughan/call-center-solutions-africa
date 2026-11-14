@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useEffect, useRef, useMemo } from "react";
-import { getCollectionPageSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
+import {
+  getCollectionPageSchema,
+  getBreadcrumbSchema,
+} from "@/shared/lib/schemas";
 import SEO from "@/shared/components/SEO";
 
 const ServicesPage = () => {
@@ -30,7 +33,7 @@ const ServicesPage = () => {
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     Object.values(sectionRefs).forEach((ref) => {
@@ -50,18 +53,19 @@ const ServicesPage = () => {
 
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
-    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const baseUrl = "https://callcentersolutionsafrica.com";
     const servicesUrl = `${baseUrl}/services`;
-    
+
     const collectionPageSchema = getCollectionPageSchema({
-      name: 'BPO Services & Customer Experience Solutions',
-      description: 'Discover our full range of BPO services: inbound/outbound customer service, omnichannel operations, sales enablement, technical support, claims processing, and more. ISO 27001 certified.',
-      url: servicesUrl
+      name: "BPO Services & Customer Experience Solutions",
+      description:
+        "Discover our full range of BPO services: inbound/outbound customer service, omnichannel operations, sales enablement, technical support, claims processing, and more. ISO 27001 certified.",
+      url: servicesUrl,
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
-      { name: 'Home', url: baseUrl },
-      { name: 'Services', url: servicesUrl }
+      { name: "Home", url: baseUrl },
+      { name: "Services", url: servicesUrl },
     ]);
 
     return [collectionPageSchema, breadcrumbSchema];
@@ -293,4 +297,3 @@ const ServicesPage = () => {
 };
 
 export default ServicesPage;
-

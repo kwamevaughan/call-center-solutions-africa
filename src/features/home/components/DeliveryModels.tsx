@@ -32,13 +32,19 @@ const deliveryModels: DeliveryModel[] = [
     title: "Fully On-Site at CCSA Nairobi Delivery Center",
     description:
       "Get an office-based team without the cost and complexity of building your own site. Operate from our Nairobi delivery center with infrastructure, supervision, QA, and reporting ideal for structured workflows and daily oversight.",
-    tags: ["Stronger Supervision", "Structured Delivery", "Engagement Teams", "Scale in Africa"],
+    tags: [
+      "Stronger Supervision",
+      "Structured Delivery",
+      "Engagement Teams",
+      "Scale in Africa",
+    ],
     buttonLabel: "Set up on-site in Nairobi",
   },
   {
     image: "https://ik.imagekit.io/nkmvdjnna/CCSA/CCSA-delivery-model-3.webp",
     imageAlt: "Blended multi-site CX operations",
-    title: "Fully On-Site at Your Dedicated Nairobi Site (Managed by CCSA Africa)",
+    title:
+      "Fully On-Site at Your Dedicated Nairobi Site (Managed by CCSA Africa)",
     description:
       "Need a team at your Nairobi site, managed by an experienced outsourcing partner? We build and run the operation from your site maintaining CCSA standards, quality controls, and performance governance.",
     tags: ["Enterprise", "Regulated", "Brand-sensitive", "Dedicated-setup"],
@@ -59,14 +65,16 @@ export default function DeliveryModels() {
       <div
         className="absolute left-0 bottom-0 w-[400px] h-[400px] rounded-full opacity-30 blur-3xl"
         style={{
-          background: "radial-gradient(circle, #ED761E 0%, #ED761E 35%, transparent 100%)",
+          background:
+            "radial-gradient(circle, #ED761E 0%, #ED761E 35%, transparent 100%)",
           transform: "translate(-30%, 30%)",
         }}
       />
       <div
         className="absolute right-0 bottom-0 w-[400px] h-[400px] rounded-full opacity-30 blur-3xl"
         style={{
-          background: "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+          background:
+            "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
           transform: "translate(30%, 30%)",
         }}
       />
@@ -85,8 +93,9 @@ export default function DeliveryModels() {
             </h2>
           </div>
           <p className="text-base sm:text-lg leading-relaxed text-white/90">
-            Remote, hybrid, or fully on-site deployed and managed by CCSA Africa. We
-            handle hiring, training, WFM, QA, supervision, and reporting.
+            Remote, hybrid, or fully on-site deployed and managed by CCSA
+            Africa. We handle hiring, training, WFM, QA, supervision, and
+            reporting.
           </p>
         </div>
 
@@ -121,7 +130,7 @@ export default function DeliveryModels() {
               </div>
               <button
                 type="button"
-                onClick={() => window.location.href = "/contact-us"}
+                onClick={() => (window.location.href = "/contact-us")}
                 className="w-full text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 text-sm mt-auto"
                 style={{
                   background: "var(--ccsa-gradient)",

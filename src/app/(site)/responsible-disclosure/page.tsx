@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Responsible Disclosure Policy | Call Center Solutions Africa",
-  description: "Learn about our Responsible Disclosure Policy. Report security vulnerabilities responsibly.",
+  description:
+    "Learn about our Responsible Disclosure Policy. Report security vulnerabilities responsibly.",
 };
 
 import Link from "next/link";
@@ -45,9 +46,7 @@ const ResponsibleDisclosure = () => {
               <h2 className="text-2xl font-medium text-[#172840] mb-4">
                 2. Scope
               </h2>
-              <p>
-                This policy applies to the following systems and services:
-              </p>
+              <p>This policy applies to the following systems and services:</p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
                   Our main website:{" "}
@@ -60,7 +59,10 @@ const ResponsibleDisclosure = () => {
                 </li>
                 <li>Our web applications and APIs</li>
                 <li>Our customer service platforms</li>
-                <li>Any other systems owned or operated by Call Center Solutions Africa</li>
+                <li>
+                  Any other systems owned or operated by Call Center Solutions
+                  Africa
+                </li>
               </ul>
               <p className="mt-2">
                 <strong>Out of Scope:</strong> The following activities are
@@ -69,9 +71,14 @@ const ResponsibleDisclosure = () => {
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Social engineering or phishing attacks</li>
                 <li>Physical security attacks</li>
-                <li>Denial of Service (DoS) or Distributed Denial of Service (DDoS) attacks</li>
+                <li>
+                  Denial of Service (DoS) or Distributed Denial of Service
+                  (DDoS) attacks
+                </li>
                 <li>Attacks on third-party services or applications</li>
-                <li>Any activity that violates applicable laws or regulations</li>
+                <li>
+                  Any activity that violates applicable laws or regulations
+                </li>
               </ul>
             </div>
 
@@ -106,9 +113,7 @@ const ResponsibleDisclosure = () => {
                   Steps to reproduce the vulnerability (proof of concept code,
                   screenshots, or videos are helpful)
                 </li>
-                <li>
-                  The affected system or component
-                </li>
+                <li>The affected system or component</li>
                 <li>
                   Your contact information (we may need to follow up with you)
                 </li>
@@ -131,8 +136,7 @@ const ResponsibleDisclosure = () => {
                 </li>
                 <li>
                   <strong>Initial Assessment:</strong> We will provide an
-                  initial assessment of the vulnerability within 7 business
-                  days
+                  initial assessment of the vulnerability within 7 business days
                 </li>
                 <li>
                   <strong>Updates:</strong> We will keep you informed of our
@@ -199,7 +203,8 @@ const ResponsibleDisclosure = () => {
                 6. Safe Harbor
               </h2>
               <p>
-                We will not pursue legal action against security researchers who:
+                We will not pursue legal action against security researchers
+                who:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
@@ -210,12 +215,8 @@ const ResponsibleDisclosure = () => {
                   Do not access, modify, or destroy data beyond what is
                   necessary to demonstrate the vulnerability
                 </li>
-                <li>
-                  Do not disrupt our services or impact our users
-                </li>
-                <li>
-                  Report the vulnerability to us in a timely manner
-                </li>
+                <li>Do not disrupt our services or impact our users</li>
+                <li>Report the vulnerability to us in a timely manner</li>
                 <li>
                   Do not publicly disclose the vulnerability before we have had
                   a reasonable opportunity to address it
@@ -224,8 +225,9 @@ const ResponsibleDisclosure = () => {
               <p className="mt-2">
                 <strong>Note:</strong> This safe harbor applies only to
                 activities conducted in good faith and in accordance with this
-                policy. Any activities that violate applicable laws or cause harm
-                to our systems or users are not covered by this safe harbor.
+                policy. Any activities that violate applicable laws or cause
+                harm to our systems or users are not covered by this safe
+                harbor.
               </p>
             </div>
 
@@ -244,11 +246,10 @@ const ResponsibleDisclosure = () => {
                   Publicly recognize your contribution (with your permission)
                 </li>
                 <li>
-                  Provide a token of appreciation for significant vulnerabilities
+                  Provide a token of appreciation for significant
+                  vulnerabilities
                 </li>
-                <li>
-                  Offer early access to security patches or updates
-                </li>
+                <li>Offer early access to security patches or updates</li>
               </ul>
               <p className="mt-2">
                 We evaluate each report on a case-by-case basis, considering
@@ -261,7 +262,10 @@ const ResponsibleDisclosure = () => {
               <h2 className="text-2xl font-medium text-[#172840] mb-4">
                 8. Severity Classification
               </h2>
-              <p>We classify vulnerabilities according to the following severity levels:</p>
+              <p>
+                We classify vulnerabilities according to the following severity
+                levels:
+              </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
                   <strong>Critical:</strong> Vulnerabilities that could lead to
@@ -313,7 +317,8 @@ const ResponsibleDisclosure = () => {
                 </a>
               </p>
               <p className="mt-2">
-                Address: The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
+                Address: The Westwood Office, 6th Floor 6A, Comply Guide
+                Advisory, Westlands, Nairobi, Kenya
               </p>
             </div>
           </section>
@@ -331,5 +336,3 @@ const ResponsibleDisclosure = () => {
 };
 
 export default ResponsibleDisclosure;
-
-

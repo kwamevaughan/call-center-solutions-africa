@@ -4,7 +4,8 @@ import { Icon } from "@iconify/react";
 
 export const metadata: Metadata = {
   title: "Thank You for Your Inquiry | Call Center Solutions Africa",
-  description: "Thank you for contacting us. We've received your request and will respond within 24-48 hours.",
+  description:
+    "Thank you for contacting us. We've received your request and will respond within 24-48 hours.",
   robots: "noindex",
 };
 
@@ -20,19 +21,40 @@ export default function ThankYouPage() {
             Thank You for Reaching Out!
           </h1>
           <p className="text-gray-600 text-lg mb-6">
-            Your proposal request has been successfully submitted. Our team will review your details and get back to you within 2 hours with a tailored solution.
+            Your proposal request has been successfully submitted. Our team will
+            review your details and get back to you within 2 hours with a
+            tailored solution.
           </p>
           <div className="flex flex-col items-center gap-4 mb-8">
-            <p className="text-gray-500 text-sm">In the meantime, explore how we empower businesses globally:</p>
+            <p className="text-gray-500 text-sm">
+              In the meantime, explore how we empower businesses globally:
+            </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <div className="flex items-center text-gray-700"><div className="w-2 h-2 bg-[#ffd100] rounded-full mr-2"></div><span>Multilingual teams</span></div>
-              <div className="flex items-center text-gray-700"><div className="w-2 h-2 bg-[#e3e3e3] rounded-full mr-2"></div><span>24/7 Operations</span></div>
-              <div className="flex items-center text-gray-700"><div className="w-2 h-2 bg-[#f45b01] rounded-full mr-2"></div><span>ISO 27001 certified</span></div>
+              <div className="flex items-center text-gray-700">
+                <div className="w-2 h-2 bg-[#ffd100] rounded-full mr-2"></div>
+                <span>Multilingual teams</span>
+              </div>
+              <div className="flex items-center text-gray-700">
+                <div className="w-2 h-2 bg-[#e3e3e3] rounded-full mr-2"></div>
+                <span>24/7 Operations</span>
+              </div>
+              <div className="flex items-center text-gray-700">
+                <div className="w-2 h-2 bg-[#f45b01] rounded-full mr-2"></div>
+                <span>ISO 27001 certified</span>
+              </div>
             </div>
           </div>
           <div className="flex justify-center gap-4">
-            <Link href="/"><button className="bg-[#ED761E] text-white px-8 py-3 rounded-full font-medium text-sm hover:bg-[#D7641B] transition duration-300">Back to Homepage</button></Link>
-            <Link href="/#services"><button className="bg-transparent border border-[#0088d2] text-[#0088d2] px-8 py-3 rounded-full font-medium text-sm hover:bg-[#0088d2] hover:text-white transition duration-300">Explore Services</button></Link>
+            <Link href="/">
+              <button className="bg-[#ED761E] text-white px-8 py-3 rounded-full font-medium text-sm hover:bg-[#D7641B] transition duration-300">
+                Back to Homepage
+              </button>
+            </Link>
+            <Link href="/#services">
+              <button className="bg-transparent border border-[#0088d2] text-[#0088d2] px-8 py-3 rounded-full font-medium text-sm hover:bg-[#0088d2] hover:text-white transition duration-300">
+                Explore Services
+              </button>
+            </Link>
           </div>
         </div>
       </div>

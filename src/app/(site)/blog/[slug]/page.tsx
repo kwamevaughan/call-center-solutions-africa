@@ -15,7 +15,11 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   try {
     const { slug } = await params;
     const blog = await blogService.getBlogBySlug(slug);
@@ -34,13 +38,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   try {
     const { slug } = await params;
     const blog = await blogService.getBlogBySlug(slug);
     if (!blog) return null; // triggers not-found
     const relatedBlogs: FormattedPost[] = blog.categoryData?.length
-      ? await blogService.getRelatedBlogs(blog.id, blog.categoryData.map((c) => c._id), 3)
+      ? await blogService.getRelatedBlogs(
+          blog.id,
+          blog.categoryData.map((c) => c._id),
+          3,
+        )
       : [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Client = BlogPostClient as React.ComponentType<any>;

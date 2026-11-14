@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Security & Compliance | ISO 27001, GDPR & HIPAA | Call Center Solutions Africa",
-  description: "Enterprise-grade security with ISO 27001, GDPR, HIPAA, PCI DSS compliance.",
+  title:
+    "Security & Compliance | ISO 27001, GDPR & HIPAA | Call Center Solutions Africa",
+  description:
+    "Enterprise-grade security with ISO 27001, GDPR, HIPAA, PCI DSS compliance.",
 };
 
 import Link from "next/link";
@@ -350,5 +352,3 @@ const SecurityAndCompliance = () => {
 };
 
 export default SecurityAndCompliance;
-
-

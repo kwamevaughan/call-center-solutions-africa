@@ -6,7 +6,10 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import BlogCardProfessional from "@/features/blog/components/BlogCardProfessional";
 import { blogService, formatDate } from "@/shared/lib/blogService";
-import { getBreadcrumbSchema, getCollectionPageSchema } from "@/shared/lib/schemas";
+import {
+  getBreadcrumbSchema,
+  getCollectionPageSchema,
+} from "@/shared/lib/schemas";
 import type { FormattedPost, SanityCategory } from "@sanity/lib/types";
 
 interface BlogPageProps {
@@ -16,14 +19,20 @@ interface BlogPageProps {
   initialCategories?: SanityCategory[];
 }
 
-const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = false, initialCategories = [] }: BlogPageProps) => {
+const BlogPage = ({
+  initialBlogs = [],
+  initialTotalCount = 0,
+  initialHasMore = false,
+  initialCategories = [],
+}: BlogPageProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [blogs, setBlogs] = useState<FormattedPost[]>(initialBlogs);
-  const [categories, setCategories] = useState<SanityCategory[]>(initialCategories);
+  const [categories, setCategories] =
+    useState<SanityCategory[]>(initialCategories);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(initialTotalCount);
@@ -38,14 +47,19 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
 
   const fetchData = useCallback(async () => {
     // Skip initial fetch — data comes from getStaticProps
-    if (currentPage === 1 && selectedCategory === 'all' && !searchTerm) return;
+    if (currentPage === 1 && selectedCategory === "all" && !searchTerm) return;
     try {
       setLoading(true);
-      const blogsData = await blogService.getBlogs(currentPage, 12, selectedCategory, searchTerm);
+      const blogsData = await blogService.getBlogs(
+        currentPage,
+        12,
+        selectedCategory,
+        searchTerm,
+      );
       if (currentPage === 1) {
         setBlogs(blogsData.blogs);
       } else {
-        setBlogs(prev => [...prev, ...blogsData.blogs]);
+        setBlogs((prev) => [...prev, ...blogsData.blogs]);
       }
       setTotalCount(blogsData.totalCount);
       setHasMore(blogsData.hasMore);
@@ -60,34 +74,40 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
     fetchData();
   }, [fetchData]);
 
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
-    setBlogs([]);
-    const params = new URLSearchParams(searchParams.toString());
-    if (category === "all") {
-      params.delete("category");
-    } else {
-      params.set("category", category);
-    }
-    router.push(`${pathname}?${params.toString()}`);
-  }, [router, pathname, searchParams]);
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      setSelectedCategory(category);
+      setCurrentPage(1);
+      setBlogs([]);
+      const params = new URLSearchParams(searchParams.toString());
+      if (category === "all") {
+        params.delete("category");
+      } else {
+        params.set("category", category);
+      }
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, searchParams],
+  );
 
-  const handleSearch = useCallback((term: string) => {
-    setSearchTerm(term);
-    setCurrentPage(1);
-    setBlogs([]);
-    const params = new URLSearchParams(searchParams.toString());
-    if (term) {
-      params.set("search", term);
-    } else {
-      params.delete("search");
-    }
-    router.push(`${pathname}?${params.toString()}`);
-  }, [router, pathname, searchParams]);
+  const handleSearch = useCallback(
+    (term: string) => {
+      setSearchTerm(term);
+      setCurrentPage(1);
+      setBlogs([]);
+      const params = new URLSearchParams(searchParams.toString());
+      if (term) {
+        params.set("search", term);
+      } else {
+        params.delete("search");
+      }
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, searchParams],
+  );
 
   const loadMore = useCallback(() => {
-    setCurrentPage(prev => prev + 1);
+    setCurrentPage((prev) => prev + 1);
   }, []);
 
   const clearFilters = useCallback(() => {
@@ -98,25 +118,30 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
   }, []);
 
   const categoryName = useMemo(() => {
-    return selectedCategory === "all" 
-      ? "All Articles" 
-      : categories.find(c => (typeof c.slug === 'string' ? c.slug : c.slug?.current) === selectedCategory)?.name || "All Articles";
+    return selectedCategory === "all"
+      ? "All Articles"
+      : categories.find(
+          (c) =>
+            (typeof c.slug === "string" ? c.slug : c.slug?.current) ===
+            selectedCategory,
+        )?.name || "All Articles";
   }, [selectedCategory, categories]);
 
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
-    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const baseUrl = "https://callcentersolutionsafrica.com";
     const blogUrl = `${baseUrl}/blog`;
-    
+
     const breadcrumbSchema = getBreadcrumbSchema([
-      { name: 'Home', url: baseUrl },
-      { name: 'Blog', url: blogUrl }
+      { name: "Home", url: baseUrl },
+      { name: "Blog", url: blogUrl },
     ]);
 
     const collectionPageSchema = getCollectionPageSchema({
-      name: 'Blog Articles',
-      description: "Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips from Africa's leading contact center provider.",
-      url: blogUrl
+      name: "Blog Articles",
+      description:
+        "Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips from Africa's leading contact center provider.",
+      url: blogUrl,
     });
 
     return [breadcrumbSchema, collectionPageSchema].filter(Boolean);
@@ -124,35 +149,37 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
 
   return (
     <>
-      
       <main className="relative overflow-x-hidden min-h-screen bg-white">
         {/* Hero Section */}
         <div className="relative bg-ccsa-dark-blue px-4 overflow-hidden">
           {/* Radial Ellipse at Left Bottom */}
-          <div 
+          <div
             className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, 30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, 30%)",
             }}
           />
           {/* Radial Ellipse at Top Right */}
-          <div 
+          <div
             className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
-              transform: 'translate(30%, -30%)'
+              background:
+                "radial-gradient(circle, #0088D2 0%, transparent 100%)",
+              transform: "translate(30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Middle */}
-          <div 
+          <div
             className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(-50%, -50%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(-50%, -50%)",
             }}
           />
-          
+
           <div className="max-w-7xl mx-auto w-full relative z-10 py-12 sm:py-16 lg:py-20">
             <div className="flex flex-col items-center gap-6 sm:gap-8 text-center max-w-4xl mx-auto">
               <div className="flex items-center gap-3">
@@ -165,9 +192,10 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                 Discover Expert Insights
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
-                Best practices and actionable strategies for call center excellence and business growth in Africa.
+                Best practices and actionable strategies for call center
+                excellence and business growth in Africa.
               </p>
-              
+
               {/* Search Bar */}
               <div className="max-w-2xl mx-auto w-full mt-8">
                 <div className="relative">
@@ -178,9 +206,9 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                     onChange={(e) => handleSearch(e.target.value)}
                     className="w-full px-6 py-4 pl-12 text-lg border-0 rounded-full bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
                   />
-                  <Icon 
-                    icon="mdi:magnify" 
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/80" 
+                  <Icon
+                    icon="mdi:magnify"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/80"
                   />
                 </div>
               </div>
@@ -198,19 +226,19 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                   All Articles
                 </button>
                 {categories.map((category) => {
-                  const slugStr = category.slug?.current ?? '';
+                  const slugStr = category.slug?.current ?? "";
                   return (
-                  <button
-                    key={category._id}
-                    onClick={() => handleCategoryChange(slugStr)}
-                    className={`px-6 py-3 rounded-full font-medium transition-all ${
-                      selectedCategory === slugStr
-                        ? "bg-white text-ccsa-dark-blue shadow-lg"
-                        : "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
-                    }`}
-                  >
-                    {category.name}
-                  </button>
+                    <button
+                      key={category._id}
+                      onClick={() => handleCategoryChange(slugStr)}
+                      className={`px-6 py-3 rounded-full font-medium transition-all ${
+                        selectedCategory === slugStr
+                          ? "bg-white text-ccsa-dark-blue shadow-lg"
+                          : "bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20"
+                      }`}
+                    >
+                      {category.name}
+                    </button>
                   );
                 })}
               </div>
@@ -221,22 +249,24 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
         {/* Articles Grid */}
         <section className="bg-white w-full px-4 relative overflow-hidden py-16">
           {/* Radial Ellipse at Top Left */}
-          <div 
+          <div
             className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(-30%, -30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(-30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Top Right */}
-          <div 
+          <div
             className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
-              transform: 'translate(30%, -30%)'
+              background:
+                "radial-gradient(circle, #0088D2 0%, transparent 100%)",
+              transform: "translate(30%, -30%)",
             }}
           />
-          
+
           <div className="relative z-10 max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-12">
               <div>
@@ -244,7 +274,8 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                   {categoryName}
                 </h2>
                 <p className="text-base sm:text-lg text-ccsa-dark-blue/70">
-                  {totalCount} {totalCount === 1 ? 'article' : 'articles'} available
+                  {totalCount} {totalCount === 1 ? "article" : "articles"}{" "}
+                  available
                 </p>
               </div>
             </div>
@@ -256,15 +287,21 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                   <div className="absolute inset-0 border-4 border-ccsa-blue/20 rounded-full"></div>
                   <div className="absolute inset-0 border-4 border-transparent border-t-ccsa-blue rounded-full animate-spin"></div>
                   <div className="absolute inset-3 border-4 border-ccsa-orange/20 rounded-full"></div>
-                  <div 
-                    className="absolute inset-3 border-4 border-transparent border-t-ccsa-orange rounded-full animate-spin" 
-                    style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}
+                  <div
+                    className="absolute inset-3 border-4 border-transparent border-t-ccsa-orange rounded-full animate-spin"
+                    style={{
+                      animationDirection: "reverse",
+                      animationDuration: "0.8s",
+                    }}
                   ></div>
                   <div className="relative z-10 flex items-center justify-center">
-                    <Icon icon="mdi:book-open-variant" className="w-8 h-8 text-ccsa-dark-blue" />
+                    <Icon
+                      icon="mdi:book-open-variant"
+                      className="w-8 h-8 text-ccsa-dark-blue"
+                    />
                   </div>
                 </div>
-                
+
                 {/* Loading Text */}
                 <div className="text-center mb-12">
                   <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-3">
@@ -273,20 +310,20 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                   <p className="text-gray-600 text-sm sm:text-base mb-6">
                     Please wait while we fetch the latest insights...
                   </p>
-                  
+
                   {/* Animated Dots */}
                   <div className="flex items-center justify-center gap-2">
-                    <div 
-                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
-                      style={{ animationDelay: '0s' }}
+                    <div
+                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce"
+                      style={{ animationDelay: "0s" }}
                     ></div>
-                    <div 
-                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
-                      style={{ animationDelay: '0.2s' }}
+                    <div
+                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
                     ></div>
-                    <div 
-                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce" 
-                      style={{ animationDelay: '0.4s' }}
+                    <div
+                      className="w-2.5 h-2.5 bg-ccsa-blue rounded-full animate-bounce"
+                      style={{ animationDelay: "0.4s" }}
                     ></div>
                   </div>
                 </div>
@@ -295,7 +332,10 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                 <div className="w-full">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
                     {[...Array(6)].map((_, index) => (
-                      <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                      <div
+                        key={index}
+                        className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm"
+                      >
                         <div className="h-48 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-lg mb-4"></div>
                         <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded mb-2"></div>
                         <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-3/4 mb-4"></div>
@@ -325,12 +365,15 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
                       disabled={loading}
                       className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{
-                        background: "var(--ccsa-gradient)"
+                        background: "var(--ccsa-gradient)",
                       }}
                     >
                       {loading ? (
                         <>
-                          <Icon icon="mdi:loading" className="w-5 h-5 animate-spin" />
+                          <Icon
+                            icon="mdi:loading"
+                            className="w-5 h-5 animate-spin"
+                          />
                           Loading...
                         </>
                       ) : (
@@ -346,20 +389,24 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
             ) : (
               <div className="text-center py-16">
                 <div className="w-24 h-24 bg-ccsa-dark-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon icon="mdi:file-document-outline" className="w-12 h-12 text-ccsa-dark-blue/50" />
+                  <Icon
+                    icon="mdi:file-document-outline"
+                    className="w-12 h-12 text-ccsa-dark-blue/50"
+                  />
                 </div>
-                <h3 className="text-xl font-semibold text-ccsa-dark-blue mb-2">No articles found</h3>
+                <h3 className="text-xl font-semibold text-ccsa-dark-blue mb-2">
+                  No articles found
+                </h3>
                 <p className="text-base sm:text-lg text-ccsa-dark-blue/70 mb-6">
-                  {searchTerm 
+                  {searchTerm
                     ? `No articles match your search for "${searchTerm}"`
-                    : "No articles available in this category"
-                  }
+                    : "No articles available in this category"}
                 </p>
                 <button
                   onClick={clearFilters}
                   className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base mx-auto"
                   style={{
-                    background: "var(--ccsa-gradient)"
+                    background: "var(--ccsa-gradient)",
                   }}
                 >
                   <Icon icon="mdi:filter-remove" width={18} height={18} />
@@ -369,7 +416,6 @@ const BlogPage = ({ initialBlogs = [], initialTotalCount = 0, initialHasMore = f
             )}
           </div>
         </section>
-
       </main>
     </>
   );

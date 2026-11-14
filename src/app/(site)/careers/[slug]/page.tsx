@@ -11,7 +11,11 @@ export async function generateStaticParams() {
   return slugs.map(({ slug }) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const job = await client.fetch(jobBySlugQuery, { slug });
   if (!job) return { title: "Job Not Found" };
@@ -21,7 +25,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function JobDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function JobDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const job = await client.fetch(jobBySlugQuery, { slug });
   if (!job) notFound();

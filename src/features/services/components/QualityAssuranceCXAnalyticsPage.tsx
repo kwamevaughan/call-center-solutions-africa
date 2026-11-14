@@ -30,7 +30,7 @@ const QualityAssuranceCXAnalyticsPage = () => {
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     Object.values(sectionRefs).forEach((ref) => {
@@ -50,20 +50,21 @@ const QualityAssuranceCXAnalyticsPage = () => {
 
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
-    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const baseUrl = "https://callcentersolutionsafrica.com";
     const serviceUrl = `${baseUrl}/services/quality-assurance-cx-analytics`;
-    
+
     const serviceSchema = getServiceSchema({
-      name: 'Quality Assurance & CX Analytics',
-      description: 'AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations. Real-time coaching, macro tuning, and root-cause analysis from Africa.',
-      serviceType: 'Quality Assurance',
-      url: serviceUrl
+      name: "Quality Assurance & CX Analytics",
+      description:
+        "AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations. Real-time coaching, macro tuning, and root-cause analysis from Africa.",
+      serviceType: "Quality Assurance",
+      url: serviceUrl,
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
-      { name: 'Home', url: baseUrl },
-      { name: 'Services', url: `${baseUrl}/services` },
-      { name: 'Quality Assurance & CX Analytics', url: serviceUrl }
+      { name: "Home", url: baseUrl },
+      { name: "Services", url: `${baseUrl}/services` },
+      { name: "Quality Assurance & CX Analytics", url: serviceUrl },
     ]);
 
     return [serviceSchema, breadcrumbSchema];
@@ -71,7 +72,6 @@ const QualityAssuranceCXAnalyticsPage = () => {
 
   return (
     <>
-
       <main className="relative overflow-x-hidden">
         <div
           className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-center overflow-hidden"
@@ -79,62 +79,69 @@ const QualityAssuranceCXAnalyticsPage = () => {
           ref={sectionRefs.home}
         >
           {/* Radial Ellipse at Bottom Left - Orange */}
-          <div 
+          <div
             className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, 30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, 30%)",
             }}
           />
           {/* Radial Ellipse at Top Right - Yellow */}
-          <div 
+          <div
             className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(30%, -30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Middle - Blue */}
-          <div 
+          <div
             className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)',
-              transform: 'translate(-50%, -50%)'
+              background:
+                "radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)",
+              transform: "translate(-50%, -50%)",
             }}
           />
           <div className="max-w-7xl mx-auto w-full relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Side: Title, Description, and CTA Buttons */}
               <div className="flex flex-col gap-5 sm:gap-6 text-white">
-              <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Solution</p>
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-                See quality. Improve fast.
-              </h1>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
-                AI-assisted QA and CX intelligence spotlight accuracy, empathy, and compliance—then feed improvements back into operations.
-              </p>
-                
+                <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                  <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                  <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                    Solution
+                  </p>
+                </div>
+                <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+                  See quality. Improve fast.
+                </h1>
+                <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
+                  AI-assisted QA and CX intelligence spotlight accuracy,
+                  empathy, and compliance—then feed improvements back into
+                  operations.
+                </p>
+
                 <div className="flex flex-col sm:flex-row gap-3">
-                    <Link
-                      href="/contact-us"
-                  className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
-                  style={{
-                    background: "var(--ccsa-gradient)"
-                  }}
-                >
-                  <Icon icon="mdi:lightning-bolt" width={18} height={18} />
-                  Start a 10-day pilot
-                </Link>
-                <button
-                  onClick={() => window.location.href = "/contact-us"}
-                  className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
-                >
-                  Get Pricing
-                    </button>
-                  </div>                
+                  <Link
+                    href="/contact-us"
+                    className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
+                    style={{
+                      background: "var(--ccsa-gradient)",
+                    }}
+                  >
+                    <Icon icon="mdi:lightning-bolt" width={18} height={18} />
+                    Start a 10-day pilot
+                  </Link>
+                  <button
+                    onClick={() => (window.location.href = "/contact-us")}
+                    className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
+                  >
+                    Get Pricing
+                  </button>
+                </div>
               </div>
 
               {/* Right Side: Hero Image */}
@@ -151,20 +158,25 @@ const QualityAssuranceCXAnalyticsPage = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Certification Badges */}
             <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-20">
               {[
                 "QA ≥ 90%",
                 "Real-time coaching",
                 "Root-cause analysis",
-                "GDPR‑aligned"
+                "GDPR‑aligned",
               ].map((badge) => (
                 <div
                   key={badge}
                   className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
                 >
-                  <Icon icon="mdi:check" width={20} height={20} className="text-white flex-shrink-0" />
+                  <Icon
+                    icon="mdi:check"
+                    width={20}
+                    height={20}
+                    className="text-white flex-shrink-0"
+                  />
                   <span>{badge}</span>
                 </div>
               ))}
@@ -173,45 +185,61 @@ const QualityAssuranceCXAnalyticsPage = () => {
         </div>
 
         {/* Value */}
-        <div id="about-us" ref={sectionRefs["about-us"]} className="bg-ccsa-dark-blue relative overflow-hidden">
+        <div
+          id="about-us"
+          ref={sectionRefs["about-us"]}
+          className="bg-ccsa-dark-blue relative overflow-hidden"
+        >
           {/* Radial Ellipse at Top Left */}
-          <div 
+          <div
             className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, -30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Left Middle - Yellow */}
-          <div 
+          <div
             className="absolute left-0 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(-30%, -50%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(-30%, -50%)",
             }}
           />
           <section className="w-full px-4 relative z-10">
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">VALUE</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  VALUE
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Why teams pick this solution</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                Why teams pick this solution
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Real-time coaching signals</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Real-time coaching signals
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     With targeted plans
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Macro/deflection tuning</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Macro/deflection tuning
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     To cut handle time without losing quality
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Root-cause analysis</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Root-cause analysis
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     Across channels to prevent repeat issues
                   </p>
@@ -223,30 +251,55 @@ const QualityAssuranceCXAnalyticsPage = () => {
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Scope</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  Scope
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">What we do</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                What we do
+              </h2>
               <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     QA rubric design, calibration workshops, double-scoring
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                    Conversation scoring (accuracy/empathy/compliance) across 100% or samples
+                    Conversation scoring (accuracy/empathy/compliance) across
+                    100% or samples
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     VOC dashboards, topic clustering, sentiment tracking
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     Playbook optimization and experiment design (A/B tests)
                   </p>
@@ -258,36 +311,65 @@ const QualityAssuranceCXAnalyticsPage = () => {
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Impact</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  Impact
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Outcomes & KPIs</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                Outcomes & KPIs
+              </h2>
               <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     QA ≥ 90%
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     TTFR ↓
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     CSAT/NPS ↑
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     Reopened ↓
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
                     Policy breaches ↓
                   </p>
@@ -296,11 +378,12 @@ const QualityAssuranceCXAnalyticsPage = () => {
             </div>
           </section>
           {/* Radial Ellipse at Bottom Right */}
-          <div 
+          <div
             className="absolute right-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(30%, 30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(30%, 30%)",
             }}
           />
         </div>
@@ -320,11 +403,11 @@ const QualityAssuranceCXAnalyticsPage = () => {
                   Back-Office & Administrative Outsourcing
                 </span>
               </div>
-              <Icon 
-                icon="mdi:arrow-right" 
-                width={24} 
-                height={24} 
-                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1" 
+              <Icon
+                icon="mdi:arrow-right"
+                width={24}
+                height={24}
+                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1"
               />
             </Link>
           </div>

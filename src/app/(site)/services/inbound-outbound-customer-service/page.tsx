@@ -3,7 +3,8 @@ import ClientPage from "@/features/services/components/InboundOutboundCustomerSe
 
 export const metadata: Metadata = {
   title: "Inbound & Outbound Customer Service | Call Center Solutions Africa",
-  description: "Responsive inbound and proactive outbound customer service from Africa.",
+  description:
+    "Responsive inbound and proactive outbound customer service from Africa.",
 };
 
 export default function Page(props: any) {

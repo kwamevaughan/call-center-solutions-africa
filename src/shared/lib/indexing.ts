@@ -1,6 +1,8 @@
 import { google } from "googleapis";
 
-const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS || "{}");
+const credentials = JSON.parse(
+  process.env.GOOGLE_APPLICATION_CREDENTIALS || "{}",
+);
 const authClient = new google.auth.JWT({
   email: credentials.client_email,
   key: credentials.private_key,
@@ -19,7 +21,12 @@ export async function notifyGoogle(url: string): Promise<unknown> {
     });
     return response.data;
   } catch (error: unknown) {
-    const err = error as { message?: string; stack?: string; code?: string; details?: unknown };
+    const err = error as {
+      message?: string;
+      stack?: string;
+      code?: string;
+      details?: unknown;
+    };
     console.error("Indexing API error:", {
       message: err.message,
       stack: err.stack,

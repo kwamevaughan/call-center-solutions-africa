@@ -35,13 +35,18 @@ export function Analytics() {
       "";
 
     const handleClick = (e: MouseEvent) => {
-      const clickable = (e.target as Element)?.closest?.("a, button, [data-track-event]");
+      const clickable = (e.target as Element)?.closest?.(
+        "a, button, [data-track-event]",
+      );
       if (!clickable) return;
       const tag = clickable.tagName.toLowerCase();
       const href = clickable.getAttribute("href") || "";
-      const isOutbound = href.startsWith("http") && !href.includes(window.location.hostname);
+      const isOutbound =
+        href.startsWith("http") && !href.includes(window.location.hostname);
       pushEvent({
-        event: clickable.getAttribute("data-track-event") || (isOutbound ? "outbound_link_click" : "ui_click"),
+        event:
+          clickable.getAttribute("data-track-event") ||
+          (isOutbound ? "outbound_link_click" : "ui_click"),
         element_type: tag,
         element_text: getLabel(clickable),
         element_id: clickable.id || "",

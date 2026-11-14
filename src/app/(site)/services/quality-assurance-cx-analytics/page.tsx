@@ -3,7 +3,8 @@ import ClientPage from "@/features/services/components/QualityAssuranceCXAnalyti
 
 export const metadata: Metadata = {
   title: "Quality Assurance & CX Analytics | Call Center Solutions Africa",
-  description: "Real-time QA, call scoring and CX analytics to improve service quality.",
+  description:
+    "Real-time QA, call scoring and CX analytics to improve service quality.",
 };
 
 export default function Page(props: any) {

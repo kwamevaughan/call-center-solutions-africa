@@ -26,7 +26,9 @@ const BlogCard = ({ post, variant = "default" }: BlogCardProps) => {
     <Link href={`/blog/${slug}`} className="group block h-full">
       <div className="flex flex-col h-full rounded-2xl overflow-hidden bg-white border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
         {post.coverImage && (
-          <div className={`relative overflow-hidden ${variant === "featured" ? "aspect-[16/9]" : "aspect-[16/9]"}`}>
+          <div
+            className={`relative overflow-hidden ${variant === "featured" ? "aspect-[16/9]" : "aspect-[16/9]"}`}
+          >
             <Image
               src={post.coverImage}
               alt={post.title}

@@ -12,15 +12,31 @@ interface ContactModalProps {
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [formData, setFormData] = useState<{
-    name: string; email: string; company: string; phone: string;
-    industry: string; teamSize: string; services: string[];
-    currentChallenges: string; timeline: string; budget: string;
-    additionalInfo: string; customBudget: string;
+    name: string;
+    email: string;
+    company: string;
+    phone: string;
+    industry: string;
+    teamSize: string;
+    services: string[];
+    currentChallenges: string;
+    timeline: string;
+    budget: string;
+    additionalInfo: string;
+    customBudget: string;
   }>({
-    name: "", email: "", company: "", phone: "",
-    industry: "", teamSize: "", services: [],
-    currentChallenges: "", timeline: "", budget: "",
-    additionalInfo: "", customBudget: "",
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    industry: "",
+    teamSize: "",
+    services: [],
+    currentChallenges: "",
+    timeline: "",
+    budget: "",
+    additionalInfo: "",
+    customBudget: "",
   });
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -28,7 +44,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [isCustomBudget, setIsCustomBudget] = useState(false); // State to track if 'Custom' is selected
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
     if (type === "checkbox") {
@@ -72,7 +92,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       const result = await response.json();
 
       if (response.ok) {
-        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+        if (
+          typeof window !== "undefined" &&
+          typeof window.trackEvent === "function"
+        ) {
           window.trackEvent("contact_modal_submit_success", {
             form_name: "contact_modal_form",
           });
@@ -103,7 +126,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           onClose();
         }, 2000);
       } else {
-        if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+        if (
+          typeof window !== "undefined" &&
+          typeof window.trackEvent === "function"
+        ) {
           window.trackEvent("contact_modal_submit_error", {
             form_name: "contact_modal_form",
             error_message: result.error || "Something went wrong",
@@ -113,7 +139,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         setError(result.error || "Something went wrong");
       }
     } catch (err) {
-      if (typeof window !== "undefined" && typeof window.trackEvent === "function") {
+      if (
+        typeof window !== "undefined" &&
+        typeof window.trackEvent === "function"
+      ) {
         window.trackEvent("contact_modal_submit_error", {
           form_name: "contact_modal_form",
           error_message: "Failed to send message",
@@ -125,8 +154,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       setLoading(false);
     }
   };
-
-
 
   // Close the modal if click outside of it
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {

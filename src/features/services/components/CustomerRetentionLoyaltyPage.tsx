@@ -30,7 +30,7 @@ const CustomerRetentionLoyaltyPage = () => {
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     Object.values(sectionRefs).forEach((ref) => {
@@ -50,20 +50,21 @@ const CustomerRetentionLoyaltyPage = () => {
 
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
-    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const baseUrl = "https://callcentersolutionsafrica.com";
     const serviceUrl = `${baseUrl}/services/customer-retention-loyalty`;
-    
+
     const serviceSchema = getServiceSchema({
-      name: 'Customer Retention & Loyalty Management',
-      description: 'Reduce churn and boost LTV with behavioral analytics, personalized outreach, and loyalty program management. GDPR-compliant retention strategies from Africa.',
-      serviceType: 'Customer Retention',
-      url: serviceUrl
+      name: "Customer Retention & Loyalty Management",
+      description:
+        "Reduce churn and boost LTV with behavioral analytics, personalized outreach, and loyalty program management. GDPR-compliant retention strategies from Africa.",
+      serviceType: "Customer Retention",
+      url: serviceUrl,
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
-      { name: 'Home', url: baseUrl },
-      { name: 'Services', url: `${baseUrl}/services` },
-      { name: 'Customer Retention & Loyalty Management', url: serviceUrl }
+      { name: "Home", url: baseUrl },
+      { name: "Services", url: `${baseUrl}/services` },
+      { name: "Customer Retention & Loyalty Management", url: serviceUrl },
     ]);
 
     return [serviceSchema, breadcrumbSchema];
@@ -71,7 +72,6 @@ const CustomerRetentionLoyaltyPage = () => {
 
   return (
     <>
-
       <main className="relative overflow-x-hidden">
         <div
           className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-center overflow-hidden"
@@ -79,62 +79,68 @@ const CustomerRetentionLoyaltyPage = () => {
           ref={sectionRefs.home}
         >
           {/* Radial Ellipse at Bottom Left - Orange */}
-          <div 
+          <div
             className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, 30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, 30%)",
             }}
           />
           {/* Radial Ellipse at Top Right - Yellow */}
-          <div 
+          <div
             className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(30%, -30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Middle - Blue */}
-          <div 
+          <div
             className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)',
-              transform: 'translate(-50%, -50%)'
+              background:
+                "radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)",
+              transform: "translate(-50%, -50%)",
             }}
           />
           <div className="max-w-7xl mx-auto w-full relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Side: Title, Description, and CTA Buttons */}
               <div className="flex flex-col gap-5 sm:gap-6 text-white">
-              <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Solution</p>
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-              Customer Retention & Loyalty Management
-              </h1>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
-              We blend behavioral analytics, timely outreach, and loyalty ops to reduce churn and lift LTV—without spamming your users.
-              </p>
-                
+                <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                  <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                  <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                    Solution
+                  </p>
+                </div>
+                <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+                  Customer Retention & Loyalty Management
+                </h1>
+                <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
+                  We blend behavioral analytics, timely outreach, and loyalty
+                  ops to reduce churn and lift LTV—without spamming your users.
+                </p>
+
                 <div className="flex flex-col sm:flex-row gap-3">
-                    <Link
-                      href="/contact-us"
-                  className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
-                  style={{
-                    background: "var(--ccsa-gradient)"
-                  }}
-                >
-                  <Icon icon="mdi:lightning-bolt" width={18} height={18} />
-                  Start a pilot
-                </Link>
-                <button
-                  onClick={() => window.location.href = "/about-us"}
-                  className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
-                >
-                  Get Pricing
-                    </button>
-                  </div>                
+                  <Link
+                    href="/contact-us"
+                    className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
+                    style={{
+                      background: "var(--ccsa-gradient)",
+                    }}
+                  >
+                    <Icon icon="mdi:lightning-bolt" width={18} height={18} />
+                    Start a pilot
+                  </Link>
+                  <button
+                    onClick={() => (window.location.href = "/about-us")}
+                    className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
+                  >
+                    Get Pricing
+                  </button>
+                </div>
               </div>
 
               {/* Right Side: Hero Image */}
@@ -151,20 +157,25 @@ const CustomerRetentionLoyaltyPage = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Certification Badges */}
             <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-20">
               {[
                 "Churn save‑plays",
                 "10‑day pilot",
                 "EMEA coverage",
-                "GDPR‑aligned"
+                "GDPR‑aligned",
               ].map((badge) => (
                 <div
                   key={badge}
                   className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
                 >
-                  <Icon icon="mdi:check" width={20} height={20} className="text-white flex-shrink-0" />
+                  <Icon
+                    icon="mdi:check"
+                    width={20}
+                    height={20}
+                    className="text-white flex-shrink-0"
+                  />
                   <span>{badge}</span>
                 </div>
               ))}
@@ -173,47 +184,66 @@ const CustomerRetentionLoyaltyPage = () => {
         </div>
 
         {/* Value */}
-        <div id="about-us" ref={sectionRefs["about-us"]} className="bg-ccsa-dark-blue relative overflow-hidden">
+        <div
+          id="about-us"
+          ref={sectionRefs["about-us"]}
+          className="bg-ccsa-dark-blue relative overflow-hidden"
+        >
           {/* Radial Ellipse at Top Left */}
-          <div 
+          <div
             className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, -30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Left Middle - Yellow */}
-          <div 
+          <div
             className="absolute left-0 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(-30%, -50%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(-30%, -50%)",
             }}
           />
           <section className="w-full px-4 relative z-10">
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">VALUE</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  VALUE
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Why teams pick this solution</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                Why teams pick this solution
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Churn prediction</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Churn prediction
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Targeted save‑plays with clear offers and timing, based on risk signals.
+                    Targeted save‑plays with clear offers and timing, based on
+                    risk signals.
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Loyalty lift</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Loyalty lift
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Smarter enrollment and redemption nudges increase program participation.
+                    Smarter enrollment and redemption nudges increase program
+                    participation.
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Closed‑loop VOC</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Closed‑loop VOC
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Feedback flows into product and service improvements to prevent repeats.
+                    Feedback flows into product and service improvements to
+                    prevent repeats.
                   </p>
                 </div>
               </div>
@@ -223,32 +253,60 @@ const CustomerRetentionLoyaltyPage = () => {
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Scope</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  Scope
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">What we do</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                What we do
+              </h2>
               <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  At‑risk segmentation, triggers, and personalized outreach cadences
+                    At‑risk segmentation, triggers, and personalized outreach
+                    cadences
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Win‑back, cross‑sell, and reactivation across email, SMS, WhatsApp, and social
+                    Win‑back, cross‑sell, and reactivation across email, SMS,
+                    WhatsApp, and social
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Loyalty enrollment, rewards operations, and fraud/abuse safeguards
+                    Loyalty enrollment, rewards operations, and fraud/abuse
+                    safeguards
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Insight reporting: churn drivers, cohort trends, and LTV shifts
+                    Insight reporting: churn drivers, cohort trends, and LTV
+                    shifts
                   </p>
                 </div>
               </div>
@@ -258,37 +316,57 @@ const CustomerRetentionLoyaltyPage = () => {
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Impact</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  Impact
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Outcomes & KPIs</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                Outcomes & KPIs
+              </h2>
               <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Reduced churn with measurable save‑rate
+                    Reduced churn with measurable save‑rate
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Higher LTV via cross‑sell and loyalty redemption
+                    Higher LTV via cross‑sell and loyalty redemption
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 sm:p-5 flex items-start gap-3 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <Icon icon="mdi:check-circle" width={20} height={20} className="text-ccsa-yellow flex-shrink-0 mt-0.5" />
+                  <Icon
+                    icon="mdi:check-circle"
+                    width={20}
+                    height={20}
+                    className="text-ccsa-yellow flex-shrink-0 mt-0.5"
+                  />
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Reactivation of dormant cohorts without list fatigue
+                    Reactivation of dormant cohorts without list fatigue
                   </p>
                 </div>
               </div>
             </div>
           </section>
           {/* Radial Ellipse at Bottom Right */}
-          <div 
+          <div
             className="absolute right-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(30%, 30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(30%, 30%)",
             }}
           />
         </div>
@@ -305,14 +383,14 @@ const CustomerRetentionLoyaltyPage = () => {
                   Next
                 </span>
                 <span className="text-base sm:text-lg font-semibold">
-                Technical Support & Help Desk
+                  Technical Support & Help Desk
                 </span>
               </div>
-              <Icon 
-                icon="mdi:arrow-right" 
-                width={24} 
-                height={24} 
-                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1" 
+              <Icon
+                icon="mdi:arrow-right"
+                width={24}
+                height={24}
+                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1"
               />
             </Link>
           </div>

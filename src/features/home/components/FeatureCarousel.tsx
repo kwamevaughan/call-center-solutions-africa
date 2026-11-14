@@ -109,12 +109,16 @@ const FeatureCard = ({ feature }: { feature: Feature }) => (
         />
       </div>
       <div className="p-4 sm:p-6">
-        <h3 className="relative text-lg sm:text-xl font-bold mb-4 sm:mb-6 mt-[-2em] sm:mt-[-3em]">{feature.title}</h3>
+        <h3 className="relative text-lg sm:text-xl font-bold mb-4 sm:mb-6 mt-[-2em] sm:mt-[-3em]">
+          {feature.title}
+        </h3>
         <ul className="space-y-2">
           {feature.bullets.map((bullet, idx) => (
             <li key={idx} className="flex items-start">
               <span className="mr-2 text-sm sm:text-base">•</span>
-              <span className="text-sm sm:text-base leading-relaxed">{bullet}</span>
+              <span className="text-sm sm:text-base leading-relaxed">
+                {bullet}
+              </span>
             </li>
           ))}
         </ul>

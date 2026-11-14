@@ -2,7 +2,10 @@
 
 import dynamic from "next/dynamic";
 
-const StudioComponent = dynamic(() => import("@/shared/components/SanityStudio"), { ssr: false });
+const StudioComponent = dynamic(
+  () => import("@/shared/components/SanityStudio"),
+  { ssr: false },
+);
 
 export default function StudioPage() {
   return (

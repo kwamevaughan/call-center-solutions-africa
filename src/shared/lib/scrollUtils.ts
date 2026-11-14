@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useFixedHeader = (): boolean => {
   const [isFixed, setIsFixed] = useState(false);
@@ -9,8 +9,8 @@ export const useFixedHeader = (): boolean => {
     };
 
     handleScrollEvent();
-    window.addEventListener('scroll', handleScrollEvent);
-    return () => window.removeEventListener('scroll', handleScrollEvent);
+    window.addEventListener("scroll", handleScrollEvent);
+    return () => window.removeEventListener("scroll", handleScrollEvent);
   }, []);
 
   return isFixed;
@@ -19,18 +19,19 @@ export const useFixedHeader = (): boolean => {
 export const handleScroll = (
   e: React.MouseEvent<HTMLAnchorElement>,
   href: string,
-  isFixed: boolean
+  isFixed: boolean,
 ): void => {
   e.preventDefault();
-  const targetId = href.replace('#', '');
+  const targetId = href.replace("#", "");
   const element = document.getElementById(targetId);
   if (element) {
     setTimeout(() => {
-      const header = document.querySelector('nav');
+      const header = document.querySelector("nav");
       const headerHeight = header ? header.offsetHeight : 0;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
       const offset = isFixed ? headerHeight + 20 : 0;
-      window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+      window.scrollTo({ top: elementPosition - offset, behavior: "smooth" });
     }, 0);
   }
 };

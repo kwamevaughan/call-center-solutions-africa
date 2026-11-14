@@ -66,8 +66,10 @@ const TermsOfService = () => {
               <h2 className="text-2xl font-medium text-[#172840] mb-4">
                 3. Use of Services
               </h2>
-              <p>You agree to use our Services only for lawful purposes and in
-                accordance with these Terms. You agree not to:</p>
+              <p>
+                You agree to use our Services only for lawful purposes and in
+                accordance with these Terms. You agree not to:
+              </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
                   Use the Services in any way that violates any applicable law
@@ -156,9 +158,7 @@ const TermsOfService = () => {
                   The results obtained from using the Services will be accurate
                   or reliable
                 </li>
-                <li>
-                  Any defects or errors in the Services will be corrected
-                </li>
+                <li>Any defects or errors in the Services will be corrected</li>
               </ul>
               <p className="mt-2">
                 To the fullest extent permitted by law, we disclaim all
@@ -206,8 +206,8 @@ const TermsOfService = () => {
               </h2>
               <p>
                 You agree to indemnify, defend, and hold harmless Call Center
-                Solutions Africa, its officers, directors, employees, agents, and
-                affiliates from and against any and all claims, damages,
+                Solutions Africa, its officers, directors, employees, agents,
+                and affiliates from and against any and all claims, damages,
                 obligations, losses, liabilities, costs, or debt, and expenses
                 (including but not limited to attorney's fees) arising from:
               </p>
@@ -225,11 +225,11 @@ const TermsOfService = () => {
                 9. Third-Party Links
               </h2>
               <p>
-                Our Website may contain links to third-party websites or services
-                that are not owned or controlled by Call Center Solutions
-                Africa. We have no control over, and assume no responsibility
-                for, the content, privacy policies, or practices of any
-                third-party websites or services.
+                Our Website may contain links to third-party websites or
+                services that are not owned or controlled by Call Center
+                Solutions Africa. We have no control over, and assume no
+                responsibility for, the content, privacy policies, or practices
+                of any third-party websites or services.
               </p>
               <p className="mt-2">
                 You acknowledge and agree that Call Center Solutions Africa
@@ -287,10 +287,10 @@ const TermsOfService = () => {
                 terms taking effect.
               </p>
               <p className="mt-2">
-                What constitutes a material change will be determined at our sole
-                discretion. By continuing to access or use our Services after
-                those revisions become effective, you agree to be bound by the
-                revised terms.
+                What constitutes a material change will be determined at our
+                sole discretion. By continuing to access or use our Services
+                after those revisions become effective, you agree to be bound by
+                the revised terms.
               </p>
             </div>
 
@@ -313,7 +313,8 @@ const TermsOfService = () => {
                 </a>
               </p>
               <p className="mt-2">
-                Address: The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
+                Address: The Westwood Office, 6th Floor 6A, Comply Guide
+                Advisory, Westlands, Nairobi, Kenya
               </p>
             </div>
           </section>
@@ -331,5 +332,3 @@ const TermsOfService = () => {
 };
 
 export default TermsOfService;
-
-

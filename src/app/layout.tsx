@@ -3,7 +3,11 @@ import { Poppins } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@/shared/providers/Analytics";
 import { ToasterProvider } from "@/shared/providers/ToasterProvider";
-import { getOrganizationSchema, getWebsiteSchema, schemaToJsonLd } from "@/shared/lib/schemas";
+import {
+  getOrganizationSchema,
+  getWebsiteSchema,
+  schemaToJsonLd,
+} from "@/shared/lib/schemas";
 import "../styles/globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,7 +20,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Call Center Solutions Africa | Advanced BPO & Contact Center Services",
+  title:
+    "Call Center Solutions Africa | Advanced BPO & Contact Center Services",
   description:
     "Empowering businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less.",
   icons: {
@@ -39,7 +44,11 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA_ID = "G-10ELYW45R8";
 const AW_ID = "AW-11088484153";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const orgSchema = getOrganizationSchema();
   const webSchema = getWebsiteSchema();
 
@@ -77,7 +86,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
 
         {/* Google Ads / GA4 */}
-        <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${AW_ID}`} />
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${AW_ID}`}
+        />
         <Script
           id="gtag-init"
           strategy="afterInteractive"

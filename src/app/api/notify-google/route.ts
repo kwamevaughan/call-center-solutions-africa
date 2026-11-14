@@ -20,6 +20,9 @@ export async function POST(request: Request) {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error("Error in /api/notify-google:", err);
-    return NextResponse.json({ error: "Failed to notify Google", details: msg }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to notify Google", details: msg },
+      { status: 500 },
+    );
   }
 }

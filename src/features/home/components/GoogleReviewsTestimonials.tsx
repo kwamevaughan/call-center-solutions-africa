@@ -2,7 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
-import { googleReviews, placeInfo as staticPlaceInfo, type GoogleReview, type PlaceInfo } from "@/shared/data/googleReviews";
+import {
+  googleReviews,
+  placeInfo as staticPlaceInfo,
+  type GoogleReview,
+  type PlaceInfo,
+} from "@/shared/data/googleReviews";
 
 const GoogleReviewsTestimonials = () => {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
@@ -51,7 +56,7 @@ const GoogleReviewsTestimonials = () => {
     const startIndex = currentSlide * slidesPerView;
     return reviews.slice(
       startIndex,
-      Math.min(startIndex + slidesPerView, reviews.length)
+      Math.min(startIndex + slidesPerView, reviews.length),
     );
   };
 
@@ -60,9 +65,7 @@ const GoogleReviewsTestimonials = () => {
 
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentSlide((prev) =>
-        prev === totalSlides - 1 ? 0 : prev + 1
-      );
+      setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
       setIsTransitioning(false);
     }, 500);
   };
@@ -72,9 +75,7 @@ const GoogleReviewsTestimonials = () => {
 
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentSlide((prev) =>
-        prev === 0 ? totalSlides - 1 : prev - 1
-      );
+      setCurrentSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
       setIsTransitioning(false);
     }, 500);
   };
@@ -124,7 +125,7 @@ const GoogleReviewsTestimonials = () => {
           className="text-yellow-400"
           width={size}
           height={size}
-        />
+        />,
       );
     }
 
@@ -136,7 +137,7 @@ const GoogleReviewsTestimonials = () => {
           className="text-yellow-400"
           width={size}
           height={size}
-        />
+        />,
       );
     }
 
@@ -149,7 +150,7 @@ const GoogleReviewsTestimonials = () => {
           className="text-gray-300"
           width={size}
           height={size}
-        />
+        />,
       );
     }
 
@@ -224,7 +225,9 @@ const GoogleReviewsTestimonials = () => {
               width={20}
               height={20}
             />
-            <span className="text-white/80 text-xs sm:text-sm">Verified Reviews</span>
+            <span className="text-white/80 text-xs sm:text-sm">
+              Verified Reviews
+            </span>
           </div>
         </div>
 
@@ -260,7 +263,10 @@ const GoogleReviewsTestimonials = () => {
                         {review.author_name}
                       </h3>
                       <div className="flex items-center gap-1 sm:gap-2 mb-1">
-                        {renderStars(review.rating, windowWidth < 640 ? 14 : 18)}
+                        {renderStars(
+                          review.rating,
+                          windowWidth < 640 ? 14 : 18,
+                        )}
                       </div>
                       <p className="text-gray-500 text-xs sm:text-sm">
                         {review.relative_time_description}
@@ -333,7 +339,7 @@ const GoogleReviewsTestimonials = () => {
                   className="sm:w-6 sm:h-6 text-white group-hover:text-ccsa-yellow transition-colors"
                 />
               </button>
-              
+
               <div className="flex items-center gap-1.5 sm:gap-2">
                 {Array.from({ length: totalSlides }).map((_, index) => (
                   <button
@@ -383,14 +389,23 @@ const GoogleReviewsTestimonials = () => {
               rel="noopener noreferrer"
               className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-sm border border-white/30 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-white text-sm sm:text-base font-medium transition-all duration-300 hover:shadow-lg group touch-manipulation"
             >
-              <Icon icon="mdi:google" width={18} height={18} className="sm:w-5 sm:h-5" />
+              <Icon
+                icon="mdi:google"
+                width={18}
+                height={18}
+                className="sm:w-5 sm:h-5"
+              />
               <span className="whitespace-nowrap">
-                Read all <span className="hidden sm:inline">{placeInfo.totalRatings} </span>reviews
+                Read all{" "}
+                <span className="hidden sm:inline">
+                  {placeInfo.totalRatings}{" "}
+                </span>
+                reviews
               </span>
               <span className="hidden sm:inline">on Google</span>
-              <Icon 
-                icon="mdi:arrow-top-right" 
-                width={16} 
+              <Icon
+                icon="mdi:arrow-top-right"
+                width={16}
                 height={16}
                 className="sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
               />
@@ -403,4 +418,3 @@ const GoogleReviewsTestimonials = () => {
 };
 
 export default GoogleReviewsTestimonials;
-

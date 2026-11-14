@@ -121,7 +121,14 @@ const PrevArrow = ({ className, style, onClick }: ArrowProps) => (
   </button>
 );
 
-interface Solution { icon: string; alt: string; title: string; titleLine2?: string; description: string; href: string; }
+interface Solution {
+  icon: string;
+  alt: string;
+  title: string;
+  titleLine2?: string;
+  description: string;
+  href: string;
+}
 
 function SolutionCard({ item }: { item: Solution }) {
   return (
@@ -158,7 +165,11 @@ function SolutionCard({ item }: { item: Solution }) {
             className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-ccsa-orange"
           >
             Read more
-            <Icon icon="material-symbols:arrow-forward-rounded" width={18} height={18} />
+            <Icon
+              icon="material-symbols:arrow-forward-rounded"
+              width={18}
+              height={18}
+            />
           </Link>
         </div>
       </div>
@@ -199,9 +210,7 @@ export default function OurSolutionsSlider() {
   };
 
   return (
-    <div
-      className="our-solutions-slider relative mt-8 px-2 pb-20 pt-0 sm:mt-12 sm:px-4 [&_.slick-slide]:h-auto [&_.slick-slide>div]:h-full [&_.slick-track]:flex [&_.slick-track]:items-stretch [&_.slick-next::before]:hidden [&_.slick-prev::before]:hidden [&_.slick-next::before]:!content-none [&_.slick-prev::before]:!content-none"
-    >
+    <div className="our-solutions-slider relative mt-8 px-2 pb-20 pt-0 sm:mt-12 sm:px-4 [&_.slick-slide]:h-auto [&_.slick-slide>div]:h-full [&_.slick-track]:flex [&_.slick-track]:items-stretch [&_.slick-next::before]:hidden [&_.slick-prev::before]:hidden [&_.slick-next::before]:!content-none [&_.slick-prev::before]:!content-none">
       <Slider {...settings}>
         {solutions.map((item, idx) => (
           <SolutionCard key={idx} item={item} />

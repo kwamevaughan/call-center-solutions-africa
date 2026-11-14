@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Global Compliance Playbook | Call Center Solutions Africa",
-  description: "Access our Global Compliance Playbook for international data protection compliance.",
+  description:
+    "Access our Global Compliance Playbook for international data protection compliance.",
 };
 
 import Link from "next/link";
@@ -184,11 +185,11 @@ const GlobalCompliancePlaybook = () => {
               </h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  At Call Center Solutions Africa, we understand that
-                  compliance is not just about meeting regulatory requirements
-                  – it's about building trust with our clients and protecting
-                  the data of their customers. Our Global Compliance Playbook
-                  will provide you with:
+                  At Call Center Solutions Africa, we understand that compliance
+                  is not just about meeting regulatory requirements – it's about
+                  building trust with our clients and protecting the data of
+                  their customers. Our Global Compliance Playbook will provide
+                  you with:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -198,9 +199,7 @@ const GlobalCompliancePlaybook = () => {
                   <li>
                     Detailed explanations of how we protect and process data
                   </li>
-                  <li>
-                    Information about our security controls and measures
-                  </li>
+                  <li>Information about our security controls and measures</li>
                   <li>
                     Guidance on how we can help you meet your own compliance
                     obligations
@@ -257,5 +256,3 @@ const GlobalCompliancePlaybook = () => {
 };
 
 export default GlobalCompliancePlaybook;
-
-

@@ -3,7 +3,8 @@ import ClientPage from "@/features/services/components/CustomerRetentionLoyaltyP
 
 export const metadata: Metadata = {
   title: "Customer Retention & Loyalty | Call Center Solutions Africa",
-  description: "Reduce churn, win-back lost customers and build lasting loyalty with CCSA retention specialists.",
+  description:
+    "Reduce churn, win-back lost customers and build lasting loyalty with CCSA retention specialists.",
 };
 
 export default function Page(props: any) {

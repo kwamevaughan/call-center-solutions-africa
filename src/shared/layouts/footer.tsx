@@ -28,7 +28,7 @@ const Footer = () => {
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     if (footerRef.current) {
@@ -48,29 +48,31 @@ const Footer = () => {
     <section className="bg-ccsa-dark-blue pt-2 pb-6 sm:pb-10 relative overflow-hidden">
       {/* Overlay div */}
       <div className="absolute inset-0 bg-ccsa-dark-blue z-0 pointer-events-none"></div>
-      
+
       {/* Radial Ellipse at Top Middle - Yellow */}
-      <div 
+      <div
         className="absolute left-1/2 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-          transform: 'translate(-50%, -30%)'
+          background:
+            "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+          transform: "translate(-50%, -30%)",
         }}
       />
       {/* Radial Ellipse at Top Right - Orange */}
-      <div 
+      <div
         className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-          transform: 'translate(30%, -30%)'
+          background:
+            "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+          transform: "translate(30%, -30%)",
         }}
       />
       {/* Radial Ellipse at Bottom Left - Blue */}
-      <div 
+      <div
         className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, #0088D2 0%, transparent 100%)',
-          transform: 'translate(-30%, 30%)'
+          background: "radial-gradient(circle, #0088D2 0%, transparent 100%)",
+          transform: "translate(-30%, 30%)",
         }}
       />
 
@@ -78,30 +80,31 @@ const Footer = () => {
         {/* Main Footer Content */}
         <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-0 py-12 sm:py-16 text-white">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
-      
-             {/* Solutions  */}
-             <div className="lg:col-span-1">
-              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Solutions</h3>
+            {/* Solutions  */}
+            <div className="lg:col-span-1">
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">
+                Solutions
+              </h3>
               <div className="flex flex-col gap-3">
-                <Link 
+                <Link
                   href="/services"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Services
                 </Link>
-                <Link 
+                <Link
                   href="/industries"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Industries
                 </Link>
-                <Link 
+                <Link
                   href="/delivery-models"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Delivery Models
                 </Link>
-                <Link 
+                <Link
                   href="/security-and-compliance"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
@@ -110,95 +113,119 @@ const Footer = () => {
               </div>
             </div>
 
-
             {/* Resources */}
             <div className="lg:col-span-1">
-              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Resources</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">
+                Resources
+              </h3>
               <div className="flex flex-col gap-3">
-                <a 
+                <a
                   href="/assets/documents/africa_cx_advantage_report.pdf"
                   download
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Africa CX Advantage Report
                 </a>
-                <Link 
-                  href="/global-compliance-playbook" 
+                <Link
+                  href="/global-compliance-playbook"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Global Compliance Playbook
                 </Link>
-                <Link 
+                <Link
                   href="/case-studies"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Case Studies Library
                 </Link>
-          </div>
+              </div>
             </div>
 
             {/* Contact */}
             <div className="lg:col-span-1">
-              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Contact</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">
+                Contact
+              </h3>
               <div className="flex flex-col gap-3">
-                <a 
+                <a
                   href="https://www.google.com/maps/search/?api=1&query=The+Westwood+Office+Westlands+Nairobi+Kenya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
-                  <Icon icon="mdi:map-marker" width={18} height={18} className="flex-shrink-0" />
-                  The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
+                  <Icon
+                    icon="mdi:map-marker"
+                    width={18}
+                    height={18}
+                    className="flex-shrink-0"
+                  />
+                  The Westwood Office, 6th Floor 6A, Comply Guide Advisory,
+                  Westlands, Nairobi, Kenya
                 </a>
-                <a 
+                <a
                   href="tel:+254701850850"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
-                  <Icon icon="mdi:phone" width={18} height={18} className="flex-shrink-0" />
+                  <Icon
+                    icon="mdi:phone"
+                    width={18}
+                    height={18}
+                    className="flex-shrink-0"
+                  />
                   +254 701 850 850
                 </a>
-                <a 
+                <a
                   href="mailto:hello@callcentersolutionsafrica.com"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
-                  <Icon icon="mdi:email" width={18} height={18} className="flex-shrink-0" />
+                  <Icon
+                    icon="mdi:email"
+                    width={18}
+                    height={18}
+                    className="flex-shrink-0"
+                  />
                   hello@callcentersolutionsafrica.com
                 </a>
-                <Link 
+                <Link
                   href="/contact-us"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors flex items-center gap-2"
                 >
-                  <Icon icon="mdi:account-group" width={18} height={18} className="flex-shrink-0" />
+                  <Icon
+                    icon="mdi:account-group"
+                    width={18}
+                    height={18}
+                    className="flex-shrink-0"
+                  />
                   Talk to sales
                 </Link>
               </div>
             </div>
 
-            
-
             {/* Support & Legal */}
             <div className="lg:col-span-1">
-              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">Legal</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-6">
+                Legal
+              </h3>
               <div className="flex flex-col gap-3">
-                <Link 
+                <Link
                   href="/privacy-policy"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Privacy Policy
                 </Link>
-                <Link 
+                <Link
                   href="/terms-of-service"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Terms of Service
                 </Link>
-                <Link 
+                <Link
                   href="/data-processing-addendum"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
                   Data Processing Addendum
                 </Link>
-                <Link 
+                <Link
                   href="/responsible-disclosure"
                   className="text-sm font-light text-white hover:text-ccsa-yellow transition-colors"
                 >
@@ -216,8 +243,7 @@ const Footer = () => {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-0">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-2 items-center sm:items-start justify-between">
-              
-            <div className="flex flex-col gap-4 sm:gap-6 items-center sm:items-end">
+              <div className="flex flex-col gap-4 sm:gap-6 items-center sm:items-end">
                 <ul className="flex gap-4 sm:gap-6">
                   <li className="group flex items-start gap-2 pb-2 sm:pb-4 hover:translate-y-[-4px] transition-transform duration-300">
                     <a
@@ -228,8 +254,8 @@ const Footer = () => {
                     >
                       <Icon
                         icon="ic:baseline-facebook"
-                              width="24"
-                              height="24"
+                        width="24"
+                        height="24"
                         className="flex-shrink-0"
                       />
                       <span className="sr-only">Facebook</span>
@@ -245,8 +271,8 @@ const Footer = () => {
                     >
                       <Icon
                         icon="mdi:linkedin"
-                              width="24"
-                              height="24"
+                        width="24"
+                        height="24"
                         className="flex-shrink-0"
                       />
                       <span className="sr-only">LinkedIn</span>
@@ -262,8 +288,8 @@ const Footer = () => {
                     >
                       <Icon
                         icon="mdi:youtube"
-                              width="24"
-                              height="24"
+                        width="24"
+                        height="24"
                         className="flex-shrink-0"
                       />
                       <span className="sr-only">YouTube</span>
@@ -279,8 +305,8 @@ const Footer = () => {
                     >
                       <Icon
                         icon="mdi:instagram"
-                              width="24"
-                              height="24"
+                        width="24"
+                        height="24"
                         className="flex-shrink-0"
                       />
                       <span className="sr-only">Instagram</span>
@@ -296,22 +322,21 @@ const Footer = () => {
                     >
                       <Icon
                         icon="line-md:twitter-x"
-                              width="24"
-                              height="24"
+                        width="24"
+                        height="24"
                         className="flex-shrink-0"
                       />
                       <span className="sr-only">X (Twitter)</span>
                     </a>
                   </li>
                 </ul>
-            </div>
+              </div>
 
-            <div className="flex flex-col gap-4 sm:gap-6 items-center sm:items-start">
+              <div className="flex flex-col gap-4 sm:gap-6 items-center sm:items-start">
                 <p className="text-xs sm:text-sm text-center sm:text-left text-gray-200">
                   © {currentYear} CCSA Africa. All rights reserved.
                 </p>
               </div>
-
             </div>
           </div>
         </div>

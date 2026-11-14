@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import nodemailer, { type SendMailOptions } from "nodemailer";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
-const ALLOWED_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+const ALLOWED_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 export async function POST(request: Request) {
   let formData: FormData;
@@ -13,14 +17,17 @@ export async function POST(request: Request) {
   }
 
   const fullName = formData.get("fullName") as string | null;
-  const email    = formData.get("email")    as string | null;
-  const phone    = formData.get("phone")    as string | null;
+  const email = formData.get("email") as string | null;
+  const phone = formData.get("phone") as string | null;
   const position = formData.get("position") as string | null;
   const coverLetter = formData.get("coverLetter") as string | null;
-  const resumeFile  = formData.get("resume") as File | null;
+  const resumeFile = formData.get("resume") as File | null;
 
   if (!fullName || !email || !position) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Missing required fields" },
+      { status: 400 },
+    );
   }
 
   // Validate resume file if provided
@@ -28,10 +35,16 @@ export async function POST(request: Request) {
   let resumeFilename = "resume.pdf";
   if (resumeFile && resumeFile.size > 0) {
     if (resumeFile.size > MAX_FILE_SIZE) {
-      return NextResponse.json({ error: "Resume file exceeds 5 MB limit" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Resume file exceeds 5 MB limit" },
+        { status: 400 },
+      );
     }
     if (!ALLOWED_TYPES.includes(resumeFile.type)) {
-      return NextResponse.json({ error: "Only PDF, DOC, and DOCX files are accepted" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Only PDF, DOC, and DOCX files are accepted" },
+        { status: 400 },
+      );
     }
     resumeBuffer = Buffer.from(await resumeFile.arrayBuffer());
     resumeFilename = resumeFile.name || "resume.pdf";
@@ -70,7 +83,9 @@ export async function POST(request: Request) {
   };
 
   if (resumeBuffer) {
-    mailOptions.attachments = [{ filename: resumeFilename, content: resumeBuffer }];
+    mailOptions.attachments = [
+      { filename: resumeFilename, content: resumeBuffer },
+    ];
   }
 
   try {
@@ -78,6 +93,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Application submitted successfully" });
   } catch (err) {
     console.error("Application submission error:", err);
-    return NextResponse.json({ error: "Failed to submit application. Please try again." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to submit application. Please try again." },
+      { status: 500 },
+    );
   }
 }

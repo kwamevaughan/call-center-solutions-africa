@@ -2,7 +2,10 @@
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useMemo } from "react";
-import { getCollectionPageSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
+import {
+  getCollectionPageSchema,
+  getBreadcrumbSchema,
+} from "@/shared/lib/schemas";
 import {
   caseStudiesHero,
   caseStudiesLibraryIntro,
@@ -63,7 +66,11 @@ const CaseStudiesIndex = () => {
                   <Link href="/" className="transition hover:text-white">
                     Home
                   </Link>
-                  <Icon icon="mdi:chevron-right" width={16} className="text-white/35" />
+                  <Icon
+                    icon="mdi:chevron-right"
+                    width={16}
+                    className="text-white/35"
+                  />
                   <span className="font-medium text-white">Case studies</span>
                 </nav>
               </div>
@@ -104,11 +111,13 @@ const CaseStudiesIndex = () => {
                     Library
                   </p>
                   <h3 className="mt-1 text-lg font-semibold text-[#172840] sm:text-xl">
-                    {caseStudyDetails.length} programmes across Africa, the UK &amp; the US
+                    {caseStudyDetails.length} programmes across Africa, the UK
+                    &amp; the US
                   </h3>
                 </div>
                 <p className="max-w-md text-sm text-slate-500">
-                  Each study opens on its own page with campaign data, delivery scope and outcomes.
+                  Each study opens on its own page with campaign data, delivery
+                  scope and outcomes.
                 </p>
               </div>
 

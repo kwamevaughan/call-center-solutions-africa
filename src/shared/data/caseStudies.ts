@@ -24,8 +24,7 @@ export interface CaseStudyDetail {
 export const caseStudiesHero = {
   title:
     "Proven Sales and Marketing Contact Center Delivery Across Global Markets",
-  lead:
-    "From multi-country telesales campaigns in Africa to restaurant onboarding in the United Kingdom, software telemarketing, tele-research and United States-focused sales campaigns, CCSA helps organizations extend their reach, structure outreach operations and convert conversations into measurable business opportunities.",
+  lead: "From multi-country telesales campaigns in Africa to restaurant onboarding in the United Kingdom, software telemarketing, tele-research and United States-focused sales campaigns, CCSA helps organizations extend their reach, structure outreach operations and convert conversations into measurable business opportunities.",
   supporting:
     "Our work combines trained sales talent, CRM and dialer implementation, KPI management, campaign reporting, quality monitoring and ongoing performance coaching.",
 };
@@ -33,8 +32,7 @@ export const caseStudiesHero = {
 export const caseStudiesLibraryIntro = {
   title:
     "Case Studies: Sales and Marketing Campaigns Delivered Across Africa, the United Kingdom and the United States",
-  body:
-    "CCSA helps companies run structured sales, onboarding, telemarketing and market research campaigns across multiple regions. Our teams combine trained contact center talent, sales process design, CRM and dialer support, KPI tracking, quality monitoring and reporting to help clients scale customer engagement without building large internal teams.",
+  body: "CCSA helps companies run structured sales, onboarding, telemarketing and market research campaigns across multiple regions. Our teams combine trained contact center talent, sales process design, CRM and dialer support, KPI tracking, quality monitoring and reporting to help clients scale customer engagement without building large internal teams.",
 };
 
 export const featuredCaseStudies: FeaturedCaseStudy[] = [
@@ -107,8 +105,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
   {
     id: "uk-restaurant-onboarding",
     eyebrow: "CASE STUDY 2 | MERCHANT ONBOARDING",
-    headline:
-      "Onboarding UK Restaurants Into a Digital Reservation Programme",
+    headline: "Onboarding UK Restaurants Into a Digital Reservation Programme",
     clientProfile:
       "A global restaurant technology platform supporting merchant onboarding for a major digital reservation ecosystem in the United Kingdom.",
     challenge:
@@ -197,8 +194,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
   {
     id: "creative-software-telemarketing",
     eyebrow: "CASE STUDY 5 | SOFTWARE TELEMARKETING",
-    headline:
-      "Telemarketing Creative Software Across 15 African Countries",
+    headline: "Telemarketing Creative Software Across 15 African Countries",
     clientProfile:
       "A software training and reseller partner running a telemarketing campaign for a global creative software brand.",
     challenge:
@@ -226,8 +222,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
 
 export const caseStudiesCta = {
   title: "Ready to Build a Sales Campaign That Scales?",
-  body:
-    "Whether you need lead conversion, appointment setting, telesales, onboarding, telemarketing or market research, CCSA can help you design, staff and manage a contact center campaign built around measurable outcomes.",
+  body: "Whether you need lead conversion, appointment setting, telesales, onboarding, telemarketing or market research, CCSA can help you design, staff and manage a contact center campaign built around measurable outcomes.",
   primaryLabel: "Start a Revenue Pilot",
   secondaryLabel: "Book a Campaign Strategy Call",
 };
@@ -255,7 +250,9 @@ export function getAdjacentCaseStudies(slug: string): {
 }
 
 export function getCaseStudyMetaDescription(study: CaseStudyDetail): string {
-  const snippet = `${study.headline} ${study.clientProfile}`.replace(/\s+/g, " ").trim();
+  const snippet = `${study.headline} ${study.clientProfile}`
+    .replace(/\s+/g, " ")
+    .trim();
   if (snippet.length <= 160) return snippet;
   return `${snippet.slice(0, 157)}…`;
 }

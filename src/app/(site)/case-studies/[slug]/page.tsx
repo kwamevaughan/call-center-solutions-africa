@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { caseStudyDetails, getCaseStudyBySlug, getAdjacentCaseStudies } from "@/shared/data/caseStudies";
+import {
+  caseStudyDetails,
+  getCaseStudyBySlug,
+  getAdjacentCaseStudies,
+} from "@/shared/data/caseStudies";
 import CaseStudyClient from "@/features/case-studies/components/CaseStudyPage";
 import { notFound } from "next/navigation";
 
@@ -7,7 +11,11 @@ export function generateStaticParams() {
   return caseStudyDetails.map((s) => ({ slug: s.id }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const study = getCaseStudyBySlug(slug);
   if (!study) return { title: "Case Study Not Found" };
@@ -17,10 +25,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CaseStudyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const study = getCaseStudyBySlug(slug);
   if (!study) notFound();
   const { prev, next, index } = getAdjacentCaseStudies(slug);
-  return <CaseStudyClient study={study} prev={prev} next={next} index={index} />;
+  return (
+    <CaseStudyClient study={study} prev={prev} next={next} index={index} />
+  );
 }

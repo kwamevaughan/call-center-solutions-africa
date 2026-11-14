@@ -3,7 +3,9 @@
 import { Icon } from "@iconify/react";
 import dynamic from "next/dynamic";
 
-const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
+  ssr: false,
+});
 
 interface ContactFormData {
   name: string;
@@ -33,7 +35,11 @@ export default function ContactForm({
   loading,
   handleRecaptcha,
 }: ContactFormProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
     const files = (e.target as HTMLInputElement).files;
@@ -57,8 +63,11 @@ export default function ContactForm({
       {/* Personal Information Section */}
       <div className="space-y-6">
         <div className="space-y-2">
-        <h2 className="text-2xl font-semibold text-white">Contact Us</h2>
-        <p className="text-sm text-white">Please fill out the form below to contact us. We will get back to you as soon as possible.</p>
+          <h2 className="text-2xl font-semibold text-white">Contact Us</h2>
+          <p className="text-sm text-white">
+            Please fill out the form below to contact us. We will get back to
+            you as soon as possible.
+          </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -159,11 +168,21 @@ export default function ContactForm({
             className="w-full px-4 py-3 rounded-full border-2 border-gray-200 focus:border-ccsa-blue focus:ring-0 transition-colors duration-200 bg-gray-50/50"
           >
             <option value="">Select how we can help</option>
-            <option value="Lead Follow-Up & Qualification">Lead Follow-Up & Qualification</option>
-            <option value="Outbound Sales Closing">Outbound Sales Closing</option>
-            <option value="Omnichannel Engagement (Calls + WhatsApp + Social + Email)">Omnichannel Engagement (Calls + WhatsApp + Social + Email)</option>
-            <option value="Reactivating Past Leads">Reactivating Past Leads</option>
-            <option value="CRM & CX Suite Integration & Reporting">CRM & CX Suite Integration & Reporting</option>
+            <option value="Lead Follow-Up & Qualification">
+              Lead Follow-Up & Qualification
+            </option>
+            <option value="Outbound Sales Closing">
+              Outbound Sales Closing
+            </option>
+            <option value="Omnichannel Engagement (Calls + WhatsApp + Social + Email)">
+              Omnichannel Engagement (Calls + WhatsApp + Social + Email)
+            </option>
+            <option value="Reactivating Past Leads">
+              Reactivating Past Leads
+            </option>
+            <option value="CRM & CX Suite Integration & Reporting">
+              CRM & CX Suite Integration & Reporting
+            </option>
             <option value="Other (Tell Us More)">Other (Tell Us More)</option>
           </select>
         </div>
@@ -243,7 +262,7 @@ export default function ContactForm({
             disabled={loading}
             className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: "var(--ccsa-gradient)"
+              background: "var(--ccsa-gradient)",
             }}
           >
             {loading ? (

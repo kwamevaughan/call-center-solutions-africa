@@ -3,9 +3,12 @@
 import { useRef, useEffect, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { getCollectionPageSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
-import { client } from '@sanity/lib/client';
-import { jobPostingsQuery } from '@sanity/lib/queries';
+import {
+  getCollectionPageSchema,
+  getBreadcrumbSchema,
+} from "@/shared/lib/schemas";
+import { client } from "@sanity/lib/client";
+import { jobPostingsQuery } from "@sanity/lib/queries";
 
 const DEPT_LABELS: Record<string, string> = {
   sales: "Sales",
@@ -59,31 +62,56 @@ const JobCard = ({ job }: { job: any }) => {
           <div className="flex flex-1 flex-col gap-2 border-t border-white/10 pt-4 text-sm text-white/50">
             {job.location && (
               <span className="flex items-center gap-2">
-                <Icon icon="mdi:map-marker-outline" width={14} height={14} className="shrink-0" />
+                <Icon
+                  icon="mdi:map-marker-outline"
+                  width={14}
+                  height={14}
+                  className="shrink-0"
+                />
                 {job.location}
               </span>
             )}
             {job.openings && (
               <span className="flex items-center gap-2">
-                <Icon icon="mdi:account-multiple-outline" width={14} height={14} className="shrink-0" />
+                <Icon
+                  icon="mdi:account-multiple-outline"
+                  width={14}
+                  height={14}
+                  className="shrink-0"
+                />
                 {job.openings} opening{job.openings > 1 ? "s" : ""}
               </span>
             )}
             {languages && (
               <span className="flex items-center gap-2">
-                <Icon icon="mdi:translate" width={14} height={14} className="shrink-0" />
+                <Icon
+                  icon="mdi:translate"
+                  width={14}
+                  height={14}
+                  className="shrink-0"
+                />
                 {languages}
               </span>
             )}
             {job.hiringTimeline && (
               <span className="flex items-center gap-2">
-                <Icon icon="mdi:calendar-clock-outline" width={14} height={14} className="shrink-0" />
+                <Icon
+                  icon="mdi:calendar-clock-outline"
+                  width={14}
+                  height={14}
+                  className="shrink-0"
+                />
                 {job.hiringTimeline}
               </span>
             )}
             {deadline && (
               <span className="flex items-center gap-2 text-white/70">
-                <Icon icon="mdi:calendar-alert-outline" width={14} height={14} className="shrink-0 text-ccsa-yellow" />
+                <Icon
+                  icon="mdi:calendar-alert-outline"
+                  width={14}
+                  height={14}
+                  className="shrink-0 text-ccsa-yellow"
+                />
                 Apply by {deadline}
               </span>
             )}
@@ -112,24 +140,38 @@ const CareersPage = ({ jobs = [] }: { jobs: any[] }) => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("section-visible")),
-      { threshold: 0.1 }
+      (entries) =>
+        entries.forEach(
+          (e) => e.isIntersecting && e.target.classList.add("section-visible"),
+        ),
+      { threshold: 0.1 },
     );
-    [homeRef, positionsRef].forEach((r) => r.current && observer.observe(r.current));
-    return () => [homeRef, positionsRef].forEach((r) => r.current && observer.unobserve(r.current));
+    [homeRef, positionsRef].forEach(
+      (r) => r.current && observer.observe(r.current),
+    );
+    return () =>
+      [homeRef, positionsRef].forEach(
+        (r) => r.current && observer.unobserve(r.current),
+      );
   }, []);
 
   const seoSchemas = useMemo(() => {
     const baseUrl = "https://callcentersolutionsafrica.com";
     return [
-      getCollectionPageSchema({ name: "Careers", description: "Join our team at Call Center Solutions Africa.", url: `${baseUrl}/careers` }),
-      getBreadcrumbSchema([{ name: "Home", url: baseUrl }, { name: "Careers", url: `${baseUrl}/careers` }]),
+      getCollectionPageSchema({
+        name: "Careers",
+        description: "Join our team at Call Center Solutions Africa.",
+        url: `${baseUrl}/careers`,
+      }),
+      getBreadcrumbSchema([
+        { name: "Home", url: baseUrl },
+        { name: "Careers", url: `${baseUrl}/careers` },
+      ]),
     ];
   }, []);
 
   return (
     <>
-
       <main className="relative overflow-x-hidden">
         {/* Hero */}
         <div
@@ -139,14 +181,23 @@ const CareersPage = ({ jobs = [] }: { jobs: any[] }) => {
         >
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6">
-              <Icon icon="mdi:briefcase-outline" width={16} height={16} className="text-ccsa-yellow" />
-              <span className="text-xs font-semibold text-white uppercase tracking-widest">We&apos;re Hiring</span>
+              <Icon
+                icon="mdi:briefcase-outline"
+                width={16}
+                height={16}
+                className="text-ccsa-yellow"
+              />
+              <span className="text-xs font-semibold text-white uppercase tracking-widest">
+                We&apos;re Hiring
+              </span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">
-              Build Your Career<br className="hidden sm:block" /> with CCSA
+              Build Your Career
+              <br className="hidden sm:block" /> with CCSA
             </h1>
             <p className="text-base sm:text-lg text-white/70 mb-8 leading-relaxed max-w-xl mx-auto">
-              Join a team delivering world-class customer experience from Africa to global markets.
+              Join a team delivering world-class customer experience from Africa
+              to global markets.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
@@ -172,7 +223,9 @@ const CareersPage = ({ jobs = [] }: { jobs: any[] }) => {
               ].map((s) => (
                 <div key={s.label} className="text-center">
                   <div className="text-2xl font-bold text-white">{s.value}</div>
-                  <div className="text-xs text-white/50 uppercase tracking-wide mt-0.5">{s.label}</div>
+                  <div className="text-xs text-white/50 uppercase tracking-wide mt-0.5">
+                    {s.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -183,24 +236,55 @@ const CareersPage = ({ jobs = [] }: { jobs: any[] }) => {
         <section className="bg-white border-b border-slate-100 py-14 sm:py-16">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-10">
-              <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-3">Why Work With Us</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue mb-3">
+                Why Work With Us
+              </h2>
               <p className="text-slate-500 max-w-xl mx-auto text-sm">
-                Competitive benefits, real growth, and a culture that rewards performance
+                Competitive benefits, real growth, and a culture that rewards
+                performance
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: "mdi:currency-usd", title: "Competitive Pay", desc: "Market-rate salary + commissions" },
-                { icon: "mdi:school-outline", title: "Learning & Growth", desc: "Ongoing training and coaching" },
-                { icon: "mdi:account-group-outline", title: "Team Culture", desc: "Collaborative, high-performance" },
-                { icon: "mdi:heart-pulse", title: "Health Benefits", desc: "Comprehensive medical cover" },
+                {
+                  icon: "mdi:currency-usd",
+                  title: "Competitive Pay",
+                  desc: "Market-rate salary + commissions",
+                },
+                {
+                  icon: "mdi:school-outline",
+                  title: "Learning & Growth",
+                  desc: "Ongoing training and coaching",
+                },
+                {
+                  icon: "mdi:account-group-outline",
+                  title: "Team Culture",
+                  desc: "Collaborative, high-performance",
+                },
+                {
+                  icon: "mdi:heart-pulse",
+                  title: "Health Benefits",
+                  desc: "Comprehensive medical cover",
+                },
               ].map((b, i) => (
-                <div key={i} className="rounded-xl border border-slate-200 bg-white p-5 hover:border-ccsa-blue/40 hover:shadow-md transition-all">
+                <div
+                  key={i}
+                  className="rounded-xl border border-slate-200 bg-white p-5 hover:border-ccsa-blue/40 hover:shadow-md transition-all"
+                >
                   <div className="w-10 h-10 bg-ccsa-blue/10 rounded-lg flex items-center justify-center mb-3">
-                    <Icon icon={b.icon} width={20} height={20} className="text-ccsa-blue" />
+                    <Icon
+                      icon={b.icon}
+                      width={20}
+                      height={20}
+                      className="text-ccsa-blue"
+                    />
                   </div>
-                  <h3 className="text-sm font-bold text-ccsa-dark-blue mb-1">{b.title}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">{b.desc}</p>
+                  <h3 className="text-sm font-bold text-ccsa-dark-blue mb-1">
+                    {b.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {b.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -208,11 +292,19 @@ const CareersPage = ({ jobs = [] }: { jobs: any[] }) => {
         </section>
 
         {/* Open positions grid */}
-        <section id="positions" ref={positionsRef} className="bg-slate-100 py-16 sm:py-24">
+        <section
+          id="positions"
+          ref={positionsRef}
+          className="bg-slate-100 py-16 sm:py-24"
+        >
           <div className="max-w-7xl mx-auto px-4">
             <div className="mb-10">
-              <p className="text-xs font-semibold uppercase tracking-widest text-ccsa-blue mb-1">Opportunities</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-ccsa-dark-blue">Current Openings</h2>
+              <p className="text-xs font-semibold uppercase tracking-widest text-ccsa-blue mb-1">
+                Opportunities
+              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-ccsa-dark-blue">
+                Current Openings
+              </h2>
             </div>
 
             {jobs.length > 0 ? (
@@ -223,10 +315,18 @@ const CareersPage = ({ jobs = [] }: { jobs: any[] }) => {
               </div>
             ) : (
               <div className="rounded-2xl bg-ccsa-dark-blue p-10 text-center">
-                <Icon icon="mdi:briefcase-off-outline" width={40} height={40} className="mx-auto mb-4 text-white/20" />
-                <p className="text-white font-semibold mb-2">No open roles right now</p>
+                <Icon
+                  icon="mdi:briefcase-off-outline"
+                  width={40}
+                  height={40}
+                  className="mx-auto mb-4 text-white/20"
+                />
+                <p className="text-white font-semibold mb-2">
+                  No open roles right now
+                </p>
                 <p className="text-white/50 text-sm mb-6">
-                  We&apos;re always looking for exceptional talent. Send your CV and we&apos;ll reach out when something fits.
+                  We&apos;re always looking for exceptional talent. Send your CV
+                  and we&apos;ll reach out when something fits.
                 </p>
                 <a
                   href="mailto:careers@callcentersolutionsafrica.com"

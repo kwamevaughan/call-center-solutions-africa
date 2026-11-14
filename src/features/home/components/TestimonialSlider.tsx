@@ -38,7 +38,7 @@ const TestimonialSlider = () => {
     const startIndex = currentSlide * slidesPerView;
     return slides.slice(
       startIndex,
-      Math.min(startIndex + slidesPerView, slides.length)
+      Math.min(startIndex + slidesPerView, slides.length),
     );
   };
 
@@ -48,7 +48,7 @@ const TestimonialSlider = () => {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentSlide((prev) =>
-        prev === Math.ceil(slides.length / slidesPerView) - 1 ? 0 : prev + 1
+        prev === Math.ceil(slides.length / slidesPerView) - 1 ? 0 : prev + 1,
       );
       setIsTransitioning(false);
     }, 500); // Half the transition duration to change slides mid-fade
@@ -60,7 +60,7 @@ const TestimonialSlider = () => {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentSlide((prev) =>
-        prev === 0 ? Math.ceil(slides.length / slidesPerView) - 1 : prev - 1
+        prev === 0 ? Math.ceil(slides.length / slidesPerView) - 1 : prev - 1,
       );
       setIsTransitioning(false);
     }, 500); // Half the transition duration to change slides mid-fade
@@ -109,7 +109,9 @@ const TestimonialSlider = () => {
       <div className="overflow-hidden">
         <div className="flex gap-3 items-center px-4 sm:px-0 md:px-24">
           <div className="w-4 h-4 bg-[#ED761E] rounded-full flex-shrink-0" />
-          <p className="text-lg sm:text-xl font-semibold text-white">Testimonial</p>
+          <p className="text-lg sm:text-xl font-semibold text-white">
+            Testimonial
+          </p>
         </div>
       </div>
 

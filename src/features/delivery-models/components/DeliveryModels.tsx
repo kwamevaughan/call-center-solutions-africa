@@ -8,18 +8,19 @@ import { getWebPageSchema, getBreadcrumbSchema } from "@/shared/lib/schemas";
 const DeliveryModels = () => {
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
-    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const baseUrl = "https://callcentersolutionsafrica.com";
     const deliveryUrl = `${baseUrl}/delivery-models`;
     return [
       getWebPageSchema({
-        name: 'Delivery Models',
-        description: 'Explore our flexible delivery models including dedicated teams, shared resources, hybrid models, and project-based engagements. Choose the model that best fits your business needs.',
-        url: deliveryUrl
+        name: "Delivery Models",
+        description:
+          "Explore our flexible delivery models including dedicated teams, shared resources, hybrid models, and project-based engagements. Choose the model that best fits your business needs.",
+        url: deliveryUrl,
       }),
       getBreadcrumbSchema([
-        { name: 'Home', url: baseUrl },
-        { name: 'Delivery Models', url: deliveryUrl }
-      ])
+        { name: "Home", url: baseUrl },
+        { name: "Delivery Models", url: deliveryUrl },
+      ]),
     ];
   }, []);
 
@@ -131,8 +132,8 @@ const DeliveryModels = () => {
               <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
                 Choose the delivery model that best fits your business needs,
                 whether you need dedicated teams, shared resources, or a hybrid
-                approach. We offer flexible deployment options to scale with your
-                business.
+                approach. We offer flexible deployment options to scale with
+                your business.
               </p>
             </div>
           </div>
@@ -250,8 +251,7 @@ const DeliveryModels = () => {
                   },
                   {
                     title: "Scalability",
-                    description:
-                      "Scale up or down based on demand and growth.",
+                    description: "Scale up or down based on demand and growth.",
                     icon: "mdi:chart-line",
                   },
                   {
@@ -316,4 +316,3 @@ const DeliveryModels = () => {
 };
 
 export default DeliveryModels;
-

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import ClientPage from "@/features/contact/components/ContactPage";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Get a Custom BPO Proposal | Call Center Solutions Africa",
-  description: "Contact Call Center Solutions Africa for a custom BPO proposal. Reach our team to discuss your customer service outsourcing needs.",
+  title:
+    "Contact Us | Get a Custom BPO Proposal | Call Center Solutions Africa",
+  description:
+    "Contact Call Center Solutions Africa for a custom BPO proposal. Reach our team to discuss your customer service outsourcing needs.",
 };
 
 export default function Page(props: any) {

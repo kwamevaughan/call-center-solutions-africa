@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import ClientPage from "@/features/delivery-models/components/DeliveryModels";
 
 export const metadata: Metadata = {
-  title: "Delivery Models | Flexible BPO Engagement Options | Call Center Solutions Africa",
-  description: "Explore our flexible delivery models – dedicated teams, shared resources, hybrid models and project-based engagements.",
+  title:
+    "Delivery Models | Flexible BPO Engagement Options | Call Center Solutions Africa",
+  description:
+    "Explore our flexible delivery models – dedicated teams, shared resources, hybrid models and project-based engagements.",
 };
 
 export default function Page(props: any) {

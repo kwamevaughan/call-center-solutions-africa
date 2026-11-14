@@ -14,7 +14,11 @@ interface SectionBridgeVideoProps {
   className?: string;
 }
 
-export default function SectionBridgeVideo({ src, poster, className = "" }: SectionBridgeVideoProps) {
+export default function SectionBridgeVideo({
+  src,
+  poster,
+  className = "",
+}: SectionBridgeVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -97,7 +101,7 @@ export default function SectionBridgeVideo({ src, poster, className = "" }: Sect
       el.currentTime = (x / rect.width) * duration;
       setCurrentTime(el.currentTime);
     },
-    [duration]
+    [duration],
   );
 
   const toggleFullscreen = useCallback(() => {
@@ -235,7 +239,10 @@ export default function SectionBridgeVideo({ src, poster, className = "" }: Sect
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25"
             aria-label={playing ? "Pause" : "Play"}
           >
-            <Icon icon={playing ? "mdi:pause" : "mdi:play"} className="h-6 w-6" />
+            <Icon
+              icon={playing ? "mdi:pause" : "mdi:play"}
+              className="h-6 w-6"
+            />
           </button>
 
           <span className="min-w-[4.5rem] font-mono text-xs tabular-nums text-white/90 sm:text-sm">

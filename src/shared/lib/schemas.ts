@@ -1,4 +1,4 @@
-const BASE_URL = 'https://callcentersolutionsafrica.com';
+const BASE_URL = "https://callcentersolutionsafrica.com";
 
 /**
  * Organization Schema
@@ -6,43 +6,44 @@ const BASE_URL = 'https://callcentersolutionsafrica.com';
  */
 export const getOrganizationSchema = () => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Call Center Solutions Africa',
-    alternateName: 'CCSA',
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Call Center Solutions Africa",
+    alternateName: "CCSA",
     url: BASE_URL,
     logo: `${BASE_URL}/favicon.svg`,
-    description: 'Empowering businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less.',
+    description:
+      "Empowering businesses with tailored call center solutions. From cloud technology to advisory and equipment, we help you launch, scale, and thrive in 30 days or less.",
     address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'The Westwood Office, 6th Floor 6A, Comply Guide Advisory',
-      addressLocality: 'Westlands',
-      addressRegion: 'Nairobi',
-      addressCountry: 'KE',
-      postalCode: '00100'
+      "@type": "PostalAddress",
+      streetAddress: "The Westwood Office, 6th Floor 6A, Comply Guide Advisory",
+      addressLocality: "Westlands",
+      addressRegion: "Nairobi",
+      addressCountry: "KE",
+      postalCode: "00100",
     },
     contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+254-701-850-850',
-      contactType: 'Customer Service',
-      email: 'hello@callcentersolutionsafrica.com',
-      areaServed: 'Worldwide',
-      availableLanguage: ['English', 'French', 'Swahili', 'Arabic']
+      "@type": "ContactPoint",
+      telephone: "+254-701-850-850",
+      contactType: "Customer Service",
+      email: "hello@callcentersolutionsafrica.com",
+      areaServed: "Worldwide",
+      availableLanguage: ["English", "French", "Swahili", "Arabic"],
     },
     sameAs: [
-      'https://www.linkedin.com/company/call-center-solutions-africa/',
-      'https://x.com/Callcentersols',
-      'https://www.facebook.com/callcentersolutionsafrica'
+      "https://www.linkedin.com/company/call-center-solutions-africa/",
+      "https://x.com/Callcentersols",
+      "https://www.facebook.com/callcentersolutionsafrica",
     ],
-    foundingDate: '2020',
+    foundingDate: "2020",
     numberOfEmployees: {
-      '@type': 'QuantitativeValue',
-      value: '50-200'
+      "@type": "QuantitativeValue",
+      value: "50-200",
     },
     areaServed: {
-      '@type': 'Place',
-      name: 'Worldwide'
-    }
+      "@type": "Place",
+      name: "Worldwide",
+    },
   };
 };
 
@@ -52,27 +53,27 @@ export const getOrganizationSchema = () => {
  */
 export const getWebsiteSchema = () => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Call Center Solutions Africa',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Call Center Solutions Africa",
     url: BASE_URL,
-    description: 'Advanced BPO & Contact Center Services from Africa',
+    description: "Advanced BPO & Contact Center Services from Africa",
     publisher: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
       logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/favicon.svg`
-      }
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon.svg`,
+      },
     },
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${BASE_URL}/blog?search={search_term_string}`
+        "@type": "EntryPoint",
+        urlTemplate: `${BASE_URL}/blog?search={search_term_string}`,
       },
-      'query-input': 'required name=search_term_string'
-    }
+      "query-input": "required name=search_term_string",
+    },
   };
 };
 
@@ -96,7 +97,7 @@ export const getArticleSchema = ({
   title,
   description,
   image,
-  author = 'Call Center Solutions Africa',
+  author = "Call Center Solutions Africa",
   datePublished,
   dateModified,
   url,
@@ -104,29 +105,29 @@ export const getArticleSchema = ({
   wordCount,
 }: ArticleSchemaParams) => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
     headline: title,
     description: description,
     image: image ? [image] : [`${BASE_URL}/favicon.svg`],
     datePublished: datePublished,
     dateModified: dateModified || datePublished,
     author: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: author,
-      url: BASE_URL
+      url: BASE_URL,
     },
     publisher: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
       logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/favicon.svg`
-      }
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon.svg`,
+      },
     },
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url
+      "@type": "WebPage",
+      "@id": url,
     },
     url: url,
     ...(category ? { articleSection: category } : {}),
@@ -142,14 +143,14 @@ export const getBreadcrumbSchema = (items: { name: string; url: string }[]) => {
   if (!items || items.length === 0) return null;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url
-    }))
+      item: item.url,
+    })),
   };
 };
 
@@ -169,32 +170,32 @@ interface ServiceSchemaParams {
 export const getServiceSchema = ({
   name,
   description,
-  provider = 'Call Center Solutions Africa',
-  areaServed = 'Worldwide',
+  provider = "Call Center Solutions Africa",
+  areaServed = "Worldwide",
   serviceType,
   url,
 }: ServiceSchemaParams) => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
+    "@context": "https://schema.org",
+    "@type": "Service",
     name: name,
     description: description,
     provider: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: provider,
-      url: BASE_URL
+      url: BASE_URL,
     },
     areaServed: {
-      '@type': 'Place',
-      name: areaServed
+      "@type": "Place",
+      name: areaServed,
     },
     serviceType: serviceType,
     url: url,
     offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
-      priceCurrency: 'USD'
-    }
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "USD",
+    },
   };
 };
 
@@ -202,20 +203,22 @@ export const getServiceSchema = ({
  * FAQPage Schema
  * Used for pages with frequently asked questions
  */
-export const getFAQPageSchema = (faqs: { question: string; answer: string }[]) => {
+export const getFAQPageSchema = (
+  faqs: { question: string; answer: string }[],
+) => {
   if (!faqs || faqs.length === 0) return null;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
-      '@type': 'Question',
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer
-      }
-    }))
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
   };
 };
 
@@ -224,39 +227,33 @@ export const getFAQPageSchema = (faqs: { question: string; answer: string }[]) =
  */
 export const getLocalBusinessSchema = () => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': `${BASE_URL}#organization`,
-    name: 'Call Center Solutions Africa',
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${BASE_URL}#organization`,
+    name: "Call Center Solutions Africa",
     image: `${BASE_URL}/favicon.svg`,
     address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'The Westwood Office, 6th Floor 6A, Comply Guide Advisory',
-      addressLocality: 'Westlands',
-      addressRegion: 'Nairobi',
-      postalCode: '00100',
-      addressCountry: 'KE'
+      "@type": "PostalAddress",
+      streetAddress: "The Westwood Office, 6th Floor 6A, Comply Guide Advisory",
+      addressLocality: "Westlands",
+      addressRegion: "Nairobi",
+      postalCode: "00100",
+      addressCountry: "KE",
     },
     geo: {
-      '@type': 'GeoCoordinates',
+      "@type": "GeoCoordinates",
       latitude: -1.2644,
-      longitude: 36.8065
+      longitude: 36.8065,
     },
     url: BASE_URL,
-    telephone: '+254-701-850-850',
-    priceRange: '$$',
+    telephone: "+254-701-850-850",
+    priceRange: "$$",
     openingHoursSpecification: {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday'
-      ],
-      opens: '08:00',
-      closes: '18:00'
-    }
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "18:00",
+    },
   };
 };
 
@@ -264,24 +261,28 @@ export const getLocalBusinessSchema = () => {
  * CollectionPage Schema (for blog listing page)
  */
 export const getCollectionPageSchema = ({
-  name = 'Blog Articles',
-  description = 'Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips',
+  name = "Blog Articles",
+  description = "Expert articles on call center best practices, customer experience trends, BPO strategies, and business growth tips",
   url,
-}: { name?: string; description?: string; url: string }) => {
+}: {
+  name?: string;
+  description?: string;
+  url: string;
+}) => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
     name: name,
     description: description,
     url: url,
     publisher: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
       logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/favicon.svg`
-      }
-    }
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon.svg`,
+      },
+    },
   };
 };
 
@@ -294,20 +295,25 @@ export const getWebPageSchema = ({
   description,
   url,
   breadcrumb,
-}: { name: string; description: string; url: string; breadcrumb?: object }) => {
+}: {
+  name: string;
+  description: string;
+  url: string;
+  breadcrumb?: object;
+}) => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     name: name,
     description: description,
     url: url,
     publisher: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
       logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/favicon.svg`
-      }
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon.svg`,
+      },
     },
     ...(breadcrumb ? { breadcrumb } : {}),
   };
@@ -318,29 +324,33 @@ export const getWebPageSchema = ({
  * Used for About Us pages
  */
 export const getAboutPageSchema = ({
-  name = 'About Us',
+  name = "About Us",
   description,
   url,
-}: { name?: string; description: string; url: string }) => {
+}: {
+  name?: string;
+  description: string;
+  url: string;
+}) => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'AboutPage',
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
     name: name,
     description: description,
     url: url,
     publisher: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
       logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/favicon.svg`
-      }
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon.svg`,
+      },
     },
     mainEntity: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
-      url: BASE_URL
-    }
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
+      url: BASE_URL,
+    },
   };
 };
 
@@ -349,38 +359,43 @@ export const getAboutPageSchema = ({
  * Used for Contact Us pages
  */
 export const getContactPageSchema = ({
-  name = 'Contact Us',
+  name = "Contact Us",
   description,
   url,
-}: { name?: string; description: string; url: string }) => {
+}: {
+  name?: string;
+  description: string;
+  url: string;
+}) => {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'ContactPage',
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
     name: name,
     description: description,
     url: url,
     publisher: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
       logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/favicon.svg`
-      }
+        "@type": "ImageObject",
+        url: `${BASE_URL}/favicon.svg`,
+      },
     },
     mainEntity: {
-      '@type': 'Organization',
-      name: 'Call Center Solutions Africa',
-      email: 'hello@callcentersolutionsafrica.com',
-      telephone: '+254-701-850-850',
+      "@type": "Organization",
+      name: "Call Center Solutions Africa",
+      email: "hello@callcentersolutionsafrica.com",
+      telephone: "+254-701-850-850",
       address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'The Westwood Office, 6th Floor 6A, Comply Guide Advisory',
-        addressLocality: 'Westlands',
-        addressRegion: 'Nairobi',
-        addressCountry: 'KE',
-        postalCode: '00100'
-      }
-    }
+        "@type": "PostalAddress",
+        streetAddress:
+          "The Westwood Office, 6th Floor 6A, Comply Guide Advisory",
+        addressLocality: "Westlands",
+        addressRegion: "Nairobi",
+        addressCountry: "KE",
+        postalCode: "00100",
+      },
+    },
   };
 };
 
@@ -390,7 +405,7 @@ export const getContactPageSchema = ({
 export const schemaToJsonLd = (schema: object | null | undefined) => {
   if (!schema) return undefined;
   return {
-    __html: JSON.stringify(schema, null, 2)
+    __html: JSON.stringify(schema, null, 2),
   };
 };
 
@@ -400,4 +415,3 @@ export const schemaToJsonLd = (schema: object | null | undefined) => {
 export const generateSchemas = (schemas: (object | null)[]): object[] => {
   return schemas.filter((schema): schema is object => schema !== null);
 };
-

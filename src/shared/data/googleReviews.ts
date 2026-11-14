@@ -20,8 +20,9 @@ export const googleReviews: GoogleReview[] = [
     rating: 5,
     relative_time_description: "2 weeks ago",
     text: "We worked with Call Center Solutions Africa to support sales follow-up and client engagement, and the experience was smooth and professional. Their team understood our needs quickly and helped put clear, structured processes in place that improved responsiveness and conversion. A solid partner for organizations looking to outsource CX or sales support.",
-    profile_photo_url: 'https://lh3.googleusercontent.com/a-/ALV-UjWjn27yxhkneAdU_DY680Hp5XdDqdCTYVaQLYlLq1zOtzWhlbh9=w90-h90-p-rp-mo-br100',
-    author_url: 'https://share.google/m5hGRzseLuhDfRRzi'
+    profile_photo_url:
+      "https://lh3.googleusercontent.com/a-/ALV-UjWjn27yxhkneAdU_DY680Hp5XdDqdCTYVaQLYlLq1zOtzWhlbh9=w90-h90-p-rp-mo-br100",
+    author_url: "https://share.google/m5hGRzseLuhDfRRzi",
   },
   {
     author_name: "Polo Hosea",
@@ -29,7 +30,7 @@ export const googleReviews: GoogleReview[] = [
     relative_time_description: "1 month ago",
     text: "I worked with CCSA to help structure my sales follow-up for clients and the results were clear. Professional team with a good understanding of CX and sales.",
     profile_photo_url: null,
-    author_url: 'https://share.google/zmGJxtwlokuZapNzI'
+    author_url: "https://share.google/zmGJxtwlokuZapNzI",
   },
   {
     author_name: "Agnes Chege",
@@ -69,6 +70,6 @@ export const placeInfo: PlaceInfo = {
   name: "Call Center Solutions Africa (CCSA)",
   rating: 4.8,
   totalRatings: 12,
-  googleMapsUrl: "https://www.google.com/maps/place/Call+Center+Solutions+Africa(CCSA)/@-1.2684879,36.8067282,838m/data=!3m2!1e3!4b1!4m6!3m5!1s0x182f1700f7f93d7b:0x37868b4c5028539!8m2!3d-1.2684933!4d36.8093031!16s%2Fg%2F11mkzfyy8j?entry=ttu&g_ep=EgoyMDI2MDExOS4wIKXMDSoASAFQAw%3D%3D", 
+  googleMapsUrl:
+    "https://www.google.com/maps/place/Call+Center+Solutions+Africa(CCSA)/@-1.2684879,36.8067282,838m/data=!3m2!1e3!4b1!4m6!3m5!1s0x182f1700f7f93d7b:0x37868b4c5028539!8m2!3d-1.2684933!4d36.8093031!16s%2Fg%2F11mkzfyy8j?entry=ttu&g_ep=EgoyMDI2MDExOS4wIKXMDSoASAFQAw%3D%3D",
 };
-

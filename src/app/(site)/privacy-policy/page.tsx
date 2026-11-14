@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Privacy Policy | Data Protection & GDPR Compliance | Call Center Solutions Africa",
-  description: "Learn how we protect your data with ISO 27001 & GDPR compliance.",
+  title:
+    "Privacy Policy | Data Protection & GDPR Compliance | Call Center Solutions Africa",
+  description:
+    "Learn how we protect your data with ISO 27001 & GDPR compliance.",
 };
 
 import Link from "next/link";
@@ -305,4 +307,3 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
-

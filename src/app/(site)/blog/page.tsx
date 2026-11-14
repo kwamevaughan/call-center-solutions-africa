@@ -7,8 +7,10 @@ import type { FormattedPost, SanityCategory } from "@sanity/lib/types";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog | BPO Insights & Customer Experience Strategies | Call Center Solutions Africa",
-  description: "Explore CCSA's blog for expert insights on BPO, customer experience, contact center operations and outsourcing strategies from Africa.",
+  title:
+    "Blog | BPO Insights & Customer Experience Strategies | Call Center Solutions Africa",
+  description:
+    "Explore CCSA's blog for expert insights on BPO, customer experience, contact center operations and outsourcing strategies from Africa.",
 };
 
 export default async function BlogPage() {

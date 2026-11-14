@@ -11,15 +11,18 @@ const IndustriesTab = () => {
       id: "healthcare",
       label: "Healthcare",
       icon: "mdi:medical-bag",
-      image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/health-care.webp",
+      image:
+        "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/health-care.webp",
       title: "Healthcare",
-      description: "Patient engagement for providers, payers, and telehealth platforms.",
+      description:
+        "Patient engagement for providers, payers, and telehealth platforms.",
       tags: [
         "HIPAA and GDPR",
         "Appointments and benefits verification",
         "Secure communications and accessibility",
       ],
-      secondDescription: "Reduced patient wait times by 38% and improved satisfaction from 82% to 93% for a US telehealth client (2024).",
+      secondDescription:
+        "Reduced patient wait times by 38% and improved satisfaction from 82% to 93% for a US telehealth client (2024).",
     },
     {
       id: "fintech",
@@ -27,13 +30,15 @@ const IndustriesTab = () => {
       icon: "mdi:credit-card-multiple",
       image: "https://ik.imagekit.io/nkmvdjnna/CCSA/industries/fintech.webp",
       title: "Fintech",
-      description: "Multilingual, compliant CX for fintech and digital payments.",
+      description:
+        "Multilingual, compliant CX for fintech and digital payments.",
       tags: [
         "Fraud and chargebacks",
         "KYC and KYB support",
         "3DS and OTP help",
       ],
-      secondDescription: "Achieved 95% SLA compliance and 40% reduction in chargeback disputes for a European payments firm (2025).",
+      secondDescription:
+        "Achieved 95% SLA compliance and 40% reduction in chargeback disputes for a European payments firm (2025).",
     },
     {
       id: "saas",
@@ -47,7 +52,8 @@ const IndustriesTab = () => {
         "In-app chat and knowledge base",
         "Onboarding and save-a-sale",
       ],
-      secondDescription: "20% faster onboarding and 30% reduction in ticket volume via AI-assisted support.",
+      secondDescription:
+        "20% faster onboarding and 30% reduction in ticket volume via AI-assisted support.",
     },
     {
       id: "insurance",
@@ -61,7 +67,8 @@ const IndustriesTab = () => {
         "Policy changes and renewals",
         "Claims status and fraud escalation",
       ],
-      secondDescription: "25% faster claim turnaround and CSAT at 91% across multiple insurance lines.",
+      secondDescription:
+        "25% faster claim turnaround and CSAT at 91% across multiple insurance lines.",
     },
     {
       id: "travel",
@@ -75,7 +82,8 @@ const IndustriesTab = () => {
         "IRROPS and notifications",
         "Social monitoring and escalation",
       ],
-      secondDescription: "50% reduction in complaint escalation and 92% positive feedback during disruptions (2023-2024).",
+      secondDescription:
+        "50% reduction in complaint escalation and 92% positive feedback during disruptions (2023-2024).",
     },
     {
       id: "telecoms",
@@ -89,11 +97,14 @@ const IndustriesTab = () => {
         "Outage communications and device support",
         "Billing, plan upgrades, retention",
       ],
-      secondDescription: "Improved resolution rates by 35% and reduced churn for MNO clients across Africa and the Middle East; aligned to ITIL and TM Forum, integrated with CRM and OSS/BSS.",
-    }
+      secondDescription:
+        "Improved resolution rates by 35% and reduced churn for MNO clients across Africa and the Middle East; aligned to ITIL and TM Forum, integrated with CRM and OSS/BSS.",
+    },
   ];
 
-  const activeIndustry = industries.find(industry => industry.id === activeTab);
+  const activeIndustry = industries.find(
+    (industry) => industry.id === activeTab,
+  );
 
   return (
     <div className="mt-8 sm:mt-12">
@@ -127,15 +138,15 @@ const IndustriesTab = () => {
                 fill
                 className="object-cover p-10 rounded-l"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-        </div>
+              />
+            </div>
 
             {/* Right Side: Content */}
             <div className="flex flex-col gap-4 sm:gap-6 p-6 sm:p-8 md:p-10 bg-white">
               <h3 className="text-2xl sm:text-3xl font-bold text-ccsa-dark-blue">
                 {activeIndustry.title}
               </h3>
-              
+
               <p className="text-sm sm:text-base text-ccsa-dark-blue/80 leading-relaxed">
                 {activeIndustry.description}
               </p>
@@ -150,7 +161,7 @@ const IndustriesTab = () => {
                     {tag}
                   </span>
                 ))}
-      </div>
+              </div>
 
               <p className="text-sm sm:text-base text-ccsa-dark-blue/80 leading-relaxed">
                 {activeIndustry.secondDescription}
@@ -160,14 +171,14 @@ const IndustriesTab = () => {
                 href="/contact-us"
                 className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm w-fit mt-2"
                 style={{
-                  background: "var(--ccsa-gradient)"
+                  background: "var(--ccsa-gradient)",
                 }}
               >
                 <Icon icon="mdi:phone" width={18} height={18} />
                 Partner With Us
               </Link>
-        </div>
-      </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

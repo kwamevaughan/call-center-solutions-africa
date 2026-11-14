@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Data Processing Addendum | Call Center Solutions Africa",
-  description: "Read the Data Processing Addendum for Call Center Solutions Africa.",
+  description:
+    "Read the Data Processing Addendum for Call Center Solutions Africa.",
 };
 
 import Link from "next/link";
@@ -27,17 +28,17 @@ const DataProcessingAddendum = () => {
                 1. Introduction
               </h2>
               <p>
-                This Data Processing Addendum ("DPA") forms part of the Terms
-                of Service or other agreement between Call Center Solutions
-                Africa ("we," "us," "our," or "Processor") and you ("you,"
-                "your," or "Controller") governing the processing of personal
-                data in connection with our services.
+                This Data Processing Addendum ("DPA") forms part of the Terms of
+                Service or other agreement between Call Center Solutions Africa
+                ("we," "us," "our," or "Processor") and you ("you," "your," or
+                "Controller") governing the processing of personal data in
+                connection with our services.
               </p>
               <p className="mt-2">
                 This DPA sets out the terms and conditions under which we will
                 process personal data on your behalf in compliance with
-                applicable data protection laws, including but not limited to the
-                General Data Protection Regulation (GDPR), the Kenya Data
+                applicable data protection laws, including but not limited to
+                the General Data Protection Regulation (GDPR), the Kenya Data
                 Protection Act, and other applicable data protection
                 legislation.
               </p>
@@ -90,10 +91,16 @@ const DataProcessingAddendum = () => {
                 personal data we may process include:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
-                <li>Customer contact information (names, email addresses, phone numbers)</li>
+                <li>
+                  Customer contact information (names, email addresses, phone
+                  numbers)
+                </li>
                 <li>Customer service interaction records</li>
                 <li>Account and billing information</li>
-                <li>Any other personal data you provide to us in connection with our services</li>
+                <li>
+                  Any other personal data you provide to us in connection with
+                  our services
+                </li>
               </ul>
               <p className="mt-2">
                 We will not process personal data for any purpose other than
@@ -118,18 +125,18 @@ const DataProcessingAddendum = () => {
                   subject to appropriate confidentiality obligations
                 </li>
                 <li>
-                  Implement and maintain appropriate technical and organizational
-                  measures to protect personal data against unauthorized or
-                  unlawful processing and against accidental loss, destruction,
-                  or damage
+                  Implement and maintain appropriate technical and
+                  organizational measures to protect personal data against
+                  unauthorized or unlawful processing and against accidental
+                  loss, destruction, or damage
                 </li>
                 <li>
                   Assist you in responding to requests from data subjects to
                   exercise their rights under applicable data protection laws
                 </li>
                 <li>
-                  Notify you without undue delay if we become aware of a personal
-                  data breach
+                  Notify you without undue delay if we become aware of a
+                  personal data breach
                 </li>
                 <li>
                   Assist you in ensuring compliance with your obligations under
@@ -148,8 +155,9 @@ const DataProcessingAddendum = () => {
                 5. Security Measures
               </h2>
               <p>
-                We implement appropriate technical and organizational measures to
-                ensure a level of security appropriate to the risk, including:
+                We implement appropriate technical and organizational measures
+                to ensure a level of security appropriate to the risk,
+                including:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Encryption of personal data in transit and at rest</li>
@@ -168,8 +176,8 @@ const DataProcessingAddendum = () => {
                 6. Sub-Processors
               </h2>
               <p>
-                We may engage sub-processors to assist in providing our services.
-                We will:
+                We may engage sub-processors to assist in providing our
+                services. We will:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
@@ -211,8 +219,9 @@ const DataProcessingAddendum = () => {
                 <li>Right to object to processing</li>
               </ul>
               <p className="mt-2">
-                We will provide reasonable assistance to enable you to respond to
-                such requests within the timeframes required by applicable law.
+                We will provide reasonable assistance to enable you to respond
+                to such requests within the timeframes required by applicable
+                law.
               </p>
             </div>
 
@@ -221,9 +230,7 @@ const DataProcessingAddendum = () => {
               <h2 className="text-2xl font-medium text-[#172840] mb-4">
                 8. Data Breach Notification
               </h2>
-              <p>
-                In the event of a personal data breach, we will:
-              </p>
+              <p>In the event of a personal data breach, we will:</p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
                   Notify you without undue delay after becoming aware of the
@@ -255,7 +262,9 @@ const DataProcessingAddendum = () => {
                 ensure that appropriate safeguards are in place, such as:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
-                <li>Standard contractual clauses approved by relevant authorities</li>
+                <li>
+                  Standard contractual clauses approved by relevant authorities
+                </li>
                 <li>Adequacy decisions by relevant authorities</li>
                 <li>Other legally recognized transfer mechanisms</li>
               </ul>
@@ -271,8 +280,8 @@ const DataProcessingAddendum = () => {
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>
-                  Return all personal data to you in a structured, commonly used,
-                  and machine-readable format, or
+                  Return all personal data to you in a structured, commonly
+                  used, and machine-readable format, or
                 </li>
                 <li>
                   Delete all personal data, unless we are required by applicable
@@ -323,7 +332,8 @@ const DataProcessingAddendum = () => {
                 </a>
               </p>
               <p className="mt-2">
-                Address: The Westwood Office, 6th Floor 6A, Comply Guide Advisory, Westlands, Nairobi, Kenya
+                Address: The Westwood Office, 6th Floor 6A, Comply Guide
+                Advisory, Westlands, Nairobi, Kenya
               </p>
             </div>
           </section>
@@ -341,5 +351,3 @@ const DataProcessingAddendum = () => {
 };
 
 export default DataProcessingAddendum;
-
-

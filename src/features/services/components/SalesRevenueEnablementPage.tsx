@@ -16,8 +16,7 @@ const REVENUE_CONVERSION_SERVICES = [
       "Paid advertising teams, healthcare providers, insurance firms, real estate companies, education providers, SaaS companies, ecommerce brands and service businesses.",
     handles:
       "Lead response, needs discovery, qualification, appointment booking, warm transfers, missed-call recovery, quote follow-up, lead scoring, and CRM updates.",
-    kpis:
-      "Time to first response, contact rate, qualification rate, booked appointments, show rate, conversion rate, cost per qualified lead, and lead-to-sale conversion.",
+    kpis: "Time to first response, contact rate, qualification rate, booked appointments, show rate, conversion rate, cost per qualified lead, and lead-to-sale conversion.",
   },
   {
     id: "02",
@@ -28,8 +27,7 @@ const REVENUE_CONVERSION_SERVICES = [
       "B2B SaaS, fintech, professional services, logistics, telecoms, healthcare, insurance, technology providers and African market-entry campaigns.",
     handles:
       "ICP mapping, prospect list validation, cold calling, email follow-up, LinkedIn outreach, WhatsApp outreach where appropriate, qualification, meeting booking and CRM handoff.",
-    kpis:
-      "Calls made, conversations held, decision-maker contact rate, qualified meetings booked, meeting attendance rate, pipeline generated and cost per meeting.",
+    kpis: "Calls made, conversations held, decision-maker contact rate, qualified meetings booked, meeting attendance rate, pipeline generated and cost per meeting.",
   },
   {
     id: "03",
@@ -40,8 +38,7 @@ const REVENUE_CONVERSION_SERVICES = [
       "Insurance products, telecom packages, subscriptions, education enrolments, healthcare plans, financial services, travel packages, ecommerce offers and renewals.",
     handles:
       "Sales calls, objection handling, order completion, payment link guidance, quote conversion, call-back scheduling, abandoned application recovery and campaign reporting.",
-    kpis:
-      "Conversion rate, revenue per agent, sales per day, average order value, cost per sale, call quality score and refund or cancellation rate.",
+    kpis: "Conversion rate, revenue per agent, sales per day, average order value, cost per sale, call quality score and refund or cancellation rate.",
   },
   {
     id: "04",
@@ -52,10 +49,8 @@ const REVENUE_CONVERSION_SERVICES = [
       "Longer buying cycles, considered purchases, high-ticket services, event leads, webinar leads, dormant CRM leads and incomplete applications.",
     handles:
       "Follow-up sequences, nurture calls, WhatsApp reminders, content follow-up, quote chasing, appointment reminders, re-engagement campaigns and pipeline hygiene.",
-    note:
-      "HubSpot's 2025 State of Sales analysis shows why this matters: social outreach now outranks email for response rates, and sales teams relying only on email may be missing where buyers are active.",
-    kpis:
-      "Follow-up completion rate, reactivation rate, appointment show rate, pipeline progression, quote-to-close rate and dormant lead recovery.",
+    note: "HubSpot's 2025 State of Sales analysis shows why this matters: social outreach now outranks email for response rates, and sales teams relying only on email may be missing where buyers are active.",
+    kpis: "Follow-up completion rate, reactivation rate, appointment show rate, pipeline progression, quote-to-close rate and dormant lead recovery.",
   },
   {
     id: "05",
@@ -66,8 +61,7 @@ const REVENUE_CONVERSION_SERVICES = [
       "Subscription businesses, SaaS, insurance, telecoms, healthcare, education, membership businesses, travel and financial services.",
     handles:
       "Renewal reminders, expired customer outreach, dormant account reactivation, upsell campaigns, cross-sell campaigns, loyalty calls and cancellation-save conversations.",
-    kpis:
-      "Renewal rate, reactivation rate, upsell conversion, churn reduction, recovered revenue and customer lifetime value improvement.",
+    kpis: "Renewal rate, reactivation rate, upsell conversion, churn reduction, recovered revenue and customer lifetime value improvement.",
   },
   {
     id: "06",
@@ -106,7 +100,7 @@ const SalesRevenueEnablementPage = () => {
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     Object.values(sectionRefs).forEach((ref) => {
@@ -126,20 +120,21 @@ const SalesRevenueEnablementPage = () => {
 
   // Generate SEO schemas
   const seoSchemas = useMemo(() => {
-    const baseUrl = 'https://callcentersolutionsafrica.com';
+    const baseUrl = "https://callcentersolutionsafrica.com";
     const serviceUrl = `${baseUrl}/services/sales-revenue-enablement`;
-    
+
     const serviceSchema = getServiceSchema({
-      name: 'Sales & Revenue Enablement',
-      description: 'Lead generation, qualification, upselling, renewals — increasing efficiency and reducing CPA.',
-      serviceType: 'Sales Enablement',
-      url: serviceUrl
+      name: "Sales & Revenue Enablement",
+      description:
+        "Lead generation, qualification, upselling, renewals — increasing efficiency and reducing CPA.",
+      serviceType: "Sales Enablement",
+      url: serviceUrl,
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
-      { name: 'Home', url: baseUrl },
-      { name: 'Services', url: `${baseUrl}/services` },
-      { name: 'Sales & Revenue Enablement', url: serviceUrl }
+      { name: "Home", url: baseUrl },
+      { name: "Services", url: `${baseUrl}/services` },
+      { name: "Sales & Revenue Enablement", url: serviceUrl },
     ]);
 
     return [serviceSchema, breadcrumbSchema];
@@ -147,7 +142,6 @@ const SalesRevenueEnablementPage = () => {
 
   return (
     <>
-
       <main className="relative overflow-x-hidden">
         <div
           className="relative bg-ccsa-dark-blue px-4 min-h-screen flex items-center overflow-hidden"
@@ -155,62 +149,69 @@ const SalesRevenueEnablementPage = () => {
           ref={sectionRefs.home}
         >
           {/* Radial Ellipse at Bottom Left - Orange */}
-          <div 
+          <div
             className="absolute left-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, 30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, 30%)",
             }}
           />
           {/* Radial Ellipse at Top Right - Yellow */}
-          <div 
+          <div
             className="absolute right-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(30%, -30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Middle - Blue */}
-          <div 
+          <div
             className="absolute left-1/2 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)',
-              transform: 'translate(-50%, -50%)'
+              background:
+                "radial-gradient(circle, #0088D2 0%, #0088D2 35%, transparent 100%)",
+              transform: "translate(-50%, -50%)",
             }}
           />
           <div className="max-w-7xl mx-auto w-full relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Side: Title, Description, and CTA Buttons */}
               <div className="flex flex-col gap-5 sm:gap-6 text-white">
-              <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">Solution</p>
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-              Sales & Revenue Enablement
-              </h1>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
-              Inbound upsell and outbound SDR motions with precise targeting, clean CRM handoffs, and transparent dashboards to close more deals.
-              </p>
-                
+                <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                  <div className="w-4 h-4 bg-ccsa-yellow rounded-full flex-shrink-0" />
+                  <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                    Solution
+                  </p>
+                </div>
+                <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+                  Sales & Revenue Enablement
+                </h1>
+                <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90">
+                  Inbound upsell and outbound SDR motions with precise
+                  targeting, clean CRM handoffs, and transparent dashboards to
+                  close more deals.
+                </p>
+
                 <div className="flex flex-col sm:flex-row gap-3">
-                    <Link
-                      href="/contact-us"
-                  className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
-                  style={{
-                    background: "var(--ccsa-gradient)"
-                  }}
-                >
-                  <Icon icon="mdi:lightning-bolt" width={18} height={18} />
-                  Start a pilot
-                </Link>
-                <button
-                  onClick={() => window.location.href = "/about-us"}
-                  className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
-                >
-                  Get Pricing
-                    </button>
-                  </div>                
+                  <Link
+                    href="/contact-us"
+                    className="text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:opacity-90 flex items-center justify-center gap-2 text-sm"
+                    style={{
+                      background: "var(--ccsa-gradient)",
+                    }}
+                  >
+                    <Icon icon="mdi:lightning-bolt" width={18} height={18} />
+                    Start a pilot
+                  </Link>
+                  <button
+                    onClick={() => (window.location.href = "/about-us")}
+                    className="bg-transparent border-2 border-white text-white px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-white hover:text-ccsa-dark-blue text-sm"
+                  >
+                    Get Pricing
+                  </button>
+                </div>
               </div>
 
               {/* Right Side: Hero Image */}
@@ -227,20 +228,25 @@ const SalesRevenueEnablementPage = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Certification Badges */}
             <div className="hidden md:flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-20">
               {[
                 "Predictable pipeline",
                 "10‑day pilot",
                 "EMEA coverage",
-                "GDPR‑aligned"
+                "GDPR‑aligned",
               ].map((badge) => (
                 <div
                   key={badge}
                   className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm sm:text-base"
                 >
-                  <Icon icon="mdi:check" width={20} height={20} className="text-white flex-shrink-0" />
+                  <Icon
+                    icon="mdi:check"
+                    width={20}
+                    height={20}
+                    className="text-white flex-shrink-0"
+                  />
                   <span>{badge}</span>
                 </div>
               ))}
@@ -249,47 +255,65 @@ const SalesRevenueEnablementPage = () => {
         </div>
 
         {/* Value */}
-        <div id="about-us" ref={sectionRefs["about-us"]} className="bg-ccsa-dark-blue relative overflow-hidden">
+        <div
+          id="about-us"
+          ref={sectionRefs["about-us"]}
+          className="bg-ccsa-dark-blue relative overflow-hidden"
+        >
           {/* Radial Ellipse at Top Left */}
-          <div 
+          <div
             className="absolute left-0 top-0 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)',
-              transform: 'translate(-30%, -30%)'
+              background:
+                "radial-gradient(circle, #F45B00 0%, #F45B00 35%, transparent 100%)",
+              transform: "translate(-30%, -30%)",
             }}
           />
           {/* Radial Ellipse at Left Middle - Yellow */}
-          <div 
+          <div
             className="absolute left-0 top-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(-30%, -50%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(-30%, -50%)",
             }}
           />
           <section className="w-full px-4 relative z-10">
             <div className="relative z-10 mx-auto max-w-7xl py-12 sm:py-20">
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-4 h-4 bg-ccsa-orange rounded-full flex-shrink-0" />
-                <p className="text-lg sm:text-xl font-semibold text-white uppercase">VALUE</p>
+                <p className="text-lg sm:text-xl font-semibold text-white uppercase">
+                  VALUE
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">Why teams pick this solution</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-center text-white mb-8 sm:mb-12">
+                Why teams pick this solution
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Predictable pipeline</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Predictable pipeline
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  More SQLs and demos with higher show- and win-rates.
+                    More SQLs and demos with higher show- and win-rates.
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Lower CAC</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Lower CAC
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  ICP-aligned outreach, objection handling, and clean handoffs reduce acquisition cost.
+                    ICP-aligned outreach, objection handling, and clean handoffs
+                    reduce acquisition cost.
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 transform transition-transform duration-300 hover:translate-y-[-5px]">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">Expand & retain</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">
+                    Expand & retain
+                  </h3>
                   <p className="text-sm sm:text-base leading-relaxed text-white/90">
-                  Upsell, cross-sell, renewals, and win-back motions tied to CS.
+                    Upsell, cross-sell, renewals, and win-back motions tied to
+                    CS.
                   </p>
                 </div>
               </div>
@@ -304,17 +328,23 @@ const SalesRevenueEnablementPage = () => {
                 </p>
               </div>
               <p className="text-center text-sm sm:text-base md:text-lg leading-relaxed text-white/90 max-w-5xl mx-auto mb-8 sm:mb-12">
-                A managed sales contact center solution for companies that need trained sales agents,
-                structured outreach, fast follow-up, and measurable revenue outcomes across voice,
-                WhatsApp, email, chat, and social channels.
+                A managed sales contact center solution for companies that need
+                trained sales agents, structured outreach, fast follow-up, and
+                measurable revenue outcomes across voice, WhatsApp, email, chat,
+                and social channels.
               </p>
               <div className="mb-8 sm:mb-10 bg-white/5 border border-white/20 rounded-xl p-5 sm:p-6">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-5 text-sm sm:text-base">
-                  <div className="md:col-span-2 text-white/80">Managed model</div>
-                  <div className="md:col-span-3 text-white leading-relaxed">
-                    Trained sales agents, structured outreach, fast follow-up, and performance reporting.
+                  <div className="md:col-span-2 text-white/80">
+                    Managed model
                   </div>
-                  <div className="md:col-span-2 text-white/80">Core channels</div>
+                  <div className="md:col-span-3 text-white leading-relaxed">
+                    Trained sales agents, structured outreach, fast follow-up,
+                    and performance reporting.
+                  </div>
+                  <div className="md:col-span-2 text-white/80">
+                    Core channels
+                  </div>
                   <div className="md:col-span-3 text-white leading-relaxed">
                     Voice, WhatsApp, email, chat, and social.
                   </div>
@@ -338,15 +368,21 @@ const SalesRevenueEnablementPage = () => {
 
                     <div className="space-y-4 text-white/90 text-sm sm:text-base leading-relaxed">
                       <p>
-                        <span className="font-semibold text-white">What it is:</span>{" "}
+                        <span className="font-semibold text-white">
+                          What it is:
+                        </span>{" "}
                         {service.whatItIs}
                       </p>
                       <p>
-                        <span className="font-semibold text-white">Best for:</span>{" "}
+                        <span className="font-semibold text-white">
+                          Best for:
+                        </span>{" "}
                         {service.bestFor}
                       </p>
                       <p>
-                        <span className="font-semibold text-white">What CCSA handles:</span>{" "}
+                        <span className="font-semibold text-white">
+                          What CCSA handles:
+                        </span>{" "}
                         {service.handles}
                       </p>
                       {service.note && (
@@ -372,11 +408,12 @@ const SalesRevenueEnablementPage = () => {
             </div>
           </section>
           {/* Radial Ellipse at Bottom Right */}
-          <div 
+          <div
             className="absolute right-0 bottom-0 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)',
-              transform: 'translate(30%, 30%)'
+              background:
+                "radial-gradient(circle, #FFD100 0%, #FFD100 35%, transparent 100%)",
+              transform: "translate(30%, 30%)",
             }}
           />
         </div>
@@ -393,14 +430,14 @@ const SalesRevenueEnablementPage = () => {
                   Next
                 </span>
                 <span className="text-base sm:text-lg font-semibold">
-                    Customer Retention & Loyalty
+                  Customer Retention & Loyalty
                 </span>
               </div>
-              <Icon 
-                icon="mdi:arrow-right" 
-                width={24} 
-                height={24} 
-                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1" 
+              <Icon
+                icon="mdi:arrow-right"
+                width={24}
+                height={24}
+                className="transform group-hover:translate-x-1 transition-transform duration-300 mb-1"
               />
             </Link>
           </div>

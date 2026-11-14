@@ -23,7 +23,17 @@ const sectionIcon = {
   impact: "mdi:chart-areaspline",
 };
 
-function SectionBlock({ icon, title, children, className = "" }: { icon: string; title: string; children: React.ReactNode; className?: string }) {
+function SectionBlock({
+  icon,
+  title,
+  children,
+  className = "",
+}: {
+  icon: string;
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <div className={`scroll-mt-28 ${className}`}>
       <div className="flex items-start gap-4">
@@ -50,7 +60,12 @@ interface CaseStudyPageProps {
   index: number;
 }
 
-export default function CaseStudyPage({ study, prev, next, index }: CaseStudyPageProps) {
+export default function CaseStudyPage({
+  study,
+  prev,
+  next,
+  index,
+}: CaseStudyPageProps) {
   const region = getCaseStudyRegion(study.id);
   const pageUrl = `${BASE_URL}/case-studies/${study.id}`;
   const metaDescription = getCaseStudyMetaDescription(study);
@@ -100,17 +115,28 @@ export default function CaseStudyPage({ study, prev, next, index }: CaseStudyPag
                   aria-label="Breadcrumb"
                   className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white/70"
                 >
-                  <Link href="/" className="font-medium transition hover:text-white">
+                  <Link
+                    href="/"
+                    className="font-medium transition hover:text-white"
+                  >
                     Home
                   </Link>
-                  <Icon icon="mdi:chevron-right" width={16} className="text-white/35" />
+                  <Icon
+                    icon="mdi:chevron-right"
+                    width={16}
+                    className="text-white/35"
+                  />
                   <Link
                     href="/case-studies"
                     className="font-medium transition hover:text-white"
                   >
                     Case studies
                   </Link>
-                  <Icon icon="mdi:chevron-right" width={16} className="text-white/35" />
+                  <Icon
+                    icon="mdi:chevron-right"
+                    width={16}
+                    className="text-white/35"
+                  />
                   <span className="font-medium text-white line-clamp-2 max-w-[min(100%,32rem)] sm:line-clamp-1">
                     {study.headline}
                   </span>
@@ -125,7 +151,11 @@ export default function CaseStudyPage({ study, prev, next, index }: CaseStudyPag
                 </span>
                 {region ? (
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/95 backdrop-blur-sm">
-                    <Icon icon="mdi:map-marker-outline" width={14} height={14} />
+                    <Icon
+                      icon="mdi:map-marker-outline"
+                      width={14}
+                      height={14}
+                    />
                     {region}
                   </span>
                 ) : null}
@@ -144,16 +174,10 @@ export default function CaseStudyPage({ study, prev, next, index }: CaseStudyPag
         <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-14">
             <div className="lg:col-span-7 space-y-10 sm:space-y-12">
-              <SectionBlock
-                icon={sectionIcon.profile}
-                title="Client Profile"
-              >
+              <SectionBlock icon={sectionIcon.profile} title="Client Profile">
                 <p>{study.clientProfile}</p>
               </SectionBlock>
-              <SectionBlock
-                icon={sectionIcon.challenge}
-                title="The Challenge"
-              >
+              <SectionBlock icon={sectionIcon.challenge} title="The Challenge">
                 <p>{study.challenge}</p>
               </SectionBlock>
               <SectionBlock
@@ -194,7 +218,12 @@ export default function CaseStudyPage({ study, prev, next, index }: CaseStudyPag
 
                 <div className="rounded-2xl border-l-4 border-[#ED761E] bg-gradient-to-br from-slate-50 to-white px-5 py-5 shadow-sm ring-1 ring-slate-200/80">
                   <div className="flex items-center gap-2 text-[#172840]">
-                    <Icon icon={sectionIcon.impact} width={20} height={20} className="text-[#ED761E]" />
+                    <Icon
+                      icon={sectionIcon.impact}
+                      width={20}
+                      height={20}
+                      className="text-[#ED761E]"
+                    />
                     <h2 className="text-sm font-semibold uppercase tracking-wide">
                       Impact
                     </h2>

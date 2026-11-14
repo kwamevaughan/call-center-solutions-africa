@@ -9,7 +9,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { name, email, company, phone, howCanWeHelp, goals, privacyAgreement, recaptchaToken } = body as Record<string, string>;
+  const {
+    name,
+    email,
+    company,
+    phone,
+    howCanWeHelp,
+    goals,
+    privacyAgreement,
+    recaptchaToken,
+  } = body as Record<string, string>;
 
   // Verify reCAPTCHA
   try {
@@ -23,10 +32,16 @@ export async function POST(request: Request) {
     });
     const data = await res.json();
     if (!data.success) {
-      return NextResponse.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
+      return NextResponse.json(
+        { error: "reCAPTCHA verification failed" },
+        { status: 400 },
+      );
     }
   } catch {
-    return NextResponse.json({ error: "reCAPTCHA verification error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "reCAPTCHA verification error" },
+      { status: 500 },
+    );
   }
 
   const transporter = nodemailer.createTransport({
@@ -57,7 +72,9 @@ export async function POST(request: Request) {
   try {
     await transporter.sendMail({
       from: process.env.SMTP_EMAIL,
-      to: [process.env.SMTP_EMAIL, process.env.SECONDARY_EMAIL].filter(Boolean) as string[],
+      to: [process.env.SMTP_EMAIL, process.env.SECONDARY_EMAIL].filter(
+        Boolean,
+      ) as string[],
       replyTo: email,
       subject: `New Contact Form Submission from ${name} (${company})`,
       text: `Name: ${name}\nEmail: ${email}\nCompany: ${company}\nPhone: ${phone || "Not provided"}\nHow can we help: ${howCanWeHelp || "Not provided"}\nGoals: ${goals || "Not provided"}`,
@@ -66,6 +83,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Email sent successfully" });
   } catch (err) {
     console.error("Email error:", err);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to send email" },
+      { status: 500 },
+    );
   }
 }

@@ -3,7 +3,8 @@ import ClientPage from "@/features/services/components/OmnichannelContactCenterO
 
 export const metadata: Metadata = {
   title: "Omnichannel Contact Center Operations | Call Center Solutions Africa",
-  description: "Unified routing, knowledge, and analytics across all channels from Africa.",
+  description:
+    "Unified routing, knowledge, and analytics across all channels from Africa.",
 };
 
 export default function Page(props: any) {
