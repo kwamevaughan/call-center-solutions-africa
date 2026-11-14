@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { blogService } from "@/shared/lib/blogService";
 import BlogIndexClient from "@/features/blog/components/BlogPage";
@@ -31,11 +31,13 @@ export default async function BlogPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Client = BlogIndexClient as React.ComponentType<any>;
   return (
-    <Client
-      initialBlogs={initialBlogs}
-      initialTotalCount={initialTotalCount}
-      initialHasMore={initialHasMore}
-      initialCategories={initialCategories}
-    />
+    <Suspense fallback={null}>
+      <Client
+        initialBlogs={initialBlogs}
+        initialTotalCount={initialTotalCount}
+        initialHasMore={initialHasMore}
+        initialCategories={initialCategories}
+      />
+    </Suspense>
   );
 }

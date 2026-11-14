@@ -2,6 +2,7 @@
 const withPWA = require("next-pwa")({
   dest: "public",
   disable: process.env.NODE_ENV === "development", // Disable in development to avoid caching issues
+  maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
 });
 
 const initializeBundleAnalyzer = require("@next/bundle-analyzer");
@@ -72,23 +73,6 @@ const baseConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
-  },
-
-  // Webpack optimization
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      };
-    }
-    return config;
   },
 };
 

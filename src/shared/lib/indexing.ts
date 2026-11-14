@@ -1,7 +1,10 @@
 import { google } from "googleapis";
 
-const authClient = new google.auth.GoogleAuth({
-  credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS || "{}"),
+const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS || "{}");
+const authClient = new google.auth.JWT({
+  email: credentials.client_email,
+  key: credentials.private_key,
+  keyId: credentials.private_key_id,
   scopes: ["https://www.googleapis.com/auth/indexing"],
 });
 const indexing = google.indexing({ version: "v3", auth: authClient });

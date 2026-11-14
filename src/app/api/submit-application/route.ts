@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import nodemailer, { type SendMailOptions } from "nodemailer";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     <p style="margin-top:30px;font-size:0.9em;color:#888;">This message was generated from the careers application form.</p>
   </div>`;
 
-  const mailOptions: nodemailer.SendMailOptions = {
+  const mailOptions: SendMailOptions = {
     from: process.env.SMTP_EMAIL,
     to: "careers@callcentersolutionsafrica.com",
     replyTo: email,

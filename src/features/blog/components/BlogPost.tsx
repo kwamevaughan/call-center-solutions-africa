@@ -157,6 +157,7 @@ TableOfContents.displayName = 'TableOfContents';
 // Portable Text components for rendering Sanity rich text
 const portableTextComponents = {
   types: {
+    span: ({ value }: { value: { text?: string } }) => <>{value.text ?? ''}</>,
     image: ({ value }: { value: any }) => {
       const src = value.asset?.url || urlForImage(value)?.url()
       if (!src) return null

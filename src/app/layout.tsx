@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@/shared/providers/Analytics";
@@ -24,12 +24,15 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
-  themeColor: "#F25849",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "CCSA | Customer Service Outsourcing from Africa",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#F25849",
 };
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
