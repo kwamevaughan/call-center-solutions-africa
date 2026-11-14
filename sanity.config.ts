@@ -63,7 +63,7 @@ export default defineConfig({
                   .title('All Positions')
                   .filter('_type == "jobPosting"')
                   .defaultOrdering([
-                    { field: 'status', direction: 'asc' },
+                    { field: 'closingDate', direction: 'asc' },
                     { field: 'order', direction: 'asc' },
                   ])
               ),
@@ -72,14 +72,22 @@ export default defineConfig({
               .child(
                 S.documentList()
                   .title('Open Positions')
-                  .filter('_type == "jobPosting" && status == "open"')
+                  .filter('_type == "jobPosting" && isDraft != true && (!defined(closingDate) || closingDate >= now())')
+                  .defaultOrdering([
+                    { field: 'closingDate', direction: 'asc' },
+                    { field: 'order', direction: 'asc' },
+                  ])
               ),
             S.listItem()
               .title('Careers — Closed')
               .child(
                 S.documentList()
                   .title('Closed Positions')
-                  .filter('_type == "jobPosting" && status == "closed"')
+                  .filter('_type == "jobPosting" && isDraft != true && defined(closingDate) && closingDate < now()')
+                  .defaultOrdering([
+                    { field: 'closingDate', direction: 'desc' },
+                    { field: 'order', direction: 'asc' },
+                  ])
               ),
           ]),
     }),

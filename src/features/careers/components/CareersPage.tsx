@@ -18,9 +18,20 @@ const DEPT_LABELS: Record<string, string> = {
   other: "Other",
 };
 
+const formatDeadline = (date?: string) =>
+  date
+    ? new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(`${date}T00:00:00Z`))
+    : null;
+
 const JobCard = ({ job }: { job: any }) => {
   const dept = DEPT_LABELS[job.department] ?? job.department;
   const languages = job.languages?.join(" · ");
+  const deadline = formatDeadline(job.closingDate);
 
   return (
     <Link href={`/careers/${job.slug}`} className="group block h-full">
@@ -45,13 +56,7 @@ const JobCard = ({ job }: { job: any }) => {
             {job.title}
           </h3>
 
-          {job.summary && (
-            <p className="text-sm text-white/50 leading-relaxed line-clamp-3 flex-1">
-              {job.summary}
-            </p>
-          )}
-
-          <div className="flex flex-col gap-2 text-sm text-white/50 pt-2 border-t border-white/10">
+          <div className="flex flex-1 flex-col gap-2 border-t border-white/10 pt-4 text-sm text-white/50">
             {job.location && (
               <span className="flex items-center gap-2">
                 <Icon icon="mdi:map-marker-outline" width={14} height={14} className="shrink-0" />
@@ -74,6 +79,12 @@ const JobCard = ({ job }: { job: any }) => {
               <span className="flex items-center gap-2">
                 <Icon icon="mdi:calendar-clock-outline" width={14} height={14} className="shrink-0" />
                 {job.hiringTimeline}
+              </span>
+            )}
+            {deadline && (
+              <span className="flex items-center gap-2 text-white/70">
+                <Icon icon="mdi:calendar-alert-outline" width={14} height={14} className="shrink-0 text-ccsa-yellow" />
+                Apply by {deadline}
               </span>
             )}
           </div>

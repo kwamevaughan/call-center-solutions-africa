@@ -117,6 +117,7 @@ export interface SanityJobPosting {
   slug: SanitySlug
   department?: string
   status: JobStatus
+  closingDate?: string
   location?: string
   employmentType?: string
   openings?: number

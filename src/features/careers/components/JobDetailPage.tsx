@@ -30,12 +30,23 @@ const BulletList = ({ items }: { items?: string[] }) => {
   );
 };
 
+const formatDeadline = (date?: string) =>
+  date
+    ? new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(`${date}T00:00:00Z`))
+    : null;
+
 export default function JobDetailPage({ job }: { job: any }) {
   if (!job) return null;
 
   const isClosed = job.status === "closed";
   const dept = DEPT_LABELS[job.department] ?? job.department;
   const languages = job.languages?.join(" · ");
+  const deadline = formatDeadline(job.closingDate);
 
   const metaFields = [
     { icon: "mdi:map-marker-outline", label: "Location", value: job.location },
@@ -44,6 +55,7 @@ export default function JobDetailPage({ job }: { job: any }) {
     { icon: "mdi:account-multiple-outline", label: "Openings", value: job.openings ? `${job.openings} position${job.openings > 1 ? "s" : ""}` : null },
     { icon: "mdi:translate", label: "Languages", value: languages },
     { icon: "mdi:calendar-clock-outline", label: "Timeline", value: job.hiringTimeline },
+    { icon: "mdi:calendar-alert-outline", label: "Application deadline", value: deadline },
   ].filter((f) => f.value);
 
   return (
@@ -109,6 +121,12 @@ export default function JobDetailPage({ job }: { job: any }) {
                   <span className="flex items-center gap-1.5">
                     <Icon icon="mdi:calendar-clock-outline" width={16} height={16} />
                     {job.hiringTimeline}
+                  </span>
+                )}
+                {deadline && (
+                  <span className="flex items-center gap-1.5">
+                    <Icon icon="mdi:calendar-alert-outline" width={16} height={16} />
+                    Apply by {deadline}
                   </span>
                 )}
               </div>

@@ -131,7 +131,7 @@ export default defineType({
     defineField({
       name: 'summary',
       title: 'Role Summary',
-      description: 'Short paragraph shown in listing cards (1–2 sentences)',
+      description: 'Short introduction shown on the job detail page (1–2 sentences)',
       type: 'text',
       rows: 3,
       group: 'description',
