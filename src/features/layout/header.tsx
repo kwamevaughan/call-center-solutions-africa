@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
-import { menuItems } from "../data/menuData";
-import { handleScroll } from "../../utils/scrollUtils";
+import { menuItems } from "@/data/menuData";
+import { handleScroll } from "@/utils/scrollUtils";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
