@@ -28,7 +28,7 @@ const formatDeadline = (date?: string) =>
         month: "long",
         year: "numeric",
         timeZone: "UTC",
-      }).format(new Date(`${date}T00:00:00Z`))
+      }).format(new Date(date))
     : null;
 
 const JobCard = ({ job }: { job: any }) => {

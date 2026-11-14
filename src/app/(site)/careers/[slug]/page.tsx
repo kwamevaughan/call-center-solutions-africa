@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { client } from "@sanity/lib/client";
-import { jobBySlugQuery, jobSlugsQuery } from "@sanity/lib/queries";
 import JobDetailClient from "@/features/careers/components/JobDetailPage";
 import { notFound } from "next/navigation";
-import { getKaziOpenJob, mergeKaziJob } from "@/lib/kazi-careers";
+import { getKaziJob, getKaziJobs } from "@/lib/kazi-careers";
 
 const CCSA_URL = "https://callcentersolutionsafrica.com";
 
@@ -43,8 +41,8 @@ function jobPostingSchema(job: any, slug: string) {
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const slugs: { slug: string }[] = await client.fetch(jobSlugsQuery);
-  return slugs.map(({ slug }) => ({ slug }));
+  const jobs = await getKaziJobs();
+  return jobs.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -53,16 +51,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const job = await client.fetch(jobBySlugQuery, { slug });
+  const job = await getKaziJob(slug);
   if (!job) return { title: "Job Not Found" };
-  const kaziJob = job.kaziJobSlug
-    ? await getKaziOpenJob(job.kaziJobSlug)
-    : null;
-  if (job.kaziJobSlug && kaziJob === null) return { title: "Job Not Found" };
-  const mergedJob = job.kaziJobSlug ? mergeKaziJob(job, kaziJob) : job;
   return {
-    title: `${mergedJob.title} | Careers | Call Center Solutions Africa`,
-    description: mergedJob.summary || `Join CCSA as a ${mergedJob.title}`,
+    title: `${job.title} | Careers | Call Center Solutions Africa`,
+    description: job.summary || `Join CCSA as a ${job.title}`,
     alternates: { canonical: `/careers/${slug}` },
   };
 }
@@ -73,23 +66,19 @@ export default async function JobDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const job = await client.fetch(jobBySlugQuery, { slug });
+  const job = await getKaziJob(slug);
   if (!job) notFound();
-  const kaziJob = job.kaziJobSlug
-    ? await getKaziOpenJob(job.kaziJobSlug)
-    : null;
-  if (job.kaziJobSlug && kaziJob === null) notFound();
-  const mergedJob = job.kaziJobSlug ? mergeKaziJob(job, kaziJob) : job;
-  const structuredData = JSON.stringify(
-    jobPostingSchema(mergedJob, slug),
-  ).replace(/</g, "\\u003c");
+  const structuredData = JSON.stringify(jobPostingSchema(job, slug)).replace(
+    /</g,
+    "\\u003c",
+  );
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
       />
-      <JobDetailClient job={mergedJob} />
+      <JobDetailClient job={job} />
     </>
   );
 }

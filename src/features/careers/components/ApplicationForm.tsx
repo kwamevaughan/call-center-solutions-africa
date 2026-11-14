@@ -6,10 +6,10 @@ import toast from "react-hot-toast";
 
 interface ApplicationFormProps {
   jobTitle?: string;
-  kaziJobSlug?: string;
+  jobSlug: string;
 }
 
-const ApplicationForm = ({ jobTitle, kaziJobSlug }: ApplicationFormProps) => {
+const ApplicationForm = ({ jobTitle, jobSlug }: ApplicationFormProps) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -44,7 +44,7 @@ const ApplicationForm = ({ jobTitle, kaziJobSlug }: ApplicationFormProps) => {
       body.append("phone", formData.phone);
       body.append("coverLetter", formData.coverLetter);
       body.append("position", jobTitle ?? "");
-      body.append("kaziJobSlug", kaziJobSlug ?? "");
+      body.append("jobSlug", jobSlug);
       body.append("linkedin", formData.linkedin);
       body.append("consented", "true");
       if (formData.resume) body.append("resume", formData.resume);
@@ -141,13 +141,13 @@ const ApplicationForm = ({ jobTitle, kaziJobSlug }: ApplicationFormProps) => {
           </Field>
         </div>
 
-        <Field label="LinkedIn profile" required={Boolean(kaziJobSlug)}>
+        <Field label="LinkedIn profile" required>
           <input
             type="url"
             name="linkedin"
             value={formData.linkedin}
             onChange={handleChange}
-            required={Boolean(kaziJobSlug)}
+            required
             placeholder="linkedin.com/in/your-name"
             className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-ccsa-blue focus:ring-2 focus:ring-ccsa-blue/20 outline-none transition-colors"
           />

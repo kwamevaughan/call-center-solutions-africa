@@ -1,9 +1,6 @@
 import ApplicationForm from "@/features/careers/components/ApplicationForm";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { client } from "@sanity/lib/client";
-import { jobBySlugQuery, jobSlugsQuery } from "@sanity/lib/queries";
 
 const DEPT_LABELS: Record<string, string> = {
   sales: "Sales",
@@ -45,7 +42,7 @@ const formatDeadline = (date?: string) =>
         month: "long",
         year: "numeric",
         timeZone: "UTC",
-      }).format(new Date(`${date}T00:00:00Z`))
+      }).format(new Date(date))
     : null;
 
 export default function JobDetailPage({ job }: { job: any }) {
@@ -292,10 +289,7 @@ export default function JobDetailPage({ job }: { job: any }) {
 
               {!isClosed && (
                 <div id="application-form">
-                  <ApplicationForm
-                    jobTitle={job.title}
-                    kaziJobSlug={job.kaziJobSlug}
-                  />
+                  <ApplicationForm jobTitle={job.title} jobSlug={job.slug} />
                 </div>
               )}
             </div>
