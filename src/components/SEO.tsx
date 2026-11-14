@@ -1,5 +1,6 @@
+"use client";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { schemaToJsonLd } from "@/lib/schemas";
 
 const BASE_URL = "https://callcentersolutionsafrica.com";
@@ -25,9 +26,8 @@ const SEO = ({
   imageHeight = 630,
   schema,
 }: SEOProps) => {
-  const router = useRouter();
-  const path = router.asPath.split("?")[0];
-  const canonicalUrl = `${BASE_URL}${path === "/" ? "" : path}`;
+  const pathname = usePathname();
+  const canonicalUrl = `${BASE_URL}${pathname === "/" ? "" : pathname}`;
 
   const schemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
 

@@ -386,7 +386,7 @@ export const getContactPageSchema = ({
  * Helper function to convert schema object to JSON-LD script tag
  */
 export const schemaToJsonLd = (schema) => {
-  if (!schema) return null;
+  if (!schema) return undefined;
   return {
     __html: JSON.stringify(schema, null, 2)
   };

@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
 import { menuItems } from "../data/menuData";
 import { handleScroll } from "../../utils/scrollUtils";
@@ -14,7 +14,7 @@ const Header = () => {
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const dropdownTimeoutRef = useRef(null);
-  const router = useRouter();
+  const pathname = usePathname();
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -111,7 +111,7 @@ const Header = () => {
           {/* Desktop Menu (hidden on mobile, shown on md+) */}
           <div className="hidden md:flex items-center gap-1 lg:gap-2 xl:gap-3 relative flex-1 justify-center min-w-0">
             {menuItems.map((item) => {
-              const isActive = router.pathname === item.href || router.asPath === item.href;
+              const isActive = pathname === item.href;
               const activeClasses = isActive 
                 ? "text-ccsa-orange border-b-2 border-ccsa-orange pb-1" 
                 : "text-white hover:text-white/90 hover:bg-[#ED761E]";
@@ -226,7 +226,7 @@ const Header = () => {
       >
         <div className="px-3 sm:px-4 py-4 space-y-2 max-h-full">
           {menuItems.map((item) => {
-            const isActive = router.pathname === item.href || router.asPath === item.href;
+            const isActive = pathname === item.href;
             const activeClasses = isActive 
               ? "text-ccsa-orange border-b-2 border-ccsa-orange pb-1" 
               : "text-white hover:text-white/90 hover:bg-[#ED761E]";

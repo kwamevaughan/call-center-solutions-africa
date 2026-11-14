@@ -45,20 +45,20 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
+      name: 'isDraft',
+      title: 'Draft (hide from site)',
+      type: 'boolean',
       group: 'details',
-      options: {
-        list: [
-          { title: 'Open', value: 'open' },
-          { title: 'Closed', value: 'closed' },
-          { title: 'Draft', value: 'draft' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'open',
-      validation: (Rule) => Rule.required(),
+      description: 'Enable to hide this posting from the public site.',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'closingDate',
+      title: 'Application Closing Date',
+      type: 'date',
+      group: 'details',
+      description: 'Leave blank for rolling applications. Once this date passes, the position is automatically shown as closed.',
+      options: { dateFormat: 'MMMM D, YYYY' },
     }),
     defineField({
       name: 'location',
