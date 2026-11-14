@@ -74,25 +74,28 @@ export default defineType({
 
     // ─── Taxonomy ───────────────────────────────────────────────────────
     defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{ type: 'author' }],
-      group: 'settings',
-    }),
-    defineField({
       name: 'categories',
       title: 'Categories',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'category' }] }],
-      group: 'settings',
+      group: 'content',
     }),
     defineField({
       name: 'tags',
       title: 'Tags',
+      description: 'Type a tag and press Enter to add it',
       type: 'array',
       of: [{ type: 'string' }],
       options: { layout: 'tags' },
+      group: 'content',
+    }),
+
+    // ─── Author / Settings ───────────────────────────────────────────────
+    defineField({
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      to: [{ type: 'author' }],
       group: 'settings',
     }),
 
@@ -222,17 +225,20 @@ export default defineType({
       title: 'title',
       author: 'author.name',
       media: 'mainImage',
+      mainImageUrl: 'mainImageUrl',
       isPublished: 'isPublished',
+      isDraft: 'isDraft',
       publishedAt: 'publishedAt',
     },
-    prepare({ title, author, media, isPublished, publishedAt }) {
+    prepare({ title, author, media, mainImageUrl, isPublished, isDraft, publishedAt }) {
       const date = publishedAt
         ? new Date(publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
         : 'No date'
+      const status = isDraft ? '· Draft' : !isPublished ? '· Unpublished' : ''
       return {
         title,
         media,
-        subtitle: `${isPublished ? '✅' : '📝'} ${author ?? 'No author'} · ${date}`,
+        subtitle: `${author ?? 'CCSA Team'} · ${date} ${status}`.trim(),
       }
     },
   },

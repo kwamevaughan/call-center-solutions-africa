@@ -27,7 +27,7 @@ export default defineConfig({
                   .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
               ),
             S.listItem()
-              .title('✅ Published')
+              .title('Published')
               .child(
                 S.documentList()
                   .title('Published Posts')
@@ -35,14 +35,14 @@ export default defineConfig({
                   .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
               ),
             S.listItem()
-              .title('📝 Drafts')
+              .title('Drafts')
               .child(
                 S.documentList()
                   .title('Drafts')
                   .filter('_type == "post" && isDraft == true')
               ),
             S.listItem()
-              .title('⭐ Featured')
+              .title('Featured')
               .child(
                 S.documentList()
                   .title('Featured Posts')
