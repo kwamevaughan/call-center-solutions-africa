@@ -1,6 +1,6 @@
 // ─── Field fragments ─────────────────────────────────────────────────────────
 
-const authorFields = /* groq */ `
+const authorFields = `
   _id,
   name,
   "slug": slug.current,
@@ -10,7 +10,7 @@ const authorFields = /* groq */ `
   linkedin
 `
 
-const categoryFields = /* groq */ `
+const categoryFields =`
   _id,
   name,
   "slug": slug.current,
@@ -18,7 +18,7 @@ const categoryFields = /* groq */ `
   color
 `
 
-export const postCardFields = /* groq */ `
+export const postCardFields =`
   _id,
   _createdAt,
   title,
@@ -45,7 +45,7 @@ export const postCardFields = /* groq */ `
 `
 
 /** Full post including body + rawHtml */
-export const postFullFields = /* groq */ `
+export const postFullFields =`
   ${postCardFields},
   body,
   rawHtml
@@ -54,7 +54,7 @@ export const postFullFields = /* groq */ `
 // ─── Queries ─────────────────────────────────────────────────────────────────
 
 /** Published posts, paginated */
-export const postsQuery = /* groq */ `{
+export const postsQuery =`{
   "posts": *[_type == "post" && isPublished == true && isDraft == false]
     | order(publishedAt desc)
     [$start...$end] { ${postCardFields} },
@@ -62,7 +62,7 @@ export const postsQuery = /* groq */ `{
 }`
 
 /** Posts filtered by category slug */
-export const postsByCategoryQuery = /* groq */ `{
+export const postsByCategoryQuery =`{
   "posts": *[_type == "post" && isPublished == true && isDraft == false
     && $categorySlug in categories[]->slug.current]
     | order(publishedAt desc)
@@ -72,7 +72,7 @@ export const postsByCategoryQuery = /* groq */ `{
 }`
 
 /** Posts matching a search term */
-export const postsBySearchQuery = /* groq */ `{
+export const postsBySearchQuery =`{
   "posts": *[_type == "post" && isPublished == true && isDraft == false
     && (title match $search || excerpt match $search || metaKeywords match $search)]
     | order(publishedAt desc)
@@ -82,14 +82,14 @@ export const postsBySearchQuery = /* groq */ `{
 }`
 
 /** Single post by slug (includes body) */
-export const postBySlugQuery = /* groq */ `
+export const postBySlugQuery =`
   *[_type == "post" && slug.current == $slug && isPublished == true && isDraft == false][0] {
     ${postFullFields}
   }
 `
 
 /** Related posts (same category, exclude current) */
-export const relatedPostsQuery = /* groq */ `
+export const relatedPostsQuery =`
   *[_type == "post" && isPublished == true && isDraft == false
     && _id != $currentId
     && count((categories[]->_id)[@ in $categoryIds]) > 0]
@@ -98,20 +98,67 @@ export const relatedPostsQuery = /* groq */ `
 `
 
 /** Latest / featured posts */
-export const featuredPostsQuery = /* groq */ `
+export const featuredPostsQuery =`
   *[_type == "post" && isPublished == true && isDraft == false]
     | order(isFeatured desc, publishedAt desc)
     [0...$limit] { ${postCardFields} }
 `
 
 /** All categories */
-export const categoriesQuery = /* groq */ `
+export const categoriesQuery =`
   *[_type == "category"] | order(name asc) { ${categoryFields} }
 `
 
 /** All published slugs (for getStaticPaths) */
-export const postSlugsQuery = /* groq */ `
+export const postSlugsQuery =`
   *[_type == "post" && isPublished == true && isDraft == false] {
     "slug": slug.current
   }
+`
+
+// ─── Careers ─────────────────────────────────────────────────────────────────
+
+const jobFields =`
+  _id,
+  _createdAt,
+  title,
+  "slug": slug.current,
+  department,
+  status,
+  location,
+  employmentType,
+  openings,
+  hiringTimeline,
+  languages,
+  tags,
+  publishedAt,
+  order,
+  summary,
+  aboutCompany,
+  roleOverview,
+  responsibilities,
+  requirements,
+  idealCandidate,
+  benefits,
+  extraSections,
+  metaTitle,
+  metaDescription
+`
+
+/** All non-draft job postings, open first then by order */
+export const jobPostingsQuery =`
+  *[_type == "jobPosting" && status != "draft"]
+    | order(status asc, order asc, publishedAt desc) {
+      ${jobFields}
+    }
+`
+
+/** Single job by slug */
+export const jobBySlugQuery =`
+  *[_type == "jobPosting" && slug.current == $slug][0] { ${jobFields} }
+`
+
+/** All job slugs */
+export const jobSlugsQuery =`
+  *[_type == "jobPosting" && status != "draft"] { "slug": slug.current }
 `

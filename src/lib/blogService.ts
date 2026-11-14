@@ -136,7 +136,7 @@ export function formatBlogData(post: SanityPost): FormattedPost {
     content,
     image: imageUrl,
     slug: typeof post.slug === 'string' ? post.slug : post.slug?.current ?? '',
-    category: post.categories?.[0]?.slug ?? null,
+    category: post.categories?.[0]?.slug?.current ?? null,
     categoryName: post.categories?.[0]?.name ?? null,
     categoryData: post.categories ?? [],
     tags: post.tags ?? [],

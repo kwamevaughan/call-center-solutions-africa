@@ -99,3 +99,40 @@ export interface BlogListResult {
   totalCount: number
   hasMore: boolean
 }
+
+// ─── Careers ─────────────────────────────────────────────────────────────────
+
+export type JobStatus = 'open' | 'closed' | 'draft'
+
+export interface ExtraSection {
+  _key: string
+  heading: string
+  items: string[]
+}
+
+export interface SanityJobPosting {
+  _id: string
+  _createdAt: string
+  title: string
+  slug: SanitySlug
+  department?: string
+  status: JobStatus
+  location?: string
+  employmentType?: string
+  openings?: number
+  hiringTimeline?: string
+  languages?: string[]
+  tags?: string[]
+  publishedAt?: string
+  order?: number
+  summary?: string
+  aboutCompany?: unknown[]
+  roleOverview?: unknown[]
+  responsibilities?: string[]
+  requirements?: string[]
+  idealCandidate?: string[]
+  benefits?: string[]
+  extraSections?: ExtraSection[]
+  metaTitle?: string
+  metaDescription?: string
+}

@@ -55,6 +55,32 @@ export default defineConfig({
             S.listItem()
               .title('Authors')
               .child(S.documentTypeList('author').title('Authors')),
+            S.divider(),
+            S.listItem()
+              .title('Careers — All Positions')
+              .child(
+                S.documentList()
+                  .title('All Positions')
+                  .filter('_type == "jobPosting"')
+                  .defaultOrdering([
+                    { field: 'status', direction: 'asc' },
+                    { field: 'order', direction: 'asc' },
+                  ])
+              ),
+            S.listItem()
+              .title('Careers — Open')
+              .child(
+                S.documentList()
+                  .title('Open Positions')
+                  .filter('_type == "jobPosting" && status == "open"')
+              ),
+            S.listItem()
+              .title('Careers — Closed')
+              .child(
+                S.documentList()
+                  .title('Closed Positions')
+                  .filter('_type == "jobPosting" && status == "closed"')
+              ),
           ]),
     }),
     visionTool(),
