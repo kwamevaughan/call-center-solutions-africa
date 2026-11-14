@@ -589,7 +589,7 @@ const HomePage = () => {
               <p className="text-lg sm:text-xl font-semibold text-white uppercase">Why Global Brands Choose CCSA?</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12 items-stretch">
               <div className="flex flex-col gap-6">
                 <div>
                   <p className="text-base sm:text-lg leading-relaxed text-white/90">Global standards with the African advantage - secure, compliant, and cost-efficient CX.</p>
@@ -641,7 +641,7 @@ const HomePage = () => {
                     fill
                     alt="Why Africa"
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-contain rounded-lg"
+                    className="object-cover rounded-lg"
                   />
                 </div>
                 <div className="relative w-full rounded-lg overflow-hidden min-h-[240px] lg:min-h-0">
@@ -650,7 +650,7 @@ const HomePage = () => {
                     fill
                     alt="Why Africa"
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-contain rounded-lg"
+                    className="object-cover rounded-lg"
                   />
                 </div>
               </div>
