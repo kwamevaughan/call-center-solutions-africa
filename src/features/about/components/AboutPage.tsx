@@ -130,7 +130,6 @@ const About = () => {
                   {[
                     "45–60% lower cost‑to‑serve",
                     "GDPR / ISO 27001 aligned",
-                    "GDPR / ISO 27001 aligned",
                   ].map((badge) => (
                     <div
                       key={badge}
