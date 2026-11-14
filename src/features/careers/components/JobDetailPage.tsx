@@ -275,11 +275,6 @@ export default function JobDetailPage({ job }: { job: any }) {
                     <BulletList items={job.idealCandidate} />
                   </Section>
                 )}
-                {job.benefits?.length > 0 && (
-                  <Section title="What We Offer">
-                    <BulletList items={job.benefits} />
-                  </Section>
-                )}
                 {job.extraSections?.map((s: any) => (
                   <Section key={s._key} title={s.heading}>
                     <BulletList items={s.items} />

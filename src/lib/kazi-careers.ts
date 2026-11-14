@@ -23,9 +23,6 @@ export type KaziPublicJob = {
   contract_duration: string | null;
   compensation: string | null;
   reports_to: string | null;
-  benefits: string | null;
-  application_instructions: string | null;
-  selection_process: string | null;
   public_details: CcsaPublicDetails | null;
   published_at: string | null;
   closes_at: string | null;
@@ -94,23 +91,11 @@ export function toCcsaCareerJob(job: KaziPublicJob): CcsaCareerJob {
     responsibilities: details.responsibilities,
     requirements,
     idealCandidate: details.ideal_candidate,
-    benefits: lines(job.benefits),
-    extraSections: [
-      ...(job.selection_process
-        ? [
-            {
-              _key: "selection-process",
-              heading: "Selection Process",
-              items: lines(job.selection_process) ?? [],
-            },
-          ]
-        : []),
-      ...(details.extra_sections ?? []).map((section, index) => ({
-        _key: `section-${index}`,
-        heading: section.heading,
-        items: section.items,
-      })),
-    ],
+    extraSections: (details.extra_sections ?? []).map((section, index) => ({
+      _key: `section-${index}`,
+      heading: section.heading,
+      items: section.items,
+    })),
     status: "open",
   };
 }
