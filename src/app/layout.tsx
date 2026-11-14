@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
-import { Analytics } from "@/components/providers/Analytics";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { ToasterProvider } from "@/components/providers/ToasterProvider";
-import { getOrganizationSchema, getWebsiteSchema, schemaToJsonLd } from "@/lib/schemas";
+import { Analytics } from "@/shared/providers/Analytics";
+import { ToasterProvider } from "@/shared/providers/ToasterProvider";
+import { getOrganizationSchema, getWebsiteSchema, schemaToJsonLd } from "@/shared/lib/schemas";
 import "../styles/globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -91,11 +90,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        <ThemeProvider>
-          <Analytics />
-          <ToasterProvider />
-          {children}
-        </ThemeProvider>
+        <Analytics />
+        <ToasterProvider />
+        {children}
       </body>
     </html>
   );

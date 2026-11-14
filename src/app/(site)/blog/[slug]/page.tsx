@@ -1,7 +1,8 @@
-// @ts-nocheck
+import React from "react";
 import type { Metadata } from "next";
-import { blogService } from "@/lib/blogService";
-import BlogPostClient from "./_client";
+import { blogService } from "@/shared/lib/blogService";
+import BlogPostClient from "@/features/blog/components/BlogPost";
+import type { FormattedPost } from "@sanity/lib/types";
 
 export const revalidate = 60;
 
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       openGraph: {
         title: blog.metaTitle || blog.title,
         description: blog.metaDescription || blog.excerpt,
-        images: blog.coverImage ? [{ url: blog.coverImage }] : [],
+        images: blog.image ? [{ url: blog.image }] : [],
       },
     };
   } catch {
@@ -38,10 +39,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const { slug } = await params;
     const blog = await blogService.getBlogBySlug(slug);
     if (!blog) return null; // triggers not-found
-    const relatedBlogs = blog.categoryData?.length
-      ? await blogService.getRelatedBlogs(blog.id, blog.categoryData.map((c: any) => c._id || c.id), 3)
+    const relatedBlogs: FormattedPost[] = blog.categoryData?.length
+      ? await blogService.getRelatedBlogs(blog.id, blog.categoryData.map((c) => c._id), 3)
       : [];
-    return <BlogPostClient blog={blog} relatedBlogs={relatedBlogs} />;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Client = BlogPostClient as React.ComponentType<any>;
+    return <Client blog={blog} relatedBlogs={relatedBlogs} />;
   } catch {
     return null;
   }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Responsible Disclosure Policy | Call Center Solutions Africa",

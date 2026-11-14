@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ClientPage from "./_client";
+import ClientPage from "@/features/services/components/InboundOutboundCustomerServicePage";
 
 export const metadata: Metadata = {
   title: "Inbound & Outbound Customer Service | Call Center Solutions Africa",

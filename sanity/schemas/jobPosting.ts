@@ -219,7 +219,7 @@ export default defineType({
       title: 'Display Order',
       name: 'orderAsc',
       by: [
-        { field: 'status', direction: 'asc' },
+        { field: 'closingDate', direction: 'desc' },
         { field: 'order', direction: 'asc' },
       ],
     },
@@ -233,12 +233,15 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      status: 'status',
+      closingDate: 'closingDate',
+      isDraft: 'isDraft',
       location: 'location',
       department: 'department',
     },
-    prepare({ title, status, location, department }) {
-      const statusLabel = status === 'open' ? 'Open' : status === 'closed' ? 'Closed' : 'Draft'
+    prepare({ title, closingDate, isDraft, location, department }) {
+      const today = new Date().toISOString().slice(0, 10)
+      const isOpen = !isDraft && (!closingDate || closingDate >= today)
+      const statusLabel = isDraft ? 'Draft' : isOpen ? 'Open' : 'Closed'
       return {
         title,
         subtitle: `${statusLabel} · ${department ?? ''} · ${location ?? ''}`.replace(/· ·/g, '·').replace(/· $/,''),

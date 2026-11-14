@@ -1,7 +1,8 @@
-// @ts-nocheck
+import React from "react";
 import type { Metadata } from "next";
-import { blogService } from "@/lib/blogService";
-import BlogIndexClient from "./_client";
+import { blogService } from "@/shared/lib/blogService";
+import BlogIndexClient from "@/features/blog/components/BlogPage";
+import type { FormattedPost, SanityCategory } from "@sanity/lib/types";
 
 export const revalidate = 60;
 
@@ -11,12 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let initialBlogs: any[] = [];
+  let initialBlogs: FormattedPost[] = [];
   let initialTotalCount = 0;
   let initialHasMore = false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let initialCategories: any[] = [];
+  let initialCategories: SanityCategory[] = [];
 
   try {
     const [blogsResult, categoriesData] = await Promise.all([
@@ -29,8 +28,10 @@ export default async function BlogPage() {
     initialCategories = categoriesData;
   } catch {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Client = BlogIndexClient as React.ComponentType<any>;
   return (
-    <BlogIndexClient
+    <Client
       initialBlogs={initialBlogs}
       initialTotalCount={initialTotalCount}
       initialHasMore={initialHasMore}

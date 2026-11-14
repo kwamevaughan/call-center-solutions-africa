@@ -124,7 +124,12 @@ const jobFields =`
   title,
   "slug": slug.current,
   department,
-  status,
+  closingDate,
+  "status": select(
+    isDraft == true => "draft",
+    closingDate != null && closingDate < now() => "closed",
+    "open"
+  ),
   location,
   employmentType,
   openings,
@@ -145,20 +150,20 @@ const jobFields =`
   metaDescription
 `
 
-/** All non-draft job postings, open first then by order */
+/** All non-draft job postings, soonest closing date first */
 export const jobPostingsQuery =`
-  *[_type == "jobPosting" && status != "draft"]
-    | order(status asc, order asc, publishedAt desc) {
+  *[_type == "jobPosting" && isDraft != true]
+    | order(closingDate asc, order asc, publishedAt desc) {
       ${jobFields}
     }
 `
 
 /** Single job by slug */
 export const jobBySlugQuery =`
-  *[_type == "jobPosting" && slug.current == $slug][0] { ${jobFields} }
+  *[_type == "jobPosting" && slug.current == $slug && isDraft != true][0] { ${jobFields} }
 `
 
 /** All job slugs */
 export const jobSlugsQuery =`
-  *[_type == "jobPosting" && status != "draft"] { "slug": slug.current }
+  *[_type == "jobPosting" && isDraft != true] { "slug": slug.current }
 `

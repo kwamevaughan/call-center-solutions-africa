@@ -1,8 +1,7 @@
-// @ts-nocheck
 import type { Metadata } from "next";
 import { client } from '@sanity/lib/client';
 import { jobPostingsQuery } from '@sanity/lib/queries';
-import CareersClient from "./_client";
+import CareersClient from "@/features/careers/components/CareersPage";
 
 export const revalidate = 60;
 

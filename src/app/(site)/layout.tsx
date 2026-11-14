@@ -1,7 +1,7 @@
-import Header from "@/layouts/header";
-import Footer from "@/layouts/footer";
-import FloatingCTA from "@/components/FloatingCTA";
-import { ScrollReveal } from "@/components/ScrollReveal";
+import Header from "@/shared/layouts/header";
+import Footer from "@/shared/layouts/footer";
+import FloatingCTA from "@/shared/components/FloatingCTA";
+import { ScrollReveal } from "@/shared/components/ScrollReveal";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (

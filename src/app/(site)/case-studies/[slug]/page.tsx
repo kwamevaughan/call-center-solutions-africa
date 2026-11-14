@@ -1,11 +1,10 @@
-// @ts-nocheck
 import type { Metadata } from "next";
-import { caseStudyDetails, getCaseStudyBySlug, getAdjacentCaseStudies } from "@/data/caseStudies";
-import CaseStudyClient from "./_client";
+import { caseStudyDetails, getCaseStudyBySlug, getAdjacentCaseStudies } from "@/shared/data/caseStudies";
+import CaseStudyClient from "@/features/case-studies/components/CaseStudyPage";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
-  return caseStudyDetails.map((s: any) => ({ slug: s.id }));
+  return caseStudyDetails.map((s) => ({ slug: s.id }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -13,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const study = getCaseStudyBySlug(slug);
   if (!study) return { title: "Case Study Not Found" };
   return {
-    title: `${study.title} | Case Studies | Call Center Solutions Africa`,
-    description: study.description || study.excerpt || "Read this CCSA case study.",
+    title: `${study.headline} | Case Studies | Call Center Solutions Africa`,
+    description: study.clientProfile || "Read this CCSA case study.",
   };
 }
 

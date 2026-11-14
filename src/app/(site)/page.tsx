@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomeClient from "./_client";
+import HomeClient from "@/features/home/components/HomePage";
 
 export const metadata: Metadata = {
   title: "Excellence in Customer Service Outsourcing from Africa | CCSA",

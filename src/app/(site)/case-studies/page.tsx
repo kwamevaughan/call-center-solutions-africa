@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ClientPage from "./_client";
+import ClientPage from "@/features/case-studies/components/CaseStudiesIndex";
 
 export const metadata: Metadata = {
   title: "Case Studies | Call Center Solutions Africa",
