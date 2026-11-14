@@ -21,6 +21,8 @@ export async function POST(request: Request) {
   const phone = formData.get("phone") as string | null;
   const position = formData.get("position") as string | null;
   const coverLetter = formData.get("coverLetter") as string | null;
+  const kaziJobSlug = formData.get("kaziJobSlug") as string | null;
+  const linkedin = formData.get("linkedin") as string | null;
   const resumeFile = formData.get("resume") as File | null;
 
   if (!fullName || !email || !position) {
@@ -28,6 +30,78 @@ export async function POST(request: Request) {
       { error: "Missing required fields" },
       { status: 400 },
     );
+  }
+
+  // Roles linked to Kazi use its public, company-scoped application endpoint.
+  // This keeps CV storage, screening, acknowledgements and recruiter alerts in
+  // one system without exposing an internal Kazi job id to the browser.
+  if (kaziJobSlug) {
+    if (!linkedin) {
+      return NextResponse.json(
+        { error: "Please add your LinkedIn profile URL" },
+        { status: 400 },
+      );
+    }
+    if (!resumeFile || resumeFile.size === 0) {
+      return NextResponse.json(
+        { error: "Please upload your CV" },
+        { status: 400 },
+      );
+    }
+
+    const kaziUrl = process.env.KAZI_PUBLIC_API_URL;
+    if (!kaziUrl) {
+      console.error("KAZI_PUBLIC_API_URL is not configured");
+      return NextResponse.json(
+        {
+          error:
+            "Applications are temporarily unavailable. Please try again shortly.",
+        },
+        { status: 503 },
+      );
+    }
+
+    const kaziForm = new FormData();
+    kaziForm.set("company_slug", "ccsa");
+    kaziForm.set("job_slug", kaziJobSlug);
+    kaziForm.set("full_name", fullName);
+    kaziForm.set("email", email);
+    kaziForm.set("phone", phone ?? "");
+    kaziForm.set("linkedin_url", linkedin);
+    kaziForm.set("cover_message", coverLetter ?? "");
+    kaziForm.set("source", "ccsa-careers");
+    kaziForm.set("consented", "true");
+    kaziForm.set("cv", resumeFile, resumeFile.name);
+
+    try {
+      const response = await fetch(
+        `${kaziUrl.replace(/\/$/, "")}/api/hire/candidates/apply-with-cv`,
+        { method: "POST", body: kaziForm, cache: "no-store" },
+      );
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok)
+        return NextResponse.json(
+          {
+            error:
+              result.error ??
+              "We could not submit your application. Please try again.",
+          },
+          { status: response.status >= 500 ? 502 : response.status },
+        );
+      return NextResponse.json(
+        { message: "Application submitted successfully" },
+        { headers: { "Cache-Control": "no-store" } },
+      );
+    } catch (error) {
+      console.error("Kazi application submission error", error);
+      return NextResponse.json(
+        {
+          error:
+            "Applications are temporarily unavailable. Please try again shortly.",
+        },
+        { status: 502 },
+      );
+    }
   }
 
   // Validate resume file if provided
@@ -90,7 +164,10 @@ export async function POST(request: Request) {
 
   try {
     await transporter.sendMail(mailOptions);
-    return NextResponse.json({ message: "Application submitted successfully" });
+    return NextResponse.json(
+      { message: "Application submitted successfully" },
+      { headers: { "Cache-Control": "no-store" } },
+    );
   } catch (err) {
     console.error("Application submission error:", err);
     return NextResponse.json(

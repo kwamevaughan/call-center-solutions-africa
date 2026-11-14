@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { client } from "@sanity/lib/client";
 import { jobPostingsQuery } from "@sanity/lib/queries";
 import CareersClient from "@/features/careers/components/CareersPage";
+import { keepOpenKaziJobs } from "@/lib/kazi-careers";
 
 export const revalidate = 60;
 
@@ -17,7 +18,7 @@ export default async function CareersPage() {
   let jobs: any[] = [];
   try {
     const all = await client.fetch(jobPostingsQuery);
-    jobs = all.filter((j: any) => j.status === "open");
+    jobs = await keepOpenKaziJobs(all.filter((j: any) => j.status === "open"));
   } catch {}
   return <CareersClient jobs={jobs} />;
 }

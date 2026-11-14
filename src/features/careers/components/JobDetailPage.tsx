@@ -292,7 +292,10 @@ export default function JobDetailPage({ job }: { job: any }) {
 
               {!isClosed && (
                 <div id="application-form">
-                  <ApplicationForm jobTitle={job.title} />
+                  <ApplicationForm
+                    jobTitle={job.title}
+                    kaziJobSlug={job.kaziJobSlug}
+                  />
                 </div>
               )}
             </div>

@@ -6,13 +6,15 @@ import toast from "react-hot-toast";
 
 interface ApplicationFormProps {
   jobTitle?: string;
+  kaziJobSlug?: string;
 }
 
-const ApplicationForm = ({ jobTitle }: ApplicationFormProps) => {
+const ApplicationForm = ({ jobTitle, kaziJobSlug }: ApplicationFormProps) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
+    linkedin: "",
     resume: null as File | null,
     coverLetter: "",
   });
@@ -42,6 +44,9 @@ const ApplicationForm = ({ jobTitle }: ApplicationFormProps) => {
       body.append("phone", formData.phone);
       body.append("coverLetter", formData.coverLetter);
       body.append("position", jobTitle ?? "");
+      body.append("kaziJobSlug", kaziJobSlug ?? "");
+      body.append("linkedin", formData.linkedin);
+      body.append("consented", "true");
       if (formData.resume) body.append("resume", formData.resume);
 
       const res = await fetch("/api/submit-application", {
@@ -136,6 +141,18 @@ const ApplicationForm = ({ jobTitle }: ApplicationFormProps) => {
           </Field>
         </div>
 
+        <Field label="LinkedIn profile" required={Boolean(kaziJobSlug)}>
+          <input
+            type="url"
+            name="linkedin"
+            value={formData.linkedin}
+            onChange={handleChange}
+            required={Boolean(kaziJobSlug)}
+            placeholder="linkedin.com/in/your-name"
+            className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-ccsa-blue focus:ring-2 focus:ring-ccsa-blue/20 outline-none transition-colors"
+          />
+        </Field>
+
         <Field label="Resume / CV" required>
           <input
             type="file"
@@ -145,9 +162,7 @@ const ApplicationForm = ({ jobTitle }: ApplicationFormProps) => {
             accept=".pdf,.doc,.docx"
             className="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-ccsa-blue focus:ring-2 focus:ring-ccsa-blue/20 outline-none transition-colors cursor-pointer file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-ccsa-blue/10 file:text-ccsa-blue"
           />
-          <p className="text-xs text-slate-400 mt-1">
-            PDF, DOC or DOCX · max 5 MB
-          </p>
+          <p className="text-xs text-slate-400 mt-1">PDF or DOCX · max 4 MB</p>
         </Field>
 
         <Field label="Cover Letter">
