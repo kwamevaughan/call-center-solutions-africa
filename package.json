@@ -42,6 +42,7 @@
     "@next/bundle-analyzer": "^16.4.6",
     "@next/eslint-plugin-next": "^16.4.6",
     "@portabletext/types": "^4.0.2",
+    "@sanity/block-tools": "^3.70.0",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/jsdom": "^30.0.0",
     "@types/node": "^26.6.6",

@@ -111,7 +111,6 @@ export const blogService = {
 
 /** Resolve the best available image URL for a post */
 export function getPostImageUrl(post: SanityPost): string | null {
-  if (post.mainImageUrl) return post.mainImageUrl;
   if (post.mainImage?.asset) {
     const ref = post.mainImage.asset as { _ref?: string; url?: string };
     if (ref.url) return ref.url;
@@ -120,6 +119,7 @@ export function getPostImageUrl(post: SanityPost): string | null {
       return `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "jf7k2yuf"}/production/${id}-${dim}.${fmt}`;
     }
   }
+  if (post.mainImageUrl) return post.mainImageUrl;
   return null;
 }
 
